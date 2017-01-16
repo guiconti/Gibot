@@ -10,8 +10,6 @@ exports.getBoardListId = (boardRequested, listRequested) => {
         var boardId;
         var listId;
 
-        //var projectsBoardUrl = projectBoardUrlPrefix + '?lists=open&list_fields=name&fields=name,desc=' + authenticationTrelloSuffix;
-
         var userProjectsUrl = listBoardsUrlPrefix + authenticationTrelloSuffix;
 
         request.get({url: userProjectsUrl}, (err, httpResponse, boardsJsonResponse) => {
@@ -42,6 +40,7 @@ exports.getBoardListId = (boardRequested, listRequested) => {
                 request.get({url: boardListUrl}, (err, httpResponse, listsJsonRespose) => {
 
                     //  Parseia a resposta json contendo a lista de todas as listas que o board possui
+                    
                     var listsList = JSON.parse(listsJsonRespose);
 
                     listsList.some((list) => {
@@ -61,9 +60,7 @@ exports.getBoardListId = (boardRequested, listRequested) => {
                     //  Devolve o id da lista
                     resolve(listId);
 
-                });
-
-                
+                });    
 
             } catch (e) {
 

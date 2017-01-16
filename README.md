@@ -23,4 +23,7 @@ Caso não deseje ajustar essas variáveis você pode alterar elas dentro das apl
 
 ## 2. Trello
 
-Em breve!
+```
+POST /trello/"nome da board"/"nome da lista"/insert
+GET /trello/"nome da board"/"nome da lista"/list
+```
