@@ -17,7 +17,7 @@ exports.insertCard = (req, res) => {
         var boardName = req.params.boardName;
         var listName = req.params.listName;
     
-        trelloUtils.getBoardListId(boardName, listName, userToken).then((boardId) => {
+        trelloUtils.getBoardListId(boardName, listName).then((boardId) => {
 
             var cardInfo = {
                 name: body.name

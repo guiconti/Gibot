@@ -7,6 +7,8 @@ var token = process.env.TELEGRAM_TOKEN;
 var ownerTelegramId = process.env.TELEGRAM_OWNER_ID;
 var michelTelegramId = process.env.TELEGRAM_MICHEL_ID;
 
+const TRELLO_PREFIX = 'http://localhost:3101/trello/';
+
 //  Cria o bot e ativa o polling para observar sempre novos updates
 var bot = new TelegramBot(token, { polling: true });
 
@@ -28,7 +30,7 @@ bot.onText(/\/trello (.+)/, function (msg, match) {
 	//	TODO: Melhorar isso
 	if (msg.from.id == ownerTelegramId || msg.from.id == michelTelegramId){
 
-		var resp = match[1].split(' ');
+		var resp = match[1].split(';');
 
 		if (resp.length < 1){
 
@@ -36,7 +38,7 @@ bot.onText(/\/trello (.+)/, function (msg, match) {
 
 		} else {
 
-			var action = resp[0].toLowerCase();
+			var action = resp[0].toLowerCase().trim();
 
 			if (validation.isListAction(action)) {
 
@@ -49,9 +51,7 @@ bot.onText(/\/trello (.+)/, function (msg, match) {
 					var boardName = resp[1].trim().toLowerCase();
 					var listName = resp[2].trim().toLowerCase();
 
-					var userToken;
-
-					var url = 'http://localhost:3101/trello/' + boardName + '/' + listName + '/list';
+					var url = TRELLO_PREFIX + boardName + '/' + listName + '/list';
 
 					request.get({url: url}, (err, httpResponse, cardsNames) => {
 
@@ -59,18 +59,35 @@ bot.onText(/\/trello (.+)/, function (msg, match) {
 
 						bot.sendMessage(chatId, cardsNames);
 
-					}, (err) => {
-
-						//	TODO: Verificar se foi a board ou a lista
-						bot.sendMessage(chatId, 'O nome da board ou o nome da lista não existem para esse usuário.')
-
 					});
 
 				}
 
 			} else if (validation.isInsertAction(action)){
 
-				bot.sendMessage(chatId, 'Perae que to fazendo esse.')
+				if (resp.length < 4){
+
+					bot.sendMessage(chatId, 'Preciso que voce me manda o nome da board, o nome da list e o nome da card que quer inserir!')
+
+				} else {
+
+					var boardName = resp[1].trim().toLowerCase();
+					var listName = resp[2].trim().toLowerCase();
+					var cardName = resp[3].trim();
+
+					var url = TRELLO_PREFIX + boardName + '/' + listName + '/insert';
+
+					var cardForm = {
+						name: cardName
+					};
+
+					request.post({url: url, form: cardForm}, (err, httpResponse, insertCardJsonResponse) => {
+
+						bot.sendMessage(chatId, cardName + ' card criada.');
+
+					});
+
+				}
 
 			} else {
 
@@ -82,7 +99,7 @@ bot.onText(/\/trello (.+)/, function (msg, match) {
 
 	} else {
 
-		bot.sendMessage(chatId, 'Você não é Gibimba.');
+		bot.sendMessage(chatId, 'Você não tem acesso à putaria.');
 
 	}
 
