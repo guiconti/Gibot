@@ -1,7 +1,5 @@
 /*  global express:true*/
 /*  global _:true*/
-/*  global trelloKey:true*/
-/*  global trelloToken:true*/
 
 //  Loading our environment variables
 require('dotenv').config();

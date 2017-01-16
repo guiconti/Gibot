@@ -8,8 +8,7 @@ var bodyParser = require('body-parser');
 
 //  GLOBAL VARIABLES
 PORT = process.env.PORT || 3101;
-trelloKey = process.env.TRELLO_KEY;
-trelloToken = process.env.TRELLO_TOKEN;
+authenticationTrelloSuffix = '&key=' + process.env.TRELLO_KEY + '&token=' + process.env.TRELLO_TOKEN;
 
 var trello = {};
 var trelloPath = process.cwd() + '/app/controllers/Trello';
@@ -32,8 +31,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //  Trello APIs
-app.post('/trello/projects/backlog/insert', trello.project.insertBacklog);
-app.get('/trello/projects/backlog/list', trello.project.listBacklog);
+app.post('/trello/:boardName/:listName/insert', trello.project.insertCard);
+app.get('/trello/:boardName/:listName/list', trello.project.showList);
 
 app.listen(PORT, () => {
     console.log('Server is functional on ' + PORT + ' port on ' + process.env.NODE_ENV + " environment.");

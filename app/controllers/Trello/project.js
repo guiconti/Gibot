@@ -1,15 +1,6 @@
-/*  global projectBoardId:true*/
-
 var listUrlPrefix = 'https://api.trello.com/1/lists/';
-var urlSuffix = '&key=' + trelloKey + '&token=' + trelloToken;
 
-var ListEnum = {
-    BACKLOG: 'Backlog',
-    DOING: 2,
-    DONE: 3,
-};
-
-exports.insertBacklog = (req, res) => {
+exports.insertCard = (req, res) => {
     
     var body = _.pick(req.body, 'name', 'description');
     var toValidateFields = _.pick(req.body, 'description');
@@ -21,8 +12,11 @@ exports.insertBacklog = (req, res) => {
         });
 
     } else {
+
+        var boardName = req.params.boardName;
+        var listName = req.params.listName;
     
-        trelloUtils.getBoardListId(ListEnum.BACKLOG).then((backlogId) => {
+        trelloUtils.getBoardListId(boardName, listName).then((boardId) => {
 
             var cardInfo = {
                 name: body.name
@@ -34,7 +28,7 @@ exports.insertBacklog = (req, res) => {
 
             }
 
-            var url = listUrlPrefix + '/' + backlogId + '/cards?' + urlSuffix;
+            var url = listUrlPrefix + '/' + boardId + '/cards?' + authenticationTrelloSuffix;
 
             request.post({url: url, form: cardInfo}, (err, httpResponse, jsonResponse) => {
 
@@ -67,11 +61,14 @@ exports.insertBacklog = (req, res) => {
 
 };
 
-exports.listBacklog = (req, res) => {
-    
-    trelloUtils.getBoardListId(ListEnum.BACKLOG).then((backlogId) => {
+exports.showList = (req, res) => {
 
-        var url = listUrlPrefix + '/' + backlogId + '/cards?' + urlSuffix;
+    var boardName = req.params.boardName;
+    var listName = req.params.listName;
+    
+    trelloUtils.getBoardListId(boardName, listName).then((listId) => {
+
+        var url = listUrlPrefix + '/' + listId + '/cards?' + authenticationTrelloSuffix;
 
         request.get({url: url}, (err, httpResponse, jsonResponse) => {
 
@@ -91,11 +88,12 @@ exports.listBacklog = (req, res) => {
 
         });
 
-
     }, (err) => {
 
+        console.log(err);
+
         return res.status(500).json({
-            msg: 'Error getting the Backlog Id'
+            msg: 'Error getting the Board Id'
         });
 
     });

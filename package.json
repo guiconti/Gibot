@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guiconti/GibAssistant.git"
+    "url": "git+https://github.com/guiconti/Gibot.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/guiconti/GibAssistant/issues"
+    "url": "https://github.com/guiconti/Gibot/issues"
   },
-  "homepage": "https://github.com/guiconti/GibAssistant#readme",
+  "homepage": "https://github.com/guiconti/Gibot#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
     "dotenv": "^4.0.0",
