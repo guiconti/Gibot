@@ -42,7 +42,7 @@ exports.insertBacklog = (req, res) => {
 
                     return res.status(500).json({
                         msg: cardInfo.name + ' card not created.'
-                    })
+                    });
 
                 } else {
 
@@ -87,7 +87,7 @@ exports.listBacklog = (req, res) => {
                     msg: 'Error getting the names from the list'
                 });
 
-            })
+            });
 
         });
 
