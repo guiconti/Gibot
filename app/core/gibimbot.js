@@ -7,7 +7,7 @@ var token = process.env.TELEGRAM_TOKEN;
 var ownerTelegramId = process.env.TELEGRAM_OWNER_ID;
 var michelTelegramId = process.env.TELEGRAM_MICHEL_ID;
 
-const TRELLO_PREFIX = 'http://localhost:3101/trello/';
+const TRELLO_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/trello/':'ec2-52-67-130-125.sa-east-1.compute.amazonaws.com:3101/trello/';
 
 //  Cria o bot e ativa o polling para observar sempre novos updates
 var bot = new TelegramBot(token, { polling: true });
@@ -48,8 +48,8 @@ bot.onText(/\/trello (.+)/, function (msg, match) {
 
 				} else {
 
-					var boardName = resp[1].trim().toLowerCase();
-					var listName = resp[2].trim().toLowerCase();
+					var boardName = resp[1].trim();
+					var listName = resp[2].trim();
 
 					var url = TRELLO_PREFIX + boardName + '/' + listName + '/list';
 
@@ -71,8 +71,8 @@ bot.onText(/\/trello (.+)/, function (msg, match) {
 
 				} else {
 
-					var boardName = resp[1].trim().toLowerCase();
-					var listName = resp[2].trim().toLowerCase();
+					var boardName = resp[1].trim();
+					var listName = resp[2].trim();
 					var cardName = resp[3].trim();
 
 					var url = TRELLO_PREFIX + boardName + '/' + listName + '/insert';
@@ -83,7 +83,7 @@ bot.onText(/\/trello (.+)/, function (msg, match) {
 
 					request.post({url: url, form: cardForm}, (err, httpResponse, insertCardJsonResponse) => {
 
-						bot.sendMessage(chatId, cardName + ' card criada.');
+						bot.sendMessage(chatId, 'Card ' + cardName + ' criada na lista ' + listName  + '.');
 
 					});
 
@@ -104,15 +104,6 @@ bot.onText(/\/trello (.+)/, function (msg, match) {
 	}
 
 });
-
-/*bot.onText(/\/trello/g, function (msg, match) {
-
-  var chatId = msg.chat.id;
-  var resp = 'Enviem /trello "Nome da board" "'
-
-  bot.sendMessage(chatId, resp);
-});*/
-
 
 /*bot.on('message', function (msg) {
 
