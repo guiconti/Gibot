@@ -7,7 +7,7 @@ var token = process.env.TELEGRAM_TOKEN;
 var ownerTelegramId = process.env.TELEGRAM_OWNER_ID;
 var michelTelegramId = process.env.TELEGRAM_MICHEL_ID;
 
-const TRELLO_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/trello/':'ec2-52-67-130-125.sa-east-1.compute.amazonaws.com:3101/trello/';
+const TRELLO_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/trello/':'http://ec2-52-67-130-125.sa-east-1.compute.amazonaws.com:3101/trello/';
 
 //  Cria o bot e ativa o polling para observar sempre novos updates
 var bot = new TelegramBot(token, { polling: true });
