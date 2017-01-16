@@ -13,7 +13,6 @@ exports.insertCard = (req, res) => {
 
     } else {
 
-        //  TODO: Checar antes de pegar
         var boardName = req.params.boardName;
         var listName = req.params.listName;
     
@@ -66,7 +65,6 @@ exports.insertCard = (req, res) => {
 
 exports.showList = (req, res) => {
 
-    //  TODO: Checar antes de pegar
     var boardName = req.params.boardName;
     var listName = req.params.listName;
 
