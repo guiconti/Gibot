@@ -32,10 +32,13 @@ bot.onText(/grab/g, function (msg, match) {
 
 	//  Placeholder
     bot.sendMessage(chatId, 'Fala irmao');
+
 });
 
 //  Aplica um regex na mensagem /trello e caso a regex der match verifica qual o comando pedido. Msg sendo a mensagem enviada e match o array de matchs com o regex escolhido
-bot.onText(/\/t (.+)/, telegram.trello.executeTrelloAction);
+bot.onText(/\/t (.+)/i, telegram.trello.executeTrelloAction);
+bot.onText(/\/trello (.+)/i, telegram.trello.executeTrelloAction);
+
 /*bot.on('message', function (msg) {
 
 	console.log(msg);

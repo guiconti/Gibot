@@ -30,12 +30,10 @@ exports.executeTrelloAction = (msg, match) => {
 
 					telegram.trello.listList(resp).then((cards) => {
 
-                        console.log(cards);
                         return bot.sendMessage(chatId, cards.msg.join('\n'));
 
 					}, (err) => {
 
-						console.log(err);
 						//	TODO: Melhorar isso
 						return bot.sendMessage(chatId, 'Você não possui a combinação de Board e List requisitada.');
 
