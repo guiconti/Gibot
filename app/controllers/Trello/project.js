@@ -16,7 +16,7 @@ exports.insertCard = (req, res) => {
         var boardName = req.params.boardName;
         var listName = req.params.listName;
     
-        trelloUtils.getBoardListId(boardName, listName).then((boardId) => {
+        trelloUtils.getBoardListId(boardName, listName).then((listId) => {
 
             var cardInfo = {
                 name: body.name
@@ -28,7 +28,7 @@ exports.insertCard = (req, res) => {
 
             }
 
-            var url = listUrlPrefix + '/' + boardId + '/cards?' + authenticationTrelloSuffix;
+            var url = listUrlPrefix + '/' + listId + '/cards?' + authenticationTrelloSuffix;
 
             request.post({url: url, form: cardInfo}, (err, httpResponse, jsonResponse) => {
 
@@ -50,8 +50,6 @@ exports.insertCard = (req, res) => {
 
 
         }, (err) => {
-
-            console.log(err);
 
             return res.status(500).json({
                 msg: 'Error getting the Backlog Id'
@@ -91,8 +89,6 @@ exports.showList = (req, res) => {
         });
 
     }, (err) => {
-
-        console.log(err);
 
         return res.status(500).json({
             msg: 'Error getting the Board Id'

@@ -37,36 +37,43 @@ exports.getBoardListId = (boardRequested, listRequested) => {
                 //  URL da API do Trello para listar as listas de uma board especifica
                 var boardListUrl = 'https://api.trello.com/1/boards/' + boardId + '/lists?' + authenticationTrelloSuffix;
 
-                request.get({url: boardListUrl}, (err, httpResponse, listsJsonRespose) => {
-
-                    //  Parseia a resposta json contendo a lista de todas as listas que o board possui
-                    
-                    var listsList = JSON.parse(listsJsonRespose);
-
-                    listsList.some((list) => {
-
-                        //  Caso tenha encontrado a lista pega a sua Id e retorna true para quebrar o loop
-                        if (list.name.toLowerCase() == listRequested) {
-
-                            listId = list.id;
-                            return true;
-
-                        }
-
-                        return false;
-
-                    });
-
-                    //  Devolve o id da lista
-                    resolve(listId);
-
-                });    
-
             } catch (e) {
 
-                reject(e);
+                return reject(e);
 
             }
+
+            request.get({url: boardListUrl}, (err, httpResponse, listsJsonResponse) => {
+
+                    try {
+
+                        //  Parseia a resposta json contendo a lista de todas as listas que o board possui
+                        var listsList = JSON.parse(listsJsonResponse);
+
+                        listsList.some((list) => {
+
+                            //  Caso tenha encontrado a lista pega a sua Id e retorna true para quebrar o loop
+                            if (list.name.toLowerCase() == listRequested) {
+
+                                listId = list.id;
+                                return true;
+
+                            }
+
+                            return false;
+
+                        });
+
+                        //  Devolve o id da lista
+                        return resolve(listId);
+
+                    } catch (e) {
+
+                        return reject(e);
+
+                    }
+
+            });    
 
         });
     });
@@ -74,18 +81,17 @@ exports.getBoardListId = (boardRequested, listRequested) => {
 
 exports.validateCreation = (jsonResponse) => {
 
-    var cardCreated = JSON.parse(jsonResponse);
+    try {
 
-    // TODO: Check what went wrong
-    if (!cardCreated.id) {
+        JSON.parse(jsonResponse);
+        return true;
+
+    } catch(e) {
 
         return false;
 
-    } else {
-
-        return true;
-    
     }
+
 
 };
 
