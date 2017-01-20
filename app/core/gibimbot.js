@@ -9,7 +9,7 @@ TRELLO_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/trell
 bot = new TelegramBot(token, { polling: true });
 
 telegram = {};
-var telegramPath = process.cwd() + '/app/controllers/bot';
+var telegramPath = process.cwd() + '/app/bot';
 
 //  Get our controllers modules
 fs.readdirSync(telegramPath).forEach( (file) => {
@@ -38,8 +38,8 @@ bot.onText(/grab/g, function (msg, match) {
 //  Aplica um regex na mensagem /trello e caso a regex der match verifica qual o comando pedido. Msg sendo a mensagem enviada e match o array de matchs com o regex escolhido
 bot.onText(/\/t (.+)/i, telegram.trello.executeTrelloAction);
 bot.onText(/\/trello (.+)/i, telegram.trello.executeTrelloAction);
-//bot.onText(/\/g (.+)/i, telegram.gmail.insertSchedule);
-//bot.onText(/\/gmail (.+)/i, telegram.gmail.insertSchedule);
+bot.onText(/\/g (.+)/i, telegram.gmail.insertAppointment);
+bot.onText(/\/gmail (.+)/i, telegram.gmail.insertAppointment);
 
 bot.on('message', function (msg) {
 

@@ -9,3 +9,4 @@ _       = require('underscore');
 
 require('./app/core/router');
 require('./app/core/gibimbot');
+require('./app/core/gmail');
