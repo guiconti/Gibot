@@ -16,8 +16,8 @@ layoutPath = path.join(__dirname, '../../front/layouts');
 viewPath = path.join(__dirname, '../../front/views');
 var assetPath = path.join(__dirname, '../../front/assets');
 
-var trello = {};
-var trelloPath = process.cwd() + '/app/controllers/Trello';
+var controllers = {};
+var controllersPath = process.cwd() + '/app/controllers';
 
 //  Engine for the handlebars template
 hbs  = require('express-handlebars');
@@ -29,9 +29,9 @@ trelloUtils = require(process.cwd() + '/app/utils/trelloUtils');
 validation = require(process.cwd() + '/app/utils/validation'); 
 
 //  Get our controllers modules
-fs.readdirSync(trelloPath).forEach( (file) => {
+fs.readdirSync(controllersPath).forEach( (file) => {
     if (file.indexOf('.js') !== -1) {
-        trello[file.split('.')[0]] = require(trelloPath + '/' + file);
+        controllers[file.split('.')[0]] = require(controllersPath + '/' + file);
     }
 });
 
@@ -60,8 +60,8 @@ app.get('/trello', (req, res) => {
 });
 
 //  Trello APIs
-app.post('/trello/:boardName/:listName/insert', trello.project.insertCard);
-app.get('/trello/:boardName/:listName/list', trello.project.showList);
+app.post('/trello/:boardName/:listName/insert', controllers.trello.insertCard);
+app.get('/trello/:boardName/:listName/list', controllers.trello.showList);
 
 app.listen(PORT, () => {
     console.log('Server is functional on ' + PORT + ' port on ' + process.env.NODE_ENV + " environment.");

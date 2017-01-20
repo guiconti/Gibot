@@ -1,7 +1,7 @@
 var TelegramBot = require('node-telegram-bot-api');
 
 //  Token do Bot que será utilizado para validar acesso ao Gibimbot ou o bot a ser utilizado
-var token = process.env.TELEGRAM_TOKEN;
+var token = process.env.NODE_ENV=='development'?process.env.TELEGRAM_DEV_TOKEN:process.env.TELEGRAM_TOKEN;
 
 TRELLO_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/trello/':'http://ec2-52-67-130-125.sa-east-1.compute.amazonaws.com:3101/trello/';
 
@@ -38,11 +38,12 @@ bot.onText(/grab/g, function (msg, match) {
 //  Aplica um regex na mensagem /trello e caso a regex der match verifica qual o comando pedido. Msg sendo a mensagem enviada e match o array de matchs com o regex escolhido
 bot.onText(/\/t (.+)/i, telegram.trello.executeTrelloAction);
 bot.onText(/\/trello (.+)/i, telegram.trello.executeTrelloAction);
+//bot.onText(/\/g (.+)/i, telegram.gmail.insertSchedule);
+//bot.onText(/\/gmail (.+)/i, telegram.gmail.insertSchedule);
 
-/*bot.on('message', function (msg) {
+bot.on('message', function (msg) {
 
 	console.log(msg);
 	var chatId = msg.chat.id;
-	bot.sendMessage(chatId, "Valeu viado");
 
-});*/
+});
