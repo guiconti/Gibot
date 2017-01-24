@@ -51,9 +51,8 @@ exports.sendMessageToChat = (req, res) => {
         bot.sendMessage(chatId, message).then((response) => {
 
             return res.status(200).json({
-            msg: 'Message sent.'
-
-        });
+                msg: 'Message sent.'
+            });
 
         }, (e) => {
 

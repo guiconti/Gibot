@@ -6,7 +6,7 @@ var googleAuth = require('google-auth-library');
 // at ~/.credentials/calendar-nodejs-quickstart.json
 var SCOPES = ['https://www.googleapis.com/auth/calendar'];
 var TOKEN_DIR = process.cwd() + '/.credentials/';
-var TOKEN_PATH = TOKEN_DIR + 'calendar-nodejs-quickstart.json';
+var TOKEN_PATH = TOKEN_DIR + 'calendar_credentials.json';
 
 // Load client secrets from a local file.
 fs.readFile('client_secret.json', function processClientSecrets(err, content) {
