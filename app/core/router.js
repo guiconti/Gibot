@@ -55,6 +55,7 @@ app.get('/', (req, res) => {
     res.render('index', {layout: 'navbar', name: 'OHIHIO'});
 });
 
+//  Front end
 app.get('/trello', (req, res) => {
     res.render('form', {layout: 'navbar', name: 'OHIHIO'});
 });
@@ -62,6 +63,9 @@ app.get('/trello', (req, res) => {
 //  Trello APIs
 app.post('/trello/:boardName/:listName/insert', controllers.trello.insertCard);
 app.get('/trello/:boardName/:listName/list', controllers.trello.showList);
+
+//  Telegram APIs
+app.post('/telegram', controllers.telegram.sendMessageToOwner);
 
 app.listen(PORT, () => {
     console.log('Server is functional on ' + PORT + ' port on ' + process.env.NODE_ENV + " environment.");

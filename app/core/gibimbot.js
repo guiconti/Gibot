@@ -41,9 +41,9 @@ bot.onText(/\/trello (.+)/i, telegram.trello.executeTrelloAction);
 bot.onText(/\/g (.+)/i, telegram.gmail.insertAppointment);
 bot.onText(/\/gmail (.+)/i, telegram.gmail.insertAppointment);
 
-bot.on('message', function (msg) {
+/*bot.on('message', function (msg) {
 
 	console.log(msg);
 	var chatId = msg.chat.id;
 
-});
+});*/
