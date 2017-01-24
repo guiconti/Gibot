@@ -126,7 +126,7 @@ function storeToken(token) {
  */
 function listEvents(auth) {
 
-    var calendar = google.calendar('v3');
+    /*var calendar = google.calendar('v3');
     calendar.events.list({
     auth: auth,
     calendarId: 'primary',
@@ -150,7 +150,7 @@ function listEvents(auth) {
         console.log('%s - %s', start, event.summary);
         }
     }
-    });
+    });*/
     /*var event = {
         'summary': 'Google I/O 2015',
         'location': '800 Howard St., San Francisco, CA 94103',

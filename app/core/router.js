@@ -65,7 +65,8 @@ app.post('/trello/:boardName/:listName/insert', controllers.trello.insertCard);
 app.get('/trello/:boardName/:listName/list', controllers.trello.showList);
 
 //  Telegram APIs
-app.post('/telegram', controllers.telegram.sendMessageToOwner);
+app.post('/telegram/message/owner', controllers.telegram.sendMessageToOwner);
+app.post('/telegram/message/chat', controllers.telegram.sendMessageToChat);
 
 app.listen(PORT, () => {
     console.log('Server is functional on ' + PORT + ' port on ' + process.env.NODE_ENV + " environment.");

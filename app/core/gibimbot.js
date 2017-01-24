@@ -18,23 +18,6 @@ fs.readdirSync(telegramPath).forEach( (file) => {
     }
 });
 
-//	Global variables
-TrelloActions = {
-	LIST: 'list',
-	INSERT: 'insert'
-};
-
-//  TODO: Acabar essa imbecilidade
-//  Aplica um regex na mensagem grab e caso a regex der match realiza uma ação. Msg sendo a mensagem enviada e match o array de matchs com o regex escolhido
-bot.onText(/grab/g, function (msg, match) {
-
-	var chatId = msg.chat.id;
-
-	//  Placeholder
-    bot.sendMessage(chatId, 'Fala irmao');
-
-});
-
 //  Aplica um regex na mensagem /trello e caso a regex der match verifica qual o comando pedido. Msg sendo a mensagem enviada e match o array de matchs com o regex escolhido
 bot.onText(/\/t (.+)/i, telegram.trello.executeTrelloAction);
 bot.onText(/\/trello (.+)/i, telegram.trello.executeTrelloAction);

@@ -2,6 +2,12 @@
 var listActions = ['liste','list','listar','lista'];
 var insertActions = ['insert','inserir','insere','insira'];
 
+//	Global variables
+var TrelloActions = {
+	LIST: 'list',
+	INSERT: 'insert'
+};
+
 exports.executeTrelloAction = (msg, match) => {
 
     var chatId = msg.chat.id;
