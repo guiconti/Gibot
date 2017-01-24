@@ -36,7 +36,7 @@ exports.sendMessageToChat = (req, res) => {
             msg: 'Not a valid message.'
         });
 
-    } else if (!_.isNumber(body.chatId)) {
+    } else if (!_.isNumber(parseInt(body.chatId))) {
 
         return res.status(400).json({
             msg: 'Not a valid chat id.'
@@ -45,7 +45,7 @@ exports.sendMessageToChat = (req, res) => {
     } else {
 
         var message = body.message.trim();
-        var chatId = body.chatId;
+        var chatId = parseInt(body.chatId);
         
         //  TODO: Change this when we move the bot to another server
         bot.sendMessage(chatId, message).then((response) => {
