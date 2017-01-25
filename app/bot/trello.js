@@ -2,7 +2,11 @@
 var listActions = ['liste','list','listar','lista'];
 var insertActions = ['insert','inserir','insere','insira'];
 
-//	Global variables
+/**
+ * Enum para as possíveis ações no Trello.
+ * @readonly
+ * @enum {string}
+ */
 var TrelloActions = {
 	LIST: 'list',
 	INSERT: 'insert'
@@ -12,77 +16,82 @@ exports.executeTrelloAction = (msg, match) => {
 
     var chatId = msg.chat.id;
 
-	telegram.middleware.authOwner(msg.from.id).then(() => {
+	telegram.middleware.authOwner(msg.from.id).then((authentication) => {
 
-		try {
+        if (!authentication){
 
-			var resp = match[1].split(';');
-		
-		} catch (e) {
+            return bot.sendMessage(chatId, 'Você não possui acesso a putaria.');
 
-			return bot.sendMessage(chatId, 'Comando do trello inválido. Tente enviar o comando com a seguinte sintaxe: /t "Ação desejada"; "Board desejada"; "Lista desejada";"Card desejada caso queira inserir"');
+        } else {
 
-		}
+            try {
 
-		if (!telegram.validation.isValidAction(resp)) {
+                var resp = match[1].split(';');
+            
+            } catch (e) {
 
-			return bot.sendMessage(chatId, 'Comando do trello inválido. Tente enviar o comando com a seguinte sintaxe: /t "Ação desejada"; "Board desejada"; "Lista desejada";"Card desejada caso queira inserir"');
+                return bot.sendMessage(chatId, 'Comando do trello inválido. Tente enviar o comando com a seguinte sintaxe: /t "Ação desejada"; "Board desejada"; "Lista desejada";"Card desejada caso queira inserir"');
 
-		} else {
+            }
 
-			switch (telegram.trello.identifyAction(resp[0].toLowerCase().trim())) {
+            if (!telegram.validation.isValidAction(resp)) {
 
-				case TrelloActions.LIST:
+                return bot.sendMessage(chatId, 'Comando do trello inválido. Tente enviar o comando com a seguinte sintaxe: /t "Ação desejada"; "Board desejada"; "Lista desejada";"Card desejada caso queira inserir"');
 
-					telegram.trello.listList(resp).then((cards) => {
+            } else {
 
-                        return bot.sendMessage(chatId, cards.msg.join('\n'));
+                switch (telegram.trello.identifyAction(resp[0].toLowerCase().trim())) {
 
-					}, (err) => {
+                    case TrelloActions.LIST:
 
-						//	TODO: Melhorar isso
-						return bot.sendMessage(chatId, 'Você não possui a combinação de Board e List requisitada.');
+                        telegram.trello.listList(resp).then((cards) => {
 
-					});
+                            return bot.sendMessage(chatId, cards.msg.join('\n'));
 
-					break;
-					
+                        }, (err) => {
 
-				case TrelloActions.INSERT:
+                            //	TODO: Melhorar isso
+                            return bot.sendMessage(chatId, 'Você não possui a combinação de Board e List requisitada.');
 
-					if (telegram.validation.isValidCard(resp[3])) {
-			
-						telegram.trello.insertCard(resp).then(() => {
+                        });
 
-							return bot.sendMessage(chatId, 'Nova card inserida com sucesso meu amigo!');
+                        break;
+                        
 
-						}, (err) => {
+                    case TrelloActions.INSERT:
 
-							//	TODO: Melhorar isso
-							return bot.sendMessage(chatId, 'Você não possui a combinação de Board e List requisitada.');
+                        if (telegram.validation.isValidCard(resp[3])) {
+                
+                            telegram.trello.insertCard(resp).then(() => {
 
-						});
+                                return bot.sendMessage(chatId, 'Nova card inserida com sucesso meu amigo!');
 
-					} else {
+                            }, (err) => {
 
-						return bot.sendMessage(chatId, 'Card no formato incorreto. Mande a sua card apenas como texto!');
+                                //	TODO: Melhorar isso
+                                return bot.sendMessage(chatId, 'Você não possui a combinação de Board e List requisitada.');
 
-					}
+                            });
 
-					break;
+                        } else {
+
+                            return bot.sendMessage(chatId, 'Card no formato incorreto. Mande a sua card apenas como texto!');
+
+                        }
+
+                        break;
 
 
-				default:
-					return bot.sendMessage(chatId, 'Essa ação não é válida. Por enquanto eu sei apenas listar e inserir.');
-					break;
+                    default:
+                        return bot.sendMessage(chatId, 'Essa ação não é válida. Por enquanto eu sei apenas listar e inserir.');
+                        break;
 
-			}
-
-		}
-
+                }
+            }
+        }
 	}, (err) => {
 
-		return bot.sendMessage(chatId, 'Você não tem acesso à putaria.');
+		return bot.sendMessage(chatId, 'Cara, vou ficar te devendo essa, deu algum erro aqui.');
 
 	});
 

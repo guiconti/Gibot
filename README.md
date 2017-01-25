@@ -21,7 +21,6 @@ NODE_ENV='Qual o ambiente em que a aplicação está rodando no momento (opciona
 
 Caso não deseje ajustar essas variáveis você pode alterar elas dentro das aplicações para o valor correspondente (não recomendado).
 
-----
 ## 2. Trello
 
 O primeiro pacote de APIs que o Gibot disponibiliza é o Trello.
