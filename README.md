@@ -51,6 +51,7 @@ GET /trello/"nome da board"/"nome da lista"/list
 ```
 
 A resposta será dada em um JSON contendo apenas um array *msg* que contém todas as cards na lista solicitada.
+Em caso de falha a descrição da falha é contida dentro de *msg*.
 
 Exemplo:
 
@@ -73,6 +74,47 @@ GET /trello/gibimbot/backlog/list
 }
 ```
 
+### 2.2. Inserir
+
+A opção de inserir é disponibilizada no Gibot de 2 maneiras.
+
+A primeira é pelo o seu bot cadastrado no Telegram enviando uma mensagem pra ele no formato
+
+```
+/t insert/"Nome da board"/"Nome da list"/"Nome da card"
+```
+
+Esse comando insere uma nova card dentro da lista passada.
+
+Exemplo:
+![Exemplo Inserção Telegram](https://i.imgur.com/utre2xb.png)
+
+A outra forma é uma chamada direta na API
+
 ```
 POST /trello/"nome da board"/"nome da lista"/insert
+```
+
+Contendo no corpo do POST
+```
+name: Nome da card a ser inserida. STRING
+description: Descrição da card a ser inserida. OPCIONAL STRING
+```
+
+A resposta será dada em um JSON contendo apenas um array *msg* que contém a mensagem de sucesso em caso de inserção realizada ou uma mensagem de falha caso a inserção não ocorra.
+
+Exemplo:
+```
+POST /trello/gibimbot/backlog/list
+
+{
+  	"name": "Exemplo Github",
+	"description": ""
+}
+```
+
+```
+{
+  "msg": "Exemplo Github card created."
+}
 ```
