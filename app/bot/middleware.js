@@ -12,7 +12,7 @@ const ownerTelegramId = process.env.TELEGRAM_OWNER_ID;
  *
  * @param {string} userId - Id do usuário que a ser validado.
  * @return {Promise.<Boolean>} - Uma promise que retorna uma Boolean em caso de sucesso
- * @throws {Error} - Rejeita a promise com o error ocorrido
+ * @throws {Error} - Rejeita a promise com o erro ocorrido
  */
 exports.authOwner = (userId) => {
 
