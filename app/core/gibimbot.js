@@ -3,8 +3,6 @@ var TelegramBot = require('node-telegram-bot-api');
 //  Token do Bot que será utilizado para validar acesso ao Gibimbot ou o bot a ser utilizado
 var token = process.env.NODE_ENV=='development'?process.env.TELEGRAM_DEV_TOKEN:process.env.TELEGRAM_TOKEN;
 
-TRELLO_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/trello/':'http://ec2-52-67-130-125.sa-east-1.compute.amazonaws.com:3101/trello/';
-
 //  Cria o bot e ativa o polling para observar sempre novos updates
 bot = new TelegramBot(token, { polling: true });
 

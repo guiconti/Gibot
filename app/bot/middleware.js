@@ -3,7 +3,7 @@
  * @module bot/middleware
  */
 
-//  ID do telegram que será o dono desse bot, utilizado para validar ações privadas
+/**  ID do telegram que será o dono desse bot, utilizado para validar ações privadas */
 const ownerTelegramId = process.env.TELEGRAM_OWNER_ID;
 
 /**
@@ -11,7 +11,7 @@ const ownerTelegramId = process.env.TELEGRAM_OWNER_ID;
  * chamando primeiramente essa função no roteador.
  *
  * @param {string} userId - Id do usuário que a ser validado.
- * @return {Promise.<Boolean>} - Uma promise que retorna uma Boolean em caso de sucesso
+ * @return {Promise.Boolean} - Uma promise que retorna uma Boolean em caso de sucesso
  * @throws {Error} - Rejeita a promise com o erro ocorrido
  */
 exports.authOwner = (userId) => {
@@ -20,14 +20,13 @@ exports.authOwner = (userId) => {
 
         try {
 
-        return userId == ownerTelegramId?resolve(true):resolve(false);
+            /**  Verifica se o userId dado é igual ao Id do dono do Telegram */
+            return userId == ownerTelegramId?resolve(true):resolve(false);
 
         } catch(e) {
 
             reject(e);
 
-        }
-        
+        }  
     }); 
-
 };
