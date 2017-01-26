@@ -12,6 +12,6 @@ exports.isValidNumber = (number) => {
 
 exports.isValidDate = (date) => {
 
-    return moment(date, 'DD-MM-YYYY', true).isValid();
+    return moment(date, 'DD-MM-YYYY').isValid();
 
 };

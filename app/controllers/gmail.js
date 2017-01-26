@@ -31,9 +31,8 @@ exports.listEvents = (req, res) => {
     if (validation.isValidDate(req.query.initialDate) && validation.isValidDate(req.query.finalDate)){
 
         /** Se o usuário passou datas usaremos a função de período */
-        return res.status(200).json({
-            msg: 'Toneladas de eventos'
-        });
+        initialDate = moment(req.query.initialDate, 'DD-MM-YYYY').tz('America/Sao_Paulo').startOf('day');
+        finalDate = moment(req.query.finalDate, 'DD-MM-YYYY').tz('America/Sao_Paulo').endOf('day');
 
     } else {
 
@@ -172,7 +171,7 @@ function listDayEvents(initialDate, finalDate) {
             return resolve(events);
 
         });
-
+        
     });
 };
 
