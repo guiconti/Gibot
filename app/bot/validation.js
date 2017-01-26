@@ -27,27 +27,3 @@ exports.isValidCard = (card) => {
     return _.isString(card) && card.trim().length > 0;
 
 };
-
-/**
- * Valida se a ação do Trello solicitada é uma ação de listagem
- *
- * @param {string} action - Ação solicitada pelo usuário.
- * @return {boolean} - True para uma ação de listagem e false caso contrário.
- */
-exports.isListAction = (action) => {
-
-    return action == 'liste' || action == 'list' || action == 'listar' || action == 'lista';
-
-};
-
-/**
- * Valida se a ação do Trello solicitada é uma ação de inserção
- *
- * @param {string} action - Ação solicitada pelo usuário.
- * @return {boolean} - True para uma ação de inserção e false caso contrário.
- */
-exports.isInsertAction = (action) => {
-
-    return action == 'insert' || action == 'inserir' || action == 'insere' || action == 'insira';
-
-};

@@ -75,11 +75,11 @@ exports.executeTrelloAction = (msg, match) => {
             } else {
 
                 /*  Verificamos qual a ação solicitada, encaminhamos para a função da ação e enviamos a resposta */
-                switch (telegram.trello.identifyAction(resp[0].toLowerCase().trim())) {
+                switch (identifyAction(resp[0].toLowerCase().trim())) {
 
                     case TrelloActions.LIST:
 
-                        telegram.trello.listList(resp).then((cards) => {
+                        listList(resp).then((cards) => {
 
                             return bot.sendMessage(chatId, cards.msg.join('\n'));
 
@@ -97,7 +97,7 @@ exports.executeTrelloAction = (msg, match) => {
 
                         if (telegram.validation.isValidCard(resp[3])) {
                 
-                            telegram.trello.insertCard(resp).then(() => {
+                            insertCard(resp).then(() => {
 
                                 return bot.sendMessage(chatId, 'Nova card inserida com sucesso meu amigo!');
 
@@ -137,7 +137,7 @@ exports.executeTrelloAction = (msg, match) => {
  * @param {string} action - Ação a ser verificada
  * @return {string} - Nome da ação normalizado para ser utilizado na requisição
  */
-exports.identifyAction = (action) => {
+function identifyAction(action) {
 
     return _.contains(listActions, action)?TrelloActions.LIST:
         _.contains(insertActions, action)?TrelloActions.INSERT:undefined;
@@ -152,7 +152,7 @@ exports.identifyAction = (action) => {
  * @return {Promise.string[]} - Uma promise que resolve todos os cards listados.
  * @throws {Error} - Rejeita a promise com o erro ocorrido
  */
-exports.listList = (userRequest) => {
+function listList(userRequest) {
 
     return new Promise((resolve, reject) => {
 
@@ -219,7 +219,7 @@ exports.listList = (userRequest) => {
  * @return {Promise.NULL} - Uma promise que resolve caso o card seja inserido
  * @throws {Error} - Rejeita a promise com o erro ocorrido
  */
-exports.insertCard = (userRequest) => {
+function insertCard (userRequest) {
 
     return new Promise((resolve, reject) => {
 
