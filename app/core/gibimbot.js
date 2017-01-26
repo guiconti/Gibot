@@ -30,7 +30,7 @@ bot.onText(/\/trello (.+)/i, telegram.trello.executeTrelloAction);
 
 /** Captura de ações do Gmail. Ativada por /g "comando" ou /gmail "comando" 
  * Aplica um regex na mensagem /g ou /gmail e caso a regex der match envia o pedido para o módulo do gmail.  */
-bot.onText(/\/g (.+)/i, telegram.gmail.insertAppointment);
+bot.onText(/\/g (.+)/i, telegram.gmail.listEvents);
 bot.onText(/\/gmail (.+)/i, telegram.gmail.insertAppointment);
 
 /*bot.on('message', function (msg) {
