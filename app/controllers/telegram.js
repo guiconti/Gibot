@@ -1,5 +1,4 @@
 /*  GLOBAL bot:true */
-
 var ownerChatId = process.env.TELEGRAM_CHAT_ID;
 
 exports.sendMessageToOwner = (req, res) => {
