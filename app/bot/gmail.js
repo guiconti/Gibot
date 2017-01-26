@@ -139,10 +139,23 @@ function listEvents(userRequest) {
 
         try {
 
+            var days;
+            var initialDate;
+            var finalDate;
+
             /*  Pega as informações da requisição */
-            var days = userRequest[1]?userRequest[1].trim():0;
-            var initialDate = userRequest[2]?userRequest[2].trim():0;
-            var finalDate = userRequest[3]?userRequest[3].trim():0;
+            if(telegram.validation.isValidDate(userRequest[1])) {
+
+                /** Caso a requsição seja no formato de data */
+                initialDate = userRequest[1]?userRequest[2].trim():0;
+                finalDate = userRequest[2]?userRequest[2].trim():0;
+
+            } else {
+
+                /** Caso a requsição seja no formato de dia */
+                days = userRequest[1]?userRequest[1].trim():0;
+
+            }
 
             /*  Monta a URL para a requsição */
             var url = GMAIL_PREFIX + GmailActions.LIST + '?days=' + days + '&initialDate=' + initialDate + '&finalDate=' + finalDate;
