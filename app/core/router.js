@@ -26,6 +26,11 @@ hbs  = require('express-handlebars');
 fs = require('fs');
 request = require('request');
 moment = require('moment');
+moment.locale('pt-br', {
+    calendar: {
+        sameElse: 'DD/MM/YYYY H:MM'
+    }
+});
 trelloUtils = require(process.cwd() + '/app/utils/trelloUtils');
 validation = require(process.cwd() + '/app/utils/validation'); 
 

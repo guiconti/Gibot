@@ -68,7 +68,7 @@ exports.executeTrelloAction = (msg, match) => {
             }
 
             /*  Avaliamos se a ação é uma ação válida do Trello/bot */
-            if (!telegram.validation.isValidAction(resp)) {
+            if (!telegram.validation.isValidTrelloAction(resp)) {
 
                 return bot.sendMessage(chatId, 'Comando do trello inválido. Tente enviar o comando com a seguinte sintaxe: /t "Ação desejada"; "Board desejada"; "Lista desejada";"Card desejada caso queira inserir"');
 
@@ -81,7 +81,7 @@ exports.executeTrelloAction = (msg, match) => {
 
                         listList(resp).then((cards) => {
 
-                            return bot.sendMessage(chatId, cards.msg.join('\n'));
+                            return bot.sendMessage(chatId, cards.msg.join('\n\n'));
 
                         }, (err) => {
 
