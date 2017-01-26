@@ -147,7 +147,7 @@ function listEvents(userRequest) {
             if(telegram.validation.isValidDate(userRequest[1])) {
 
                 /** Caso a requsição seja no formato de data */
-                initialDate = userRequest[1]?userRequest[2].trim():0;
+                initialDate = userRequest[1]?userRequest[1].trim():0;
                 finalDate = userRequest[2]?userRequest[2].trim():0;
 
             } else {
@@ -190,7 +190,7 @@ function listEvents(userRequest) {
 
                         events.msg.forEach(function(event){
 
-                            var actualEvent = event.summary + ' das ' + moment(event.start).calendar() + ' até ' + moment(event.end).calendar();
+                            var actualEvent = event.summary + ' ocorrerá em ' + moment(event.start).calendar() + ' até ' + moment(event.end).calendar();
 
                             verboseEvents.push(actualEvent);
 

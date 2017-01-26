@@ -159,3 +159,52 @@ Ambos os inputs retornam a resposta no mesmo modelo.
 
 Exemplo:
 ![Exemplo Listagem Google Calendar](http://i.imgur.com/klbIMOO.png)
+
+#### Listando os eventos pela API
+
+Para listar os eventos do seu calendário por uma chamada direta a API precisamos realizar uma chamada da seguinte maneira:
+
+```
+GET /gmail/list?days="dias"&initialDate="dia início"&finalDate="dia fim"
+```
+
+Sendo que as 3 opções da query são opcionais. Caso nenhum valor seja passado a API retornará os eventos no dia de hoje.
+Caso tanto os dias quanto as datas de início e fim sejam passadas a API priorizará as datas e trará os eventos dentro deste período.
+
+Exemplo:
+```
+GET /gmail/list?days=90
+```
+
+Resposta
+```
+{
+  "msg": [
+    {
+      "summary": "ENC: Credimob em 5 anos",
+      "start": "2017-01-31T14:00:00-02:00",
+      "end": "2017-01-31T16:30:00-02:00"
+    },
+    {
+      "summary": "ENC: CrédImob no mundo",
+      "start": "2017-02-01T10:00:00-02:00",
+      "end": "2017-02-01T11:00:00-02:00"
+    },
+    {
+      "summary": "ENC: Kaizen - Atendimento de Ocorrências Sistema OD",
+      "start": "2017-02-02T09:00:00-02:00",
+      "end": "2017-02-03T18:00:00-02:00"
+    },
+    {
+      "summary": "ENC: Aquele forte e grande abraço. FLWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "start": "2017-02-03T17:30:00-02:00",
+      "end": "2017-02-03T18:00:00-02:00"
+    },
+    {
+      "summary": "CI Digital - Plano de Validação Implantação",
+      "start": "2017-02-06T14:30:00-02:00",
+      "end": "2017-02-06T15:30:00-02:00"
+    }
+  ]
+}
+```
