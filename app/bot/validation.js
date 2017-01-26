@@ -1,26 +1,26 @@
 /**
- * Módulo de validações para o Telegram
+ * Módulo usado para validar cenários de verificação no bot
  * @module bot/validation
  */
-
 /**
- * Valida se uma requisição no Trello é válida.
+
+ * Valida se a requisição do usuário para uma função no Trello é válida.
  *
- * @param {string[]} userRequest - Array com todas as opções da requisição.
- * @return {boolean} - Retorna true se a ação for válida e false caso contrário.
+ * @param {string[]} userRequest - Todos os parâmetros da ação do Trello requisitado pelo usário.
+ * @return {boolean} - True para uma ação do Trello válida e false caso contrário.
  */
-exports.isValidAction = (userRequest) => {
+exports.isValidTrelloAction = (userRequest) => {
 
     //  Por hora so considera request valido se tiver 3 argumentos ou mais
-    return userRequest.length > 2
+    return userRequest.length > 2;
 
 };
 
 /**
- * Valida se uma card do Trello é válida.
+ * Valida se o nome da card a ser inserida solicitada pelo usuário é válida
  *
- * @param {string} card - Nome da card para verificação.
- * @return {boolean} - Retorna true se a card for válida e false caso contrário.
+ * @param {string} card - Nome da card a ser inserida.
+ * @return {boolean} - True para um nome de card do Trello válida e false caso contrário.
  */
 exports.isValidCard = (card) => {
 
@@ -29,25 +29,37 @@ exports.isValidCard = (card) => {
 };
 
 /**
- * Valida se uma ação de lista é válida.
+ * Valida se a requisição do usuário para uma função no Gmail é válida.
  *
- * @param {string} action - Nome da ação solicitada.
- * @return {boolean} - Retorna true se a ação de listagem for válida e false caso contrário.
+ * @param {string[]} userRequest - Todos os parâmetros da ação do Gmail requisitado pelo usário.
+ * @return {boolean} - True para uma ação do Gmail válida e false caso contrário.
  */
-exports.isListAction = (action) => {
+exports.isValidGmailAction = (userRequest) => {
 
-return action == 'liste' || action == 'list' || action == 'listar' || action == 'lista';
+    //  Por hora so considera request valido se tiver 1 argumento ou mais
+    return userRequest.length >= 1;
 
 };
 
 /**
- * Valida se uma ação de insert é válida.
+ * Valida se o nome da card a ser inserida solicitada pelo usuário é válida
  *
- * @param {string} action - Nome da ação solicitada.
- * @return {boolean} - Retorna true se a ação de listagem for válida e false caso contrário.
+ * @param {integer} number - Número a ser validado.
+ * @return {boolean} - True para um número válido e false caso contrário.
  */
-exports.isInsertAction = (action) => {
+exports.isValidNumber = (number) => {
 
-    return action == 'insert' || action == 'inserir' || action == 'insere' || action == 'insira';
+    return _.isNumber(number);
 
+};
+
+/**
+ * Valida se o nome da card a ser inserida solicitada pelo usuário é válida
+ *
+ * @param {date} date - Data a ser validada no forma DD-MM-YYYY
+ * @return {boolean} - True para uma data válida e false caso contrário.
+ */
+exports.isValidDate = (date) => {
+
+    return moment(date, 'DD-MM-YYYY').isValid();
 };

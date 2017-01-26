@@ -23,6 +23,8 @@
     "express-handlebars": "^3.0.0",
     "google-auth-library": "^0.10.0",
     "googleapis": "^16.1.0",
+    "moment": "^2.17.1",
+    "moment-timezone": "^0.5.11",
     "node-telegram-bot-api": "^0.25.0",
     "request": "^2.79.0",
     "underscore": "^1.8.3"

@@ -117,3 +117,5 @@ POST /trello/gibimbot/backlog/list
   "msg": "Exemplo Github card created."
 }
 ```
+
+## 3. Gmail

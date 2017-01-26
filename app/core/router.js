@@ -25,6 +25,12 @@ hbs  = require('express-handlebars');
 //  Global modules
 fs = require('fs');
 request = require('request');
+moment = require('moment');
+moment.locale('pt-br', {
+    calendar: {
+        sameElse: 'DD/MM/YYYY H:MM'
+    }
+});
 trelloUtils = require(process.cwd() + '/app/utils/trelloUtils');
 validation = require(process.cwd() + '/app/utils/validation'); 
 
@@ -67,6 +73,9 @@ app.get('/trello/:boardName/:listName/list', controllers.trello.showList);
 //  Telegram APIs
 app.post('/telegram/message/owner', controllers.telegram.sendMessageToOwner);
 app.post('/telegram/message/chat', controllers.telegram.sendMessageToChat);
+
+/**  Gmail APIs */
+app.get('/gmail/list', controllers.gmail.listEvents);
 
 app.listen(PORT, () => {
     console.log('Server is functional on ' + PORT + ' port on ' + process.env.NODE_ENV + " environment.");
