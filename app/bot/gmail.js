@@ -92,6 +92,8 @@ exports.executeGmailAction = (msg, match) => {
 
                         }, (err) => {
 
+                            console.log(err);
+
                             //	TODO: Melhorar isso
                             return bot.sendMessage(chatId, 'Você não possui acesso ao calendário.');
 
