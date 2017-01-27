@@ -56,10 +56,12 @@ exports.executeTrelloAction = (msg, match) => {
         /*  Caso seja o owner */
         } else {
 
+            var resp;
+
             try {
 
                 /*  Quebra toda a requisição em um array separado por ";" */
-                var resp = match[1].split(';');
+                resp = match[1].split(';');
             
             } catch (e) {
 
@@ -81,12 +83,12 @@ exports.executeTrelloAction = (msg, match) => {
 
                         listList(resp).then((cards) => {
 
-                            return bot.sendMessage(chatId, cards.msg.join('\n\n'));
+                            bot.sendMessage(chatId, cards.msg.join('\n\n'));
 
                         }, (err) => {
 
                             //	TODO: Melhorar isso
-                            return bot.sendMessage(chatId, 'Você não possui a combinação de Board e List requisitada.');
+                            bot.sendMessage(chatId, 'Você não possui a combinação de Board e List requisitada.');
 
                         });
 
@@ -99,18 +101,18 @@ exports.executeTrelloAction = (msg, match) => {
                 
                             insertCard(resp).then(() => {
 
-                                return bot.sendMessage(chatId, 'Nova card inserida com sucesso meu amigo!');
+                                bot.sendMessage(chatId, 'Nova card inserida com sucesso meu amigo!');
 
                             }, (err) => {
 
                                 //	TODO: Melhorar isso
-                                return bot.sendMessage(chatId, 'Você não possui a combinação de Board e List requisitada.');
+                                bot.sendMessage(chatId, 'Você não possui a combinação de Board e List requisitada.');
 
                             });
 
                         } else {
 
-                            return bot.sendMessage(chatId, 'Card no formato incorreto. Mande a sua card apenas como texto!');
+                            bot.sendMessage(chatId, 'Card no formato incorreto. Mande a sua card apenas como texto!');
 
                         }
 
@@ -118,7 +120,7 @@ exports.executeTrelloAction = (msg, match) => {
 
 
                     default:
-                        return bot.sendMessage(chatId, 'Essa ação não é válida. Por enquanto eu sei apenas listar e inserir.');
+                        bot.sendMessage(chatId, 'Essa ação não é válida. Por enquanto eu sei apenas listar e inserir.');
                         break;
 
                 }
@@ -156,6 +158,8 @@ function listList(userRequest) {
 
     return new Promise((resolve, reject) => {
 
+        var url;
+
         try {
 
             /*  Pega as informações da requisição */
@@ -163,7 +167,7 @@ function listList(userRequest) {
             var listName = userRequest[2].trim();
 
             /*  Monta a URL para a requsição */
-            var url = TRELLO_PREFIX + boardName + '/' + listName + '/' + TrelloActions.LIST;
+            url = TRELLO_PREFIX + boardName + '/' + listName + '/' + TrelloActions.LIST;
 
         } catch(e) {
 

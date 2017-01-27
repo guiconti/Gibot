@@ -26,11 +26,16 @@ hbs  = require('express-handlebars');
 fs = require('fs');
 request = require('request');
 moment = require('moment');
-moment.locale('pt-br', {
-    calendar: {
-        sameElse: 'DD/MM/YYYY H:MM'
+
+/** Modificando alguns valores do Locale */
+moment.defineLocale('pt-br', {
+    parentLocale: 'pt-br',
+    longDateFormat:{
+        L: 'DD/MM/YYYY H:MM'
     }
 });
+moment.locale('pt-br');
+
 trelloUtils = require(process.cwd() + '/app/utils/trelloUtils');
 validation = require(process.cwd() + '/app/utils/validation'); 
 
