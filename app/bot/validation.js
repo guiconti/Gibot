@@ -63,7 +63,7 @@ exports.isValidDate = (date) => {
 
     try {
 
-        return moment(date.trim() | date, 'DD-MM-YYYY').isValid();
+        return moment(date.trim() || date, 'DD-MM-YYYY', true).isValid();
 
     } catch (e) {
 

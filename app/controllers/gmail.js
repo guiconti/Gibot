@@ -5,13 +5,11 @@
 
 /** global auth:true*/
 /** global moment:true */
+/** global tz:true */
 
 /** Módulo do google API que será utilizado para todas as requisições do gmail */
 var google = require('googleapis');
 var calendar = google.calendar('v3');
-
-/** Módulos do moment para trabalharmos com datas */
-var tz = require('moment-timezone');
 
 /**
  * Lista todos os eventos do calendário em um período de tempo determinado.
