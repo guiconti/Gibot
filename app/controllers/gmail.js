@@ -117,7 +117,7 @@ exports.insertEvent = (req, res) => {
         }
 
     });*/
-}
+};
 
 /**
  * Lista todos os eventos do calendário em um período de tempo determinado.
@@ -171,6 +171,6 @@ function listDayEvents(initialDate, finalDate) {
         });
         
     });
-};
+}
 
 

@@ -54,7 +54,7 @@ function authorize(credentials) {
         }
 
     });
-};
+}
 
 /**
  * Get and store new token after prompting for user authorization, and then
@@ -94,7 +94,7 @@ function getNewToken(oauth2Client) {
         });
     });
 
-};
+}
 
 /**
  * Store token to disk be used in later program executions.
@@ -118,4 +118,4 @@ function storeToken(token) {
     fs.writeFile(TOKEN_PATH, JSON.stringify(token));
     console.log('Token stored to ' + TOKEN_PATH);
 
-};
+}

@@ -144,7 +144,7 @@ function identifyAction(action) {
     return _.contains(listActions, action)?TrelloActions.LIST:
         _.contains(insertActions, action)?TrelloActions.INSERT:undefined;
 
-};
+}
 
 /**
  * Executa a ação de listar no Trello utilizando as API de listagem.
@@ -213,7 +213,7 @@ function listList(userRequest) {
 
         });
     });
-};
+}
 
 /**
  * Executa a ação de inserir no Trello utilizando as API de listagem.

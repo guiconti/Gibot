@@ -79,7 +79,7 @@ exports.executeGmailAction = (msg, match) => {
 
                         listEvents(resp).then((events) => {
 
-                            if (events.length == 0){
+                            if (events.length === 0){
 
                                 /** TODO: Melhorar essa resposta */
                                 return bot.sendMessage(chatId, 'Você não possui nenhum compromisso nesse período.');
@@ -125,7 +125,7 @@ function identifyAction(action) {
 
     return _.contains(listActions, action)?GmailActions.LIST:undefined;
 
-};
+}
 
 /**
  * Executa a ação de listar no Gmail utilizando as API de listagem.
@@ -216,4 +216,4 @@ function listEvents(userRequest) {
 
         });
     });
-};
+}
