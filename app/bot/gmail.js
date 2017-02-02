@@ -192,7 +192,7 @@ function listEvents(userRequest) {
 
                         events.msg.forEach(function(event){
 
-                            var actualEvent = event.summary + ' ocorrerá em ' + moment(event.start).calendar() + ' até ' + moment(event.end).calendar();
+                            var actualEvent = event.summary + ' ocorrerá ' + moment(event.start).tz('America/Sao_Paulo').calendar() + ' até ' + moment(event.end).tz('America/Sao_Paulo').calendar();
 
                             verboseEvents.push(actualEvent);
 

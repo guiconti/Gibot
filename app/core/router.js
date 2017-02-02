@@ -26,12 +26,13 @@ hbs  = require('express-handlebars');
 fs = require('fs');
 request = require('request');
 moment = require('moment');
+tz = require('moment-timezone');
 
 /** Modificando alguns valores do Locale */
 moment.defineLocale('pt-br', {
     parentLocale: 'pt-br',
     longDateFormat:{
-        L: 'DD/MM/YYYY H:MM'
+        L: '[em] DD/MM/YYYY H:MM'
     }
 });
 moment.locale('pt-br');
