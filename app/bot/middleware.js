@@ -21,7 +21,7 @@ exports.authOwner = (userId) => {
         try {
 
             /**  Verifica se o userId dado é igual ao Id do dono do Telegram */
-            return userId == ownerTelegramId?resolve(true):resolve(false);
+            return resolve(userId == ownerTelegramId);
 
         } catch(e) {
 

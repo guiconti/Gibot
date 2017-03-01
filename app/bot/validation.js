@@ -11,8 +11,8 @@
  */
 exports.isValidTrelloAction = (userRequest) => {
 
-    //  Por hora so considera request valido se tiver 3 argumentos ou mais
-    return userRequest.length > 2;
+    //  Por hora so considera request valido se tiver uma ação, o nome da board e o nome da lista
+    return userRequest.action && userRequest.boardName && userRequest.listName;
 
 };
 

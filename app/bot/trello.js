@@ -1,30 +1,26 @@
+var identifyAction = require('./trello/identifyAction.js').identifyAction;
+var listList = require('./trello/listList.js').listList;
+var insertCard = require('./trello/insertCard.js').insertCard;
+
 /**
  * Módulo de aplicação de ações do Trello
  * @module bot/trello
  */
-
-//  TODO: Melhorar isso
-/**
- * Array para as possíveis variações de cada ação no Trello.
- * @readonly
- * @const {string[]}
- */
-const listActions = ['liste','list','listar','lista'];
-const insertActions = ['insert','inserir','insere','insira'];
 
 /**
  * Valor que armaneza o prefixo a ser utilizado em toda a requisição do Trello.
  * @readonly
  * @const {string}
  */
-const TRELLO_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/trello/':'http://ec2-52-67-130-125.sa-east-1.compute.amazonaws.com:3101/trello/';
+TRELLO_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/trello/':'http://ec2-52-67-130-125.sa-east-1.compute.amazonaws.com:3101/trello/';
 
 /**
  * Enum para as possíveis ações no Trello.
+ * ISSO PRECISA SER GLOBAL MAS EU NAO QUERO QUE SEJA
  * @readonly
  * @enum {string}
  */
-var TrelloActions = {
+TrelloActions = {
 	LIST: 'list',
 	INSERT: 'insert'
 };
@@ -60,8 +56,17 @@ exports.executeTrelloAction = (msg, match) => {
 
             try {
 
+                var request = match[1].split(';');
+
                 /*  Quebra toda a requisição em um array separado por ";" */
-                resp = match[1].split(';');
+                resp = {
+                    
+                    action: request[0],
+                    boardName: request[1],
+                    listName: request[2],
+                    cardName: request[3]
+                    
+                };
             
             } catch (e) {
 
@@ -77,7 +82,7 @@ exports.executeTrelloAction = (msg, match) => {
             } else {
 
                 /*  Verificamos qual a ação solicitada, encaminhamos para a função da ação e enviamos a resposta */
-                switch (identifyAction(resp[0].toLowerCase().trim())) {
+                switch (identifyAction(resp.action.toLowerCase().trim())) {
 
                     case TrelloActions.LIST:
 
@@ -97,7 +102,7 @@ exports.executeTrelloAction = (msg, match) => {
 
                     case TrelloActions.INSERT:
 
-                        if (telegram.validation.isValidCard(resp[3])) {
+                        if (telegram.validation.isValidCard(resp.cardName)) {
                 
                             insertCard(resp).then(() => {
 
@@ -132,140 +137,3 @@ exports.executeTrelloAction = (msg, match) => {
 
 	});
 };
-
-/**
- * Identifica qual a ação solicitada no Trello.
- *
- * @param {string} action - Ação a ser verificada
- * @return {string} - Nome da ação normalizado para ser utilizado na requisição
- */
-function identifyAction(action) {
-
-    return _.contains(listActions, action)?TrelloActions.LIST:
-        _.contains(insertActions, action)?TrelloActions.INSERT:undefined;
-
-}
-
-/**
- * Executa a ação de listar no Trello utilizando as API de listagem.
- * Recebe uma requsição de lista enviada pelo Telegram e executa.
- *
- * @param {string[]} userRequest - Array com todas as informações da requisição (após o /t).
- * @return {Promise.string[]} - Uma promise que resolve todos os cards listados.
- * @throws {Error} - Rejeita a promise com o erro ocorrido
- */
-function listList(userRequest) {
-
-    return new Promise((resolve, reject) => {
-
-        var url;
-
-        try {
-
-            /*  Pega as informações da requisição */
-            var boardName = userRequest[1].trim();
-            var listName = userRequest[2].trim();
-
-            /*  Monta a URL para a requsição */
-            url = TRELLO_PREFIX + boardName + '/' + listName + '/' + TrelloActions.LIST;
-
-        } catch(e) {
-
-            return reject(e);
-
-        }
-
-        /*  Realiza chamada na API de listagem */
-        request.get({url: url}, (err, httpResponse, cardsNames) => {
-
-            try {
-
-                if (err){
-
-                    return reject(err);
-
-                } else {
-
-                    /*  Tratamos a resposta da API em JSON para um Objeto e enviamos a lista*/
-                    var cards = JSON.parse(cardsNames);
-
-                    if (!_.isArray(cards.msg)){
-
-                        return reject();
-
-                    } else {
-
-                        return resolve(cards);
-
-                    }
-
-                }
-
-            } catch (e) {
-
-                return reject(e);
-
-            }
-
-        }, (err) => {
-
-            return reject(err);
-
-        });
-    });
-}
-
-/**
- * Executa a ação de inserir no Trello utilizando as API de listagem.
- * Insere uma card enviada pelo Telegram e executa.
- *
- * @param {string[]} userRequest - Array com todas as informações da requisição (após o /t).
- * @return {Promise.NULL} - Uma promise que resolve caso o card seja inserido
- * @throws {Error} - Rejeita a promise com o erro ocorrido
- */
-function insertCard (userRequest) {
-
-    return new Promise((resolve, reject) => {
-
-        try {
-
-            /*  Pega as informações da requisição */
-            var boardName = userRequest[1].trim();
-            var listName = userRequest[2].trim();
-            var cardName = userRequest[3].trim();
-
-            /*  Monta a URL e form para a requsição */
-            var url = TRELLO_PREFIX + boardName + '/' + listName + '/' + TrelloActions.INSERT;
-
-            var cardForm = {
-                name: cardName
-            };
-
-        } catch(e) {
-
-            return reject(e);
-
-        }
-        
-        /*  Realiza chamada na API de inserção */
-        request.post({url: url, form: cardForm}, (err, httpResponse, insertCardJsonResponse) => {
-
-            if (err) {
-
-                return reject(err);
-
-            } else {
-
-                if (httpResponse.statusCode != 200) {
-
-                    return reject();
-
-                } else {
-
-                    return resolve();
-
-                }
-            }
-        });
-    });
-}
