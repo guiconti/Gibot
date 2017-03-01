@@ -1,3 +1,8 @@
+/**
+ * Módulo para identificar ações do Trello
+ * @module bot/trello/identifyAction
+ */
+
 //  TODO: Melhorar isso
 /**
  * Array para as possíveis variações de cada ação no Trello.
@@ -18,4 +23,4 @@ exports.identifyAction = (action) => {
     return _.contains(listActions, action)?TrelloActions.LIST:
         _.contains(insertActions, action)?TrelloActions.INSERT:undefined;
 
-}
+};

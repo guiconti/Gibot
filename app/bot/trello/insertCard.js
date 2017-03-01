@@ -1,4 +1,9 @@
 /**
+ * Módulo para inserir cards no Trello
+ * @module bot/trello/inserCard
+ */
+
+/**
  * Executa a ação de inserir no Trello utilizando as API de listagem.
  * Insere uma card enviada pelo Telegram e executa.
  *
@@ -46,4 +51,4 @@ exports.insertCard = (userRequest) => {
             }
         });
     });
-}
+};

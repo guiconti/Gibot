@@ -37,7 +37,7 @@ exports.isValidCard = (card) => {
 exports.isValidGmailAction = (userRequest) => {
 
     //  Por hora so considera request valido se tiver 1 argumento ou mais
-    return userRequest.length >= 1;
+    return userRequest.action;
 
 };
 

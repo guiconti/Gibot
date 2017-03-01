@@ -1,4 +1,9 @@
 /**
+ * Módulo para listar cards de uma lista do Trello
+ * @module bot/trello/listList
+ */
+
+/**
  * Executa a ação de listar no Trello utilizando as API de listagem.
  * Recebe uma requsição de lista enviada pelo Telegram e executa.
  *
@@ -61,4 +66,4 @@ exports.listList = (userRequest) => {
 
         });
     });
-}
+};
