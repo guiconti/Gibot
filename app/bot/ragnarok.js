@@ -73,14 +73,14 @@ exports.executeRagnarokAction = (msg, match) => {
 
                 listMvpTimer(resp).then((timers) => {
 
-                    if (timers.length === 0){
+                    if (timers){
 
                         /** TODO: Melhorar essa resposta */
-                        return bot.sendMessage(chatId, 'Você não possui nenhum tempo de mvp.');
+                        return bot.sendMessage(chatId, 'Não foi possível pegar o horário dos MVPs.');
 
                     } else {
 
-                        return bot.sendMessage(chatId, timers.join('\n\n'));
+                        return bot.sendMessage(chatId, timers);
 
                     }
 
