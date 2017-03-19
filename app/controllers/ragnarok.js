@@ -7,6 +7,12 @@
 /** global tz:true */
 
 /**
+ * Importa a lista de MVPs
+ */
+var mvpList = require(process.cwd() + '/app/utils/mvpEnum');
+var mvpTimers = [];
+
+/**
  * Insere um novo timer de MVP.
  *
  * @param {express.app.req} req - Informações sobre a requisição da API fornecida pelo express.
@@ -17,7 +23,48 @@
  */
 exports.insertMvpTimer = (req, res) => {
 
-    res.status(200).json({msg: 'Insert'});
+    var body = _.pick(req.body, 'mvpName', 'killTime');
+
+    if (!validation.isValidString(body.mvpName)) {
+
+        return res.status(400).json({
+            msg: 'Insira um nome de MVP.'
+        });
+
+    } else if(!validation.isValidTime(body.killTime)) {
+
+        return res.status(400).json({
+            msg: 'Data em forma incorreta. A data tem que estar no formato HH:MM/H:MM'
+        });
+
+    } else {
+
+        var mvpInfo = getMvpInfo(body.mvpName.toLowerCase());
+
+        if (mvpInfo) {
+
+            var newMvpTime = {
+                mvpName: mvpInfo.name,
+                mvpTime: fixMvpTime(body.killTime, mvpInfo.hours, mvpInfo.minutes)
+            };
+
+            var message = 'Time do MVP ' + newMvpTime.mvpName + ' foi inserido. O seu próximo respawn ocorrerá às ' + newMvpTime.mvpTime;
+
+            mvpTimers.push(newMvpTime);
+
+            return res.status(200).json({
+                msg: message
+            });
+
+        } else {
+
+            return res.status(400).json({
+                msg: 'Nome do MVP não se encontra na lista'
+            });
+
+        }
+
+    }
 
 };
 
@@ -29,6 +76,22 @@ exports.insertMvpTimer = (req, res) => {
  */
 exports.listMvpTimer = (req, res) => {
 
-    res.status(200).json({msg: 'Timer!'});
+    return res.status(200).json({msg: 'Timer!'});
 
 };
+
+function getMvpInfo (userMvpName) {
+
+    return mvpList.find((mvp) => {
+
+        return mvp.namePossibilities.includes(userMvpName);
+
+    });
+
+}
+
+function fixMvpTime (userMvpTime, mvpRespawnTimeHour, mvpRespawnTimeMinutes) {
+
+    return moment(userMvpTime, 'hh:mm').add({hours: mvpRespawnTimeHour, minutes: mvpRespawnTimeMinutes}).format('LT');
+
+}

@@ -25,7 +25,7 @@ exports.isValidNumber = (number) => {
 /**
  * Valida se o nome da card a ser inserida solicitada pelo usuário é válida
  *
- * @param {date} date - Data a ser validada no forma DD-MM-YYYY
+ * @param {date} date - Data a ser validada no formato DD-MM-YYYY
  * @return {boolean} - True para uma data válida e false caso contrário.
  */
 exports.isValidDate = (date) => {
@@ -33,3 +33,16 @@ exports.isValidDate = (date) => {
     return moment(date, 'DD-MM-YYYY').isValid();
 
 };
+
+/**
+ * Valida se o um horário está no formato correto
+ *
+ * @param {time} time - Horário a ser validada no forma HH:MM
+ * @return {boolean} - True para um horário válido e false caso contrário.
+ */
+exports.isValidTime = (time) => {
+
+    return moment(time, 'hh:mm').isValid();
+
+};
+

@@ -6,6 +6,7 @@
 /** global auth:true*/
 /** global moment:true */
 /** global tz:true */
+/** global validation:true */
 
 /** Módulo do google API que será utilizado para todas as requisições do gmail */
 var google = require('googleapis');
