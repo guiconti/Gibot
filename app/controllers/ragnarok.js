@@ -44,11 +44,11 @@ exports.insertMvpTimer = (req, res) => {
         if (mvpInfo) {
 
             var newMvpTime = {
-                mvpName: mvpInfo.name,
-                mvpTime: fixMvpTime(body.killTime, mvpInfo.hours, mvpInfo.minutes)
+                name: mvpInfo.name,
+                time: fixMvpTime(body.killTime, mvpInfo.hours, mvpInfo.minutes)
             };
 
-            var message = 'Time do MVP ' + newMvpTime.mvpName + ' foi inserido. O seu próximo respawn ocorrerá às ' + newMvpTime.mvpTime;
+            var message = 'Time do MVP ' + newMvpTime.name + ' foi inserido. O seu próximo respawn ocorrerá às ' + newMvpTime.time;
 
             mvpTimers.push(newMvpTime);
 
@@ -76,7 +76,21 @@ exports.insertMvpTimer = (req, res) => {
  */
 exports.listMvpTimer = (req, res) => {
 
-    return res.status(200).json({msg: 'Timer!'});
+    var message = 'Lista de MVPs a respawnar\n';
+
+    mvpTimers = mvpTimers.filter((mvp) => {
+
+        return moment(mvp.time, 'hh:mm').add('11', 'minutes').isAfter(moment());
+
+    });
+
+    mvpTimers.forEach((mvp) => {
+
+        message += '\n\nMVP: ' + mvp.name + '\nRespawn: ' + mvp.time;
+
+    });
+
+    return res.status(200).json({msg: message});
 
 };
 
