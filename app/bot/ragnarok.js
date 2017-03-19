@@ -1,6 +1,6 @@
-var identifyCation = require('./ragnarok/identifyAction.js').identifyAction;
+var identifyAction = require('./ragnarok/identifyAction.js').identifyAction;
 var listMvpTimer = require('./ragnarok/listMvpTimer.js').listMvpTimer;
-var inserMvpTimer = require('./ragnarok/inserMvpTimer.js').inserMvpTimer;
+var inserMvpTimer = require('./ragnarok/insertMvpTimer.js').inserMvpTimer;
 
 /**
  * Módulo de ações do Ragnarok

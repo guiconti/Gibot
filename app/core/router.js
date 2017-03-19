@@ -85,7 +85,7 @@ app.get('/gmail/list', controllers.gmail.listEvents);
 
 /*  Rag APIs    */
 app.get('/ragnarok/mvp/list', controllers.ragnarok.listMvpTimer);
-app.post('/ragnarok/mvp/insert', controllers.ragnarok.inserMvpTimer);
+app.post('/ragnarok/mvp/insert', controllers.ragnarok.insertMvpTimer);
 
 app.listen(PORT, () => {
     console.log('Server is functional on ' + PORT + ' port on ' + process.env.NODE_ENV + " environment.");
