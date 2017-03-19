@@ -72,3 +72,16 @@ exports.isValidDate = (date) => {
     }
 
 };
+
+/**
+ * Valida se a requisição do usuário para uma função no Ragnarok é válida.
+ *
+ * @param {string[]} userRequest - Todos os parâmetros da ação do Ragnarok requisitado pelo usário.
+ * @return {boolean} - True para uma ação do Ragnarok válida e false caso contrário.
+ */
+exports.isValidRagnarokAction = (userRequest) => {
+
+    //  Por hora so considera request valido se tiver 1 argumento ou mais
+    return userRequest.action;
+
+};

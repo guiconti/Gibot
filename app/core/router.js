@@ -80,8 +80,12 @@ app.get('/trello/:boardName/:listName/list', controllers.trello.showList);
 app.post('/telegram/message/owner', controllers.telegram.sendMessageToOwner);
 app.post('/telegram/message/chat', controllers.telegram.sendMessageToChat);
 
-/**  Gmail APIs */
+/*  Gmail APIs  */
 app.get('/gmail/list', controllers.gmail.listEvents);
+
+/*  Rag APIs    */
+app.get('/ragnarok/mvp/list', controllers.ragnarok.listMvpTimer);
+app.post('/ragnarok/mvp/insert', controllers.ragnarok.inserMvpTimer);
 
 app.listen(PORT, () => {
     console.log('Server is functional on ' + PORT + ' port on ' + process.env.NODE_ENV + " environment.");

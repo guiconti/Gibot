@@ -33,6 +33,11 @@ bot.onText(/\/trello (.+)/i, telegram.trello.executeTrelloAction);
 bot.onText(/\/g (.+)/i, telegram.gmail.executeGmailAction);
 bot.onText(/\/gmail (.+)/i, telegram.gmail.executeGmailAction);
 
+/** Captura de ações do Ragnarok. Ativada por /r "comando" ou /ragnarok "comando" 
+ * Aplica um regex na mensagem /r ou /ragnarok e caso a regex der match envia o pedido para o módulo do ragnarok.  */
+bot.onText(/\/r (.+)/i, telegram.ragnarok.executeRagnarokAction);
+bot.onText(/\/ragnarok (.+)/i, telegram.ragnarok.executeRagnarokAction);
+
 /*bot.on('message', function (msg) {
 
 	console.log(msg);
