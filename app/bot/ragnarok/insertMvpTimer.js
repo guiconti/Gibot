@@ -35,13 +35,13 @@ exports.insertMvpTimer = (userRequest) => {
 
                 } else {
 
+                    var message = JSON.parse(insertMvpJsonResponse);
+
                     if (httpResponse.statusCode != 200) {
 
-                        return reject();
+                        return reject(message.msg);
 
                     } else {
-
-                        var message = JSON.parse(insertMvpJsonResponse);
 
                         if (message.msg) {
 
@@ -58,7 +58,7 @@ exports.insertMvpTimer = (userRequest) => {
 
         } catch (e) {
 
-            return reject(e);
+            return reject();
 
         }
 

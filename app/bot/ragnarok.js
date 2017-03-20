@@ -92,6 +92,18 @@ exports.executeRagnarokAction = (msg, match) => {
 
                         return bot.sendMessage(chatId, message);
 
+                    }, (err) => {
+
+                        if (err) {
+
+                            return bot.sendMessage(chatId, err);
+
+                        } else {
+
+                            return bot.sendMessage(chatId, 'Ocorreu um erro ao inserir o timer do MVP.');
+
+                        }
+
                     });
 
                 } else {
