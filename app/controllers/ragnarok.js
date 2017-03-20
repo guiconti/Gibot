@@ -49,7 +49,8 @@ exports.insertMvpTimer = (req, res) => {
 
             var newMvpTime = {
                 name: mvpInfo.name,
-                time: fixMvpTime(body.killTime, mvpInfo.hours, mvpInfo.minutes)
+                time: fixMvpTime(body.killTime, mvpInfo.hours, mvpInfo.minutes),
+                auxTime: auxMvpTime(body.killTime, mvpInfo.hours, mvpInfo.minutes)
             };
 
             var message = 'Time do MVP ' + newMvpTime.name + ' foi inserido. O seu próximo respawn ocorrerá às ' + newMvpTime.time;
@@ -82,13 +83,13 @@ exports.listMvpTimer = (req, res) => {
 
     mvpTimers = mvpTimers.filter((mvp) => {
 
-        return moment(mvp.time, 'hh:mm').add('11', 'minutes').isAfter(moment());
+        return moment(mvp.auxTime).add('11', 'minutes').isAfter(moment());
 
     });
 
     mvpTimers.sort((mvpA, mvpB) => {
 
-        return moment(mvpA.time, 'hh:mm').isAfter(moment(mvpB.time, 'hh:mm'))?1:-1;
+        return moment(mvpA.auxTime).isAfter(moment(mvpB.auxTime))?1:-1;
 
     });
 
@@ -123,5 +124,19 @@ function getMvpInfo (userMvpName) {
 function fixMvpTime (userMvpKillTime, mvpRespawnTimeHour, mvpRespawnTimeMinutes) {
 
     return moment(userMvpKillTime, 'hh:mm').add({hours: mvpRespawnTimeHour, minutes: mvpRespawnTimeMinutes}).format('LT');
+
+}
+
+/**
+ * Cria um horário auxiliar para gerenciar as datas
+ *
+ * @param {string} userMvpKillTime - Momento da morte do MVP
+ * @param {string} mvpRespawnTimeHour - Horas de respawn do MVP
+ * @param {string} mvpRespawnTimeMinutes - Minutos de respawn do MVP
+ * @return {TIME} - Retorna o horário de próximo respawn do MVP
+ */
+function auxMvpTime (userMvpKillTime, mvpRespawnTimeHour, mvpRespawnTimeMinutes) {
+
+    return moment(userMvpKillTime, 'hh:mm').add({hours: mvpRespawnTimeHour, minutes: mvpRespawnTimeMinutes})
 
 }
