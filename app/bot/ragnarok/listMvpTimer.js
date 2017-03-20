@@ -19,42 +19,41 @@ exports.listMvpTimer = () => {
 
         try {
 
-        var url =  RAGNAROK_PREFIX + LIST_SUFFIX;
+            var url =  RAGNAROK_PREFIX + LIST_SUFFIX;
 
-        request.get({url: url}, (err, httpResponse, body) => {
+            request.get({url: url}, (err, httpResponse, body) => {
 
-            if (err) {
+                if (err) {
 
-                return reject (err);
-
-            } else {
-
-                var mvpTimers = JSON.parse(body);
-
-                if (!_.isArray(mvpTimers.msg)){
-
-                    return reject();
-
-                } else if (mvpTimers.msg.length == 0){
-
-                    return resolve('Não há respawn de MVPs conhecidos ativos no momento.');
+                    return reject (err);
 
                 } else {
 
-                    var message = 'Lista de MVPs a respawnar';
+                    var mvpTimers = JSON.parse(body);
 
-                    mvpTimers.msg.forEach((mvp) => {
+                    if (!_.isArray(mvpTimers.msg)){
 
-                        message += '\n\nMVP: ' + mvp.name + '\nRespawn: ' + mvp.time;
-                        console.log('olar');
+                        return reject();
 
-                    });
+                    } else if (mvpTimers.msg.length == 0){
 
-                    return resolve(message);
+                        return resolve('Não há respawn de MVPs conhecidos ativos no momento.');
 
-                } 
-            }
-        });
+                    } else {
+
+                        var message = 'Lista de MVPs a respawnar';
+
+                        mvpTimers.msg.forEach((mvp) => {
+
+                            message += '\n\nMVP: ' + mvp.name + '\nRespawn: ' + mvp.time;
+
+                        });
+
+                        return resolve(message);
+
+                    } 
+                }
+            });
 
         } catch (e) {
 

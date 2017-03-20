@@ -1,6 +1,6 @@
 var identifyAction = require('./ragnarok/identifyAction.js').identifyAction;
 var listMvpTimer = require('./ragnarok/listMvpTimer.js').listMvpTimer;
-var inserMvpTimer = require('./ragnarok/insertMvpTimer.js').inserMvpTimer;
+var insertMvpTimer = require('./ragnarok/insertMvpTimer.js').insertMvpTimer;
 
 /**
  * Módulo de ações do Ragnarok
@@ -86,11 +86,19 @@ exports.executeRagnarokAction = (msg, match) => {
 
             case RagnarokActions.INSERT:
 
-                inserMvpTimer(resp).then((mvpTimer) => {
+                if (telegram.validation.isValidMvpInfo(resp)) {
+            
+                    insertMvpTimer(resp).then((message) => {
 
-                    return bot.sendMessage(chatId, mvpTimer);
+                        return bot.sendMessage(chatId, message);
 
-                });
+                    });
+
+                } else {
+
+                    return bot.sendMessage(chatId, 'As informações do MVP não estão no formato incorreto. As informações devem ser enviadas como /r insert;"Nome do MVP";"Horário da morte em hh:mm"');
+
+                }
 
                 break;
 

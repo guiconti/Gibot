@@ -3,6 +3,8 @@
  * @module bot/ragnarok/insertMvpTimer
  */
 
+var INSERT_SUFFIX = 'mvp/insert';
+
 /**
  * Insere um timer de mvp enviada pelo Telegram e executa.
  *
@@ -14,7 +16,51 @@ exports.insertMvpTimer = (userRequest) => {
 
     return new Promise((resolve, reject) => {
 
-        
+        try {
+
+            /*  Monta a URL e form para a requsição */
+            var url = RAGNAROK_PREFIX + INSERT_SUFFIX;
+
+            var mvpForm = {
+                mvpName: userRequest.mvpName.trim(),
+                killTime: userRequest.killTime.trim()
+            };
+
+             /*  Realiza chamada na API de inserção */
+            request.post({url: url, form: mvpForm}, (err, httpResponse, insertMvpJsonResponse) => {
+
+                if (err) {
+
+                    return reject(err);
+
+                } else {
+
+                    if (httpResponse.statusCode != 200) {
+
+                        return reject();
+
+                    } else {
+
+                        var message = JSON.parse(insertMvpJsonResponse);
+
+                        if (message.msg) {
+
+                            return resolve(message.msg);
+
+                        } else {
+
+                            return resolve('Timer do MVP inserido!');
+                            
+                        }
+                    }
+                }
+            });
+
+        } catch (e) {
+
+            return reject(e);
+
+        }
 
     });
 

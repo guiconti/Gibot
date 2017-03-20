@@ -85,3 +85,24 @@ exports.isValidRagnarokAction = (userRequest) => {
     return userRequest.action;
 
 };
+
+/**
+ * Valida se a requisição para inserção de timer do MVP é válida.
+ *
+ * @param {string[]} userRequest - Todos os parâmetros da ação do Ragnarok requisitado pelo usário.
+ * @return {boolean} - True para uma ação do Ragnarok válida e false caso contrário.
+ */
+exports.isValidMvpInfo = (userRequest) => {
+
+    try {
+
+        //  Verifica se o nome é válido e o horário é válido
+        return (userRequest.mvpName.trim().length > 0 && moment(userRequest.killTime.trim(), 'hh:mm').isValid());
+
+    } catch (e) { 
+
+        return false;
+
+    }
+
+};
