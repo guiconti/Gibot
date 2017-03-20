@@ -12,7 +12,7 @@ var inserMvpTimer = require('./ragnarok/insertMvpTimer.js').inserMvpTimer;
  * @readonly
  * @const {string}
  */
-RAGAROK_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/ragnarok/':'http://ec2-52-67-130-125.sa-east-1.compute.amazonaws.com:3101/ragnarok/';
+RAGNAROK_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/ragnarok/':'http://ec2-52-67-130-125.sa-east-1.compute.amazonaws.com:3101/ragnarok/';
 
 /**
  * Enum para as possíveis ações no Ragnarok.
@@ -71,23 +71,14 @@ exports.executeRagnarokAction = (msg, match) => {
 
             case RagnarokActions.LIST:
 
-                listMvpTimer(resp).then((timers) => {
+                listMvpTimer().then((mvpTimers) => {
 
-                    if (timers){
-
-                        /** TODO: Melhorar essa resposta */
-                        return bot.sendMessage(chatId, 'Não foi possível pegar o horário dos MVPs.');
-
-                    } else {
-
-                        return bot.sendMessage(chatId, timers);
-
-                    }
+                    return bot.sendMessage(chatId, mvpTimers);
 
                 }, (err) => {
 
                     //	TODO: Melhorar isso
-                    return bot.sendMessage(chatId, 'Você não possui acesso a essa funcionalidade.');
+                    return bot.sendMessage(chatId, 'Erro ao listar os timers dos MVPs.');
 
                 });
 

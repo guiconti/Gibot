@@ -86,6 +86,12 @@ exports.listMvpTimer = (req, res) => {
 
     });
 
+    mvpTimers.sort((mvpA, mvpB) => {
+
+        return moment(mvpA.time, 'hh:mm').isAfter(moment(mvpB.time, 'hh:mm'))?1:-1;
+
+    });
+
     return res.status(200).json({msg: mvpTimers});
 
 };
