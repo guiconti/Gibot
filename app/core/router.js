@@ -87,6 +87,10 @@ app.get('/gmail/list', controllers.gmail.listEvents);
 app.get('/ragnarok/mvp/list', controllers.ragnarok.listMvpTimer);
 app.post('/ragnarok/mvp/insert', controllers.ragnarok.insertMvpTimer);
 
+/*  Bitcoin APIs */
+app.get('/bitcoin/rate', controllers.bitcoin.bitcoinExchangeRates);
+app.get('/bitcoin/rate/:currency', controllers.bitcoin.bitcoinExchangeRates);
+
 app.listen(PORT, () => {
     console.log('Server is functional on ' + PORT + ' port on ' + process.env.NODE_ENV + " environment.");
 });
