@@ -76,7 +76,7 @@ exports.executeIoTAction = (msg, match) => {
                 /*  Verificamos qual a ação solicitada, encaminhamos para a função da ação e enviamos a resposta */
                 switch (identifyAction(resp.action.toLowerCase().trim())) {
 
-                    case GmailActions.PHOTO:
+                    case IoTActions.PHOTO:
 
                         getPhoto(resp).then(() => {
 
@@ -86,14 +86,14 @@ exports.executeIoTAction = (msg, match) => {
                         }, (err) => {
 
                             //	TODO: Melhorar isso
-                            return bot.sendMessage(chatId, 'Você não possui acesso ao calendário.');
+                            return bot.sendMessage(chatId, 'A API da foto não se encontra disponível.');
 
                         });
 
                         break;
 
                     default:
-                        return bot.sendMessage(chatId, 'Essa ação não é válida. Por enquanto eu sei apenas listar.');
+                        return bot.sendMessage(chatId, 'Essa ação não é válida. Por enquanto eu sei apenas tirar fotos.');
                         break;
 
                 }

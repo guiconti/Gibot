@@ -19,6 +19,6 @@ const photoActions = ['photo','foto','imagem','quarto','fotinho','fot','phot','p
  */
 exports.identifyAction = (action) => {
 
-    return _.contains(photoActions, action)?GmailActions.PHOTO:undefined;
+    return _.contains(photoActions, action)?IoTActions.PHOTO:undefined;
 
 };
