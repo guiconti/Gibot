@@ -38,6 +38,11 @@ bot.onText(/\/gmail (.+)/i, telegram.gmail.executeGmailAction);
 bot.onText(/\/r (.+)/i, telegram.ragnarok.executeRagnarokAction);
 bot.onText(/\/ragnarok (.+)/i, telegram.ragnarok.executeRagnarokAction);
 
+/** Ações de IOT
+ * Aplica um regex na mensagem /i ou /iot e caso a regex der match envia o pedido para o módulo do iot.  */
+bot.onText(/\/i (.+)/i, telegram.iot.executeIoTAction);
+bot.onText(/\/iot (.+)/i, telegram.iot.executeIoTAction);
+
 /*bot.on('message', function (msg) {
 
 	console.log(msg);

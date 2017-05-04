@@ -106,3 +106,16 @@ exports.isValidMvpInfo = (userRequest) => {
     }
 
 };
+
+/**
+ * Valida se a requisição do usuário para uma função no IoT é válida.
+ *
+ * @param {string[]} userRequest - Todos os parâmetros da ação do IoT requisitado pelo usário.
+ * @return {boolean} - True para uma ação do IoT válida e false caso contrário.
+ */
+exports.isValidIoTAction = (userRequest) => {
+
+    //  Por hora so considera request valido se tiver 1 argumento ou mais
+    return userRequest.action;
+
+};

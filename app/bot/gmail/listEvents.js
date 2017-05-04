@@ -11,7 +11,7 @@
  * @return {Promise.string[]} - Uma promise que resolve todos os cards listados.
  * @throws {Error} - Rejeita a promise com o erro ocorrido
  */
-exports.listEvents= (userRequest) => {
+exports.listEvents = (userRequest) => {
 
     return new Promise((resolve, reject) => {
 
