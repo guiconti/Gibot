@@ -23,25 +23,29 @@ fs.readdirSync(telegramPath).forEach( (file) => {
     }
 });
 
+/** 
+
 /** Captura de ações do Trello. Ativada por /t "comando" ou /trello "comando" 
- * Aplica um regex na mensagem /t ou /trello e caso a regex der match envia o pedido para o módulo do trello.  */
+ * Aplica um regex na mensagem /t ou /trello e caso a regex der match envia o pedido para o módulo do trello.  /
 bot.onText(/\/t (.+)/i, telegram.trello.executeTrelloAction);
 bot.onText(/\/trello (.+)/i, telegram.trello.executeTrelloAction);
 
 /** Captura de ações do Gmail. Ativada por /g "comando" ou /gmail "comando" 
- * Aplica um regex na mensagem /g ou /gmail e caso a regex der match envia o pedido para o módulo do gmail.  */
+ * Aplica um regex na mensagem /g ou /gmail e caso a regex der match envia o pedido para o módulo do gmail.  /
 bot.onText(/\/g (.+)/i, telegram.gmail.executeGmailAction);
 bot.onText(/\/gmail (.+)/i, telegram.gmail.executeGmailAction);
 
 /** Captura de ações do Ragnarok. Ativada por /r "comando" ou /ragnarok "comando" 
- * Aplica um regex na mensagem /r ou /ragnarok e caso a regex der match envia o pedido para o módulo do ragnarok.  */
+ * Aplica um regex na mensagem /r ou /ragnarok e caso a regex der match envia o pedido para o módulo do ragnarok.  /
 bot.onText(/\/r (.+)/i, telegram.ragnarok.executeRagnarokAction);
 bot.onText(/\/ragnarok (.+)/i, telegram.ragnarok.executeRagnarokAction);
 
 /** Ações de IOT
- * Aplica um regex na mensagem /i ou /iot e caso a regex der match envia o pedido para o módulo do iot.  */
+ * Aplica um regex na mensagem /i ou /iot e caso a regex der match envia o pedido para o módulo do iot.  /
 bot.onText(/\/i (.+)/i, telegram.iot.executeIoTAction);
 bot.onText(/\/iot (.+)/i, telegram.iot.executeIoTAction);
+
+*/
 
 /*bot.on('message', function (msg) {
 
