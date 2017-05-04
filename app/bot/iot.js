@@ -78,18 +78,21 @@ exports.executeIoTAction = (msg, match) => {
 
                     case IoTActions.PHOTO:
 
-                        getPhoto(resp).then(() => {
+                        if(process.env.NODE_ENV=='development'){
 
-                            return bot.sendPhoto(chatId, process.cwd() + '/image/room.jpg');
-                            //return bot.sendPhoto(chatId, 'http://localhost:3102/api/images/room.jpg');
+                            getPhoto(resp).then(() => {
 
-                        }, (err) => {
+                                return bot.sendPhoto(chatId, process.cwd() + '/image/room.jpg');
+                                //return bot.sendPhoto(chatId, 'http://localhost:3102/api/images/room.jpg');
 
-                            //	TODO: Melhorar isso
-                            return bot.sendMessage(chatId, 'A API da foto não se encontra disponível.');
+                            }, (err) => {
 
-                        });
+                                //	TODO: Melhorar isso
+                                return bot.sendMessage(chatId, 'A API da foto não se encontra disponível.');
 
+                            });
+                        }
+                 
                         break;
 
                     default:
