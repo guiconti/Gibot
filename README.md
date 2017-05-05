@@ -208,3 +208,32 @@ Resposta
   ]
 }
 ```
+
+## 4. IoT
+
+O Gibot também ajuda você a controlar a sua casa!
+As seguintes funcionalidades possuem alguma integração com aparelhos locais que você pode colocar na sua própria casa.
+Para utilizar as funcionalidades do IoT pelo Gibot no Telegram use sempre o prefixo /i ou /iot seguido do comando.
+
+No momento o Gibot consegue realizar a função de *foto*.
+
+### 4.1. Foto
+
+Essa funcionalidade retorna uma foto de um local específico do seu IoT. No caso será usado um raspberry pi com uma câmera  que será responsável por tirar a foto e enviar para o nosso bot.
+
+#### Tirando uma foto pelo telegram
+
+Para tirar uma nova foto é muito simples, basta enviar para o bot.
+
+```
+/i photo
+```
+
+Imediatamente o bot enviará uma foto do seu IoT. No caso deste teste o IoT irá tirar uma nova foto no exato momento que o pedido chegar.
+
+Exemplo:
+![Exemplo Foto Telegram](https://i.imgur.com/gXiRgFn.png)
+
+#### Tirando uma foto pela API
+
+O módulo de fotos está desprendido do Gibot. Você pode desenvolver a sua própria API de foto dentro do Gibot e fazer com que ela acesse a câmera que deseja manusear, entretanto por hora essa API ficará em uma outra aplicação pois possui um escopo diferente da proposta do Gibot.
