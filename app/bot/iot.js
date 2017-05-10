@@ -11,7 +11,7 @@ var getPhoto = require('./iot/getPhoto.js').getPhoto;
  * @readonly
  * @const {string}
  */
-IOT_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3102/api/':'http://ec2-52-67-130-125.sa-east-1.compute.amazonaws.com:3102/api/';
+IOT_PREFIX = 'http://189.0.124.176:3102/api/';
 
 /**
  * Enum para as possíveis ações no Gmail.

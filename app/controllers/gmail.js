@@ -126,5 +126,3 @@ function listDayEvents(initialDate, finalDate) {
         
     });
 }
-
-
