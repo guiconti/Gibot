@@ -5,6 +5,8 @@
 
 var app = express();
 var bodyParser = require('body-parser');
+var multer = require('multer');
+var upload = multer({dest: 'uploads/'});
 
 //  GLOBAL VARIABLES
 PORT = process.env.PORT || 3101;
@@ -79,6 +81,8 @@ app.get('/trello/:boardName/:listName/list', controllers.trello.showList);
 //  Telegram APIs
 app.post('/telegram/message/owner', controllers.telegram.sendMessageToOwner);
 app.post('/telegram/message/chat', controllers.telegram.sendMessageToChat);
+app.post('/telegram/photo/owner', upload.single('image'), controllers.telegram.sendPhotoToOwner);
+app.post('/telegram/photo/chat', upload.single('image'), controllers.telegram.sendPhotoToChat);
 
 /*  Gmail APIs  */
 app.get('/gmail/list', controllers.gmail.listEvents);

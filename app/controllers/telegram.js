@@ -60,7 +60,13 @@ exports.sendMessageToChat = (req, res) => {
             });
 
         });
-
     }
-
 };
+
+exports.sendPhotoToOwner = (req, res) => {
+    res.status(200).json({msg: 'ok'});
+}
+
+exports.sendPhotoToChat = (req, res) => {
+    res.status(200).json({msg: 'ok'});
+}
