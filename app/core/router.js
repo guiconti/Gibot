@@ -6,7 +6,10 @@
 var app = express();
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var upload = multer({dest: 'uploads/'});
+var validMimetypes = ['image/jpeg', 'image/png', 'image/bmp', 'image/gif'];
+var upload = multer({dest: 'uploads/', fileFilter: function(req, file, cb){
+    return cb(null, validMimetypes.indexOf(file.mimeType));
+}});
 
 //  GLOBAL VARIABLES
 PORT = process.env.PORT || 3101;
