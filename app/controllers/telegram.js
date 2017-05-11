@@ -64,9 +64,56 @@ exports.sendMessageToChat = (req, res) => {
 };
 
 exports.sendPhotoToOwner = (req, res) => {
-    res.status(200).json({msg: 'ok'});
+
+    if (!req.file){
+
+        return res.status(400).json({
+            msg: 'No image was sent.'
+        });
+
+    } else {
+
+        const buffer = fs.readFileSync(process.cwd() + '/' + req.file.path);
+
+        bot.sendPhoto(ownerChatId, buffer);
+        res.status(200).json({
+            msg: 'ok'
+        });
+
+    }
+    
 }
 
 exports.sendPhotoToChat = (req, res) => {
-    res.status(200).json({msg: 'ok'});
+
+    if (!req.file){
+
+        return res.status(400).json({
+            msg: 'No image was sent.'
+        });
+
+    } else {
+
+        var body = _.pick(req.body, 'chatId');
+
+        if (!_.isNumber(parseInt(body.chatId))) {
+
+            return res.status(400).json({
+                msg: 'Not a valid chat id.'
+            });
+
+        } else {
+
+            var chatId = parseInt(body.chatId);
+
+            const buffer = fs.readFileSync(process.cwd() + '/' + req.file.path);
+            bot.sendPhoto(ownerChatId, buffer);
+
+            return res.status(200).json({
+                msg: 'ok'
+            });
+            
+        }
+
+    }
 }

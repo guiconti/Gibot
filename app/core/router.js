@@ -7,7 +7,19 @@ var app = express();
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var validMimetypes = ['image/jpeg', 'image/png', 'image/bmp', 'image/gif'];
-var upload = multer({dest: 'uploads/', fileFilter: function(req, file, cb){
+
+
+//  TODO: Make the filename extension better
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        return cb(null, 'uploads');
+    },
+    filename: function (req, file, cb) {
+        return cb(null, Date.now() + '.' + 'jpg');
+    }
+});
+
+var upload = multer({storage: storage, fileFilter: function(req, file, cb){
     return cb(null, validMimetypes.indexOf(file.mimeType));
 }});
 
