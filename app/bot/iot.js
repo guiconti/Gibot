@@ -11,7 +11,7 @@ var getPhoto = require('./iot/getPhoto.js').getPhoto;
  * @readonly
  * @const {string}
  */
-IOT_PREFIX = 'http://189.0.124.176:3102/api/';
+IOT_PREFIX = 'http://187.10.224.235:3102/';
 
 /**
  * Enum para as possíveis ações no Gmail.
@@ -19,7 +19,7 @@ IOT_PREFIX = 'http://189.0.124.176:3102/api/';
  * @enum {string}
  */
 IoTActions = {
-	PHOTO: 'photo'
+	PHOTO: 'cam'
 };
 
 /**
@@ -78,21 +78,19 @@ exports.executeIoTAction = (msg, match) => {
 
                     case IoTActions.PHOTO:
 
-                        if(process.env.NODE_ENV=='development'){
+                        getPhoto(resp).then(() => {
 
-                            getPhoto(resp).then(() => {
+                            return bot.sendPhoto(chatId, process.cwd() + '/image/room.jpg');
+                            //console.log('a');
+                            //return bot.sendPhoto(chatId, 'http://187.10.224.235:3102/cam');
 
-                                return bot.sendPhoto(chatId, process.cwd() + '/image/room.jpg');
-                                //return bot.sendPhoto(chatId, 'http://localhost:3102/api/images/room.jpg');
+                        }, (err) => {
 
-                            }, (err) => {
+                            //TODO: Melhorar isso
+                            return bot.sendMessage(chatId, 'A API da foto não se encontra disponível.');
 
-                                //	TODO: Melhorar isso
-                                return bot.sendMessage(chatId, 'A API da foto não se encontra disponível.');
+                        });
 
-                            });
-                        }
-                 
                         break;
 
                     default:

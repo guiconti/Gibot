@@ -30,7 +30,7 @@ exports.getPhoto = (userRequest) => {
         //request.get({url: url}, (err, httpResponse, image) => {
         request(url).pipe(fs.createWriteStream(process.cwd() + '/image/room.jpg')).on('close', function(){
 
-                return resolve();
+            return resolve();
 
         });
 
