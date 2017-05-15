@@ -18,21 +18,25 @@ exports.getPhoto = (userRequest) => {
         try {
 
             /*  Monta a URL para a requsição */
-            var url = IOT_PREFIX + IoTActions.PHOTO;
+            var url = IOT_PREFIX + IoTActions.PHOTO;    
+
+            /*  Realiza chamada na API de listagem */
+            //request.get({url: url}, (err, httpResponse, image) => {
+            request(url).on('error', function(err) {
+
+                return reject(err);
+            
+            }).pipe(fs.createWriteStream(process.cwd() + '/image/room.jpg')).on('close', function(){
+
+                return resolve();
+
+            });
 
         } catch(e) {
 
             return reject(e);
 
         }
-
-        /*  Realiza chamada na API de listagem */
-        //request.get({url: url}, (err, httpResponse, image) => {
-        request(url).pipe(fs.createWriteStream(process.cwd() + '/image/room.jpg')).on('close', function(){
-
-            return resolve();
-
-        });
 
     }, (err) => {
 
