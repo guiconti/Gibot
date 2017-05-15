@@ -78,7 +78,7 @@ exports.executeIoTAction = (msg, match) => {
 
                     case IoTActions.PHOTO:
 
-                        getPhoto(resp).then(() => {
+                        /*getPhoto(resp).then(() => {
 
                             return bot.sendPhoto(chatId, process.cwd() + '/image/room.jpg');
                             //console.log('a');
@@ -89,7 +89,7 @@ exports.executeIoTAction = (msg, match) => {
                             //TODO: Melhorar isso
                             return bot.sendMessage(chatId, 'A API da foto não se encontra disponível.');
 
-                        });
+                        });*/
 
                         break;
 
