@@ -11,7 +11,7 @@ var listEvents = require('./gmail/listEvents.js').listEvents;
  * @readonly
  * @const {string}
  */
-GMAIL_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/gmail/':'http://ec2-52-67-130-125.sa-east-1.compute.amazonaws.com:3101/gmail/';
+GMAIL_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/gmail/':process.env.SERVER_URL + ':' + process.env.PORT + '/gmail/';
 
 /**
  * Enum para as possíveis ações no Gmail.

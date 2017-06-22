@@ -12,7 +12,7 @@ var insertMvpTimer = require('./ragnarok/insertMvpTimer.js').insertMvpTimer;
  * @readonly
  * @const {string}
  */
-RAGNAROK_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/ragnarok/':'http://ec2-52-67-130-125.sa-east-1.compute.amazonaws.com:3101/ragnarok/';
+RAGNAROK_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/ragnarok/':process.env.SERVER_URL + ':' + process.env.PORT + '/ragnarok/';
 
 /**
  * Enum para as possíveis ações no Ragnarok.

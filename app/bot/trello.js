@@ -12,7 +12,7 @@ var insertCard = require('./trello/insertCard.js').insertCard;
  * @readonly
  * @const {string}
  */
-TRELLO_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/trello/':'http://ec2-52-67-130-125.sa-east-1.compute.amazonaws.com:3101/trello/';
+TRELLO_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/trello/':process.env.SERVER_URL + ':' + process.env.PORT + '/trello/';
 
 /**
  * Enum para as possíveis ações no Trello.
