@@ -63,14 +63,7 @@ module.exports = (msg, match) => {
       if (!telegram.validation.isValidString(userRequest.subreddit)) return bot.sendMessage(
         chatId, 'Subreddit inválido'
       );
-      getPosts(userRequest.subreddit, chatId);
-      break;
-
-    case RedditActions.NEWS:
-    if (!telegram.validation.isValidString(userRequest.subreddit)) return bot.sendMessage(
-      chatId, 'Subreddit inválido'
-    );
-    postsController.getNewsFromSubreddit(userRequest.subreddit.toLowerCase().trim(), chatId)
+      postsController.subscribeToSubreddit(userRequest.subreddit.toLowerCase().trim(), chatId)
       .then((newPosts) => {
         if (newPosts.fail){
           return bot.sendMessage(chatId, newPosts.fail);
@@ -78,15 +71,26 @@ module.exports = (msg, match) => {
         if (newPosts.length == 0){
           return bot.sendMessage(chatId, 'Não há nenhum novo post na primeira página desse subreddit desde a última atualização enviada')
         }
+        let newMessage = 'Inscrição no subreddit ' + userRequest.subreddit.toLowerCase().trim() + 'feita com sucesso\n';
+        newMessage += 'Abaixo você tem os top posts desse subreddit no momento. A cada 8 horas vou enviar os top posts novos deste subreddit, caso haja algum.';
+        bot.sendMessage(chatId, newMessage);
         newPosts.forEach((post) => {
           let verbosePost = post.title + '\n' + post.url + '\n\n';
           bot.sendMessage(chatId, verbosePost);
         });
+        newSubscription(userRequest.subreddit, chatId, 8);
         return;
       }, (err) => {
         console.log(err);
         return bot.sendMessage(chatId, 'Esse subreddit não é um subreddit existente.');
       });
+      break;
+
+    case RedditActions.NEWS:
+      if (!telegram.validation.isValidString(userRequest.subreddit)) return bot.sendMessage(
+        chatId, 'Subreddit inválido'
+      );
+      getPosts(userRequest.subreddit, chatId);
       break;
       
     case RedditActions.SUBSCRIPTIONS:
@@ -104,7 +108,7 @@ module.exports = (msg, match) => {
     case RedditActions.HELP:
       let message = 'Essas são as funcionalidades que eu sei fazer por enquanto.\n\n';
       message += 'subscribe "subreddit" - Se inscreve em um subreddit para receber os top posts dele a cada 8 horas.\n\n';
-      message += 'news "subreddit" - Retorna todas as últimas notícias ainda não enviada para você desse subreddit. Use isso se você quiser um update imediato do subreddit. Obs: isso não irá fazer com que a próxima atualização não traga os posts tragos pelo news.\n\n';
+      message += 'news "subreddit" - Retorna todas as últimas notícias ainda não enviada para você desse subreddit. Use isso se você quiser um update imediato do subreddit.\n\n';
       message += 'subscriptions - Retorna todas as suas inscrições ativas'
       return bot.sendMessage(chatId, message);
       break;
@@ -115,8 +119,15 @@ module.exports = (msg, match) => {
   }
 };
 
+function newSubscription(subreddit, chatId, hours){
+  cron.schedule('0 */' + hours + ' * * *', function(){
+    getPosts(userRequest.subreddit, chatId);
+  });
+}
+
 function getPosts(subreddit, chatId){
-  postsController.subscribeToSubreddit(subreddit.toLowerCase().trim(), chatId)
+  subreddit = subreddit.toLowerCase().trim();
+  postsController.getNewsFromSubreddit(subreddit, chatId)
   .then((newPosts) => {
     if (newPosts.fail){
       return bot.sendMessage(chatId, newPosts.fail);
@@ -124,6 +135,7 @@ function getPosts(subreddit, chatId){
     if (newPosts.length == 0){
       return bot.sendMessage(chatId, 'Não há nenhum novo post na primeira página desse subreddit desde a última atualização enviada')
     }
+    bot.sendMessage(chatId, 'Novos posts para o subreddit ' + subreddit + '\n\n');
     newPosts.forEach((post) => {
       let verbosePost = post.title + '\n' + post.url + '\n\n';
       bot.sendMessage(chatId, verbosePost);

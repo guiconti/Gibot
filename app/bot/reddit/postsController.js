@@ -56,6 +56,7 @@ function getNewsFromSubreddit(subreddit, chatId) {
     }
     getPostsFromSubreddit(subreddit).then((formattedPosts) => {
       let newPosts = getNewPosts(subreddit, formattedPosts);
+      savedPosts[subreddit].posts = formattedPosts;
       return resolve(newPosts);
     }, (err) => {
       return reject(err);
