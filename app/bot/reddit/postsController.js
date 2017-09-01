@@ -20,9 +20,9 @@ function subscribeToSubreddit(subreddit, chatId) {
       if (savedPosts[subreddit]){
         if (savedPosts[subreddit].subscriptions.includes(chatId)){
           let message = {
-            fail: 'You already have a subscription on this subreddit.\n'
+            fail: 'Você já se inscreveu nesse subreddit.\n'
           };
-          message.fail += 'If you want to receive the first page of the subreddit send "/reddit page (subreddit)" without ()';
+          message.fail += 'Se você quiser receber as novidades agora desse subreddit "/reddit news (subreddit)" without ()';
           return resolve(message);
         }
         savedPosts[subreddit].subscriptions.push(chatId);

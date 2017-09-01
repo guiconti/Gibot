@@ -1,10 +1,11 @@
-const identifyAction = require('./reddit/identifyAction.js');
-const postsController = require('./reddit/postsController');
-
 /**
  * Módulo de ações do Reddit
  * @module bot/reddit
  */
+
+const cron = require('node-cron');
+const identifyAction = require('./reddit/identifyAction');
+const postsController = require('./reddit/postsController');
 
 /**
  * Valor que armaneza o prefixo a ser utilizado em toda a requisição das APIs do Reddit.
@@ -60,30 +61,14 @@ module.exports = (msg, match) => {
   switch (identifyAction(userRequest.action.toLowerCase().trim())) {
     case RedditActions.SUBSCRIBE:
       if (!telegram.validation.isValidString(userRequest.subreddit)) return bot.sendMessage(
-        chatId, 'Invalid subreddit'
+        chatId, 'Subreddit inválido'
       );
-      postsController.subscribeToSubreddit(userRequest.subreddit.toLowerCase().trim(), chatId)
-        .then((newPosts) => {
-          if (newPosts.fail){
-            return bot.sendMessage(chatId, newPosts.fail);
-          }
-          if (newPosts.length == 0){
-            return bot.sendMessage(chatId, 'Não há nenhum novo post na primeira página desse subreddit desde a última atualização enviada')
-          }
-          newPosts.forEach((post) => {
-            let verbosePost = post.title + '\n' + post.url + '\n\n';
-            bot.sendMessage(chatId, verbosePost);
-          });
-          return;
-        }, (err) => {
-          console.log(err);
-          return bot.sendMessage(chatId, 'Esse subreddit não é um subreddit existente.');
-        });
+      getPosts(userRequest.subreddit, chatId);
       break;
 
     case RedditActions.NEWS:
     if (!telegram.validation.isValidString(userRequest.subreddit)) return bot.sendMessage(
-      chatId, 'Invalid subreddit'
+      chatId, 'Subreddit inválido'
     );
     postsController.getNewsFromSubreddit(userRequest.subreddit.toLowerCase().trim(), chatId)
       .then((newPosts) => {
@@ -108,19 +93,19 @@ module.exports = (msg, match) => {
       postsController.getSubscriptions(chatId)
         .then((subscriptions) => {
           if (subscriptions.length == 0){
-            return bot.sendMessage(chatId, 'You don`t have any active subscriptions.');
+            return bot.sendMessage(chatId, 'Você não tem nenhum inscrição ativa no momento.');
           }
-          return bot.sendMessage(chatId, 'Your active subscriptions: ' + subscriptions.join(', '));
+          return bot.sendMessage(chatId, 'Suas inscrições ativas: ' + subscriptions.join(', '));
         }, (err) => {
           return bot.sendMessage(chatId, 'Um erro ocorreu e não foi possível pegar as suas subscriptions');
         })
       break;
 
     case RedditActions.HELP:
-      let message = 'These are the reddit features that i know right now.\n\n';
-      message += 'subscribe "subreddit" - Subscribe to a subreddit to receive the top new posts each 6 hours on your favorite subreddit.\n\n';
-      message += 'news "subreddit" - Bring all the news to the subreddit sent. Use this if you want imediate update on the top new posts on a subreddit\n\n';
-      message += 'subscriptions - Return all your active subscriptions'
+      let message = 'Essas são as funcionalidades que eu sei fazer por enquanto.\n\n';
+      message += 'subscribe "subreddit" - Se inscreve em um subreddit para receber os top posts dele a cada 8 horas.\n\n';
+      message += 'news "subreddit" - Retorna todas as últimas notícias ainda não enviada para você desse subreddit. Use isso se você quiser um update imediato do subreddit. Obs: isso não irá fazer com que a próxima atualização não traga os posts tragos pelo news.\n\n';
+      message += 'subscriptions - Retorna todas as suas inscrições ativas'
       return bot.sendMessage(chatId, message);
       break;
 
@@ -129,3 +114,23 @@ module.exports = (msg, match) => {
       break;
   }
 };
+
+function getPosts(subreddit, chatId){
+  postsController.subscribeToSubreddit(subreddit.toLowerCase().trim(), chatId)
+  .then((newPosts) => {
+    if (newPosts.fail){
+      return bot.sendMessage(chatId, newPosts.fail);
+    }
+    if (newPosts.length == 0){
+      return bot.sendMessage(chatId, 'Não há nenhum novo post na primeira página desse subreddit desde a última atualização enviada')
+    }
+    newPosts.forEach((post) => {
+      let verbosePost = post.title + '\n' + post.url + '\n\n';
+      bot.sendMessage(chatId, verbosePost);
+    });
+    return;
+  }, (err) => {
+    console.log(err);
+    return bot.sendMessage(chatId, 'Esse subreddit não é um subreddit existente.');
+  });
+}
