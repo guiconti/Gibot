@@ -48,6 +48,12 @@ function subscribeToSubreddit(subreddit, chatId) {
 
 function getNewsFromSubreddit(subreddit, chatId) {
   return new Promise((resolve, reject) => {
+    if (!savedPosts[subreddit]){
+      let message = {
+        fail: 'Você não está inscrito nesse subreddit'
+      }
+      return resolve(message);
+    }
     getPostsFromSubreddit(subreddit).then((formattedPosts) => {
       let newPosts = getNewPosts(subreddit, formattedPosts);
       return resolve(newPosts);
