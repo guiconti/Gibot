@@ -237,3 +237,8 @@ Exemplo:
 #### Tirando uma foto pela API
 
 O módulo de fotos está desprendido do Gibot. Você pode desenvolver a sua própria API de foto dentro do Gibot e fazer com que ela acesse a câmera que deseja manusear, entretanto por hora essa API ficará em uma outra aplicação pois possui um escopo diferente da proposta do Gibot.
+
+## 5. Reddit
+
+O Gibot disponibiliza uma maneira simples de criar o seu próprio feed de notícias pelo reddit.
+(Em desenvolvimento)
