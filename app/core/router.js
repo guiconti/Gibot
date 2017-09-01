@@ -110,6 +110,9 @@ app.post('/ragnarok/mvp/insert', controllers.ragnarok.insertMvpTimer);
 app.get('/bitcoin/rate', controllers.bitcoin.bitcoinExchangeRates);
 app.get('/bitcoin/rate/:currency', controllers.bitcoin.bitcoinExchangeRates);
 
+/* Reddit APIs */
+app.get('/reddit/:subreddit/frontPage', controllers.reddit.getFrontPage);
+
 app.listen(PORT, () => {
     console.log('Server is functional on ' + PORT + ' port on ' + process.env.NODE_ENV + " environment.");
 });

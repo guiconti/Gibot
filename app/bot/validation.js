@@ -42,6 +42,18 @@ exports.isValidGmailAction = (userRequest) => {
 };
 
 /**
+ * Valida se uma string é válida
+ *
+ * @param {string} card - Nome da string
+ * @return {boolean} - Estado da string
+ */
+exports.isValidString = (possibleString) => {
+    
+        return _.isString(possibleString) && possibleString.trim().length > 0;
+    
+    };
+
+/**
  * Valida se o nome da card a ser inserida solicitada pelo usuário é válida
  *
  * @param {integer} number - Número a ser validado.
@@ -119,3 +131,16 @@ exports.isValidIoTAction = (userRequest) => {
     return userRequest.action;
 
 };
+
+/**
+ * Valida se a requisição do usuário para uma função no Reddit é válida.
+ *
+ * @param {string[]} userRequest - Todos os parâmetros da ação do Reddit requisitado pelo usário.
+ * @return {boolean} - True para uma ação do Reddit válida e false caso contrário.
+ */
+exports.isValidRedditAction = (userRequest) => {
+    
+        //  Por hora so considera request valido se tiver uma ação e um subreddit
+        return userRequest.action;
+    
+    };
