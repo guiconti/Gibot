@@ -121,7 +121,7 @@ module.exports = (msg, match) => {
 
 function newSubscription(subreddit, chatId, hours){
   cron.schedule('0 */' + hours + ' * * *', function(){
-    getPosts(userRequest.subreddit, chatId);
+    getPosts(subreddit, chatId);
   });
 }
 
