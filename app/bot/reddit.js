@@ -12,7 +12,8 @@ const postsController = require('./reddit/postsController');
  * @readonly
  * @const {string}
  */
-REDDIT_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3101/reddit/':process.env.SERVER_URL + ':' + process.env.PORT + '/reddit/';
+const REDDIT_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3301/api/':'http://ec2-54-232-231-87.sa-east-1.compute.amazonaws.com:3301/api/';
+const SUBSCRIBE_SUFFIX = 'subscribe';
 
 /**
  * Enum para as possíveis ações no Ragnarok.
@@ -63,26 +64,15 @@ module.exports = (msg, match) => {
       if (!telegram.validation.isValidString(userRequest.subreddit)) return bot.sendMessage(
         chatId, 'Subreddit inválido'
       );
-      postsController.subscribeToSubreddit(userRequest.subreddit.toLowerCase().trim(), chatId)
-      .then((newPosts) => {
-        if (newPosts.fail){
-          return bot.sendMessage(chatId, newPosts.fail);
+      let requestInfo = {
+        subreddit: userRequest.subreddit.toLowerCase().trim(),
+        chatId: chatId
+      };
+      let url = REDDIT_PREFIX + SUBSCRIBE_SUFFIX;
+      request.post({url: url, json: requestInfo}, (err, httpResponse, html)=>{
+        if (err){
+          bot.sendMessage(chatId, 'Erro ao se inscrever no subreddit.');
         }
-        if (newPosts.length == 0){
-          return bot.sendMessage(chatId, 'Não há nenhum novo post na primeira página desse subreddit desde a última atualização enviada')
-        }
-        let newMessage = 'Inscrição no subreddit ' + userRequest.subreddit.toLowerCase().trim() + 'feita com sucesso\n';
-        newMessage += 'Abaixo você tem os top posts desse subreddit no momento. A cada 8 horas vou enviar os top posts novos deste subreddit, caso haja algum.';
-        bot.sendMessage(chatId, newMessage);
-        newPosts.forEach((post) => {
-          let verbosePost = post.title + '\n' + post.url + '\n\n';
-          bot.sendMessage(chatId, verbosePost);
-        });
-        newSubscription(userRequest.subreddit, chatId, 8);
-        return;
-      }, (err) => {
-        console.log(err);
-        return bot.sendMessage(chatId, 'Esse subreddit não é um subreddit existente.');
       });
       break;
 
