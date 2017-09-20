@@ -14,6 +14,7 @@ const postsController = require('./reddit/postsController');
  */
 const REDDIT_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3301/api/':'http://ec2-54-232-231-87.sa-east-1.compute.amazonaws.com:3301/api/';
 const SUBSCRIBE_SUFFIX = 'subscribe';
+const SUBSCRIPTIONS_SUFFIX = 'subscriptions/'
 
 /**
  * Enum para as possíveis ações no Ragnarok.
@@ -68,8 +69,8 @@ module.exports = (msg, match) => {
         subreddit: userRequest.subreddit.toLowerCase().trim(),
         chatId: chatId
       };
-      let url = REDDIT_PREFIX + SUBSCRIBE_SUFFIX;
-      request.post({url: url, json: requestInfo}, (err, httpResponse, html)=>{
+      let subscribeUrl = REDDIT_PREFIX + SUBSCRIBE_SUFFIX;
+      request.post({url: subscribeUrl, json: requestInfo}, (err, httpResponse, html)=>{
         if (err){
           bot.sendMessage(chatId, 'Erro ao se inscrever no subreddit.');
         }
@@ -84,15 +85,12 @@ module.exports = (msg, match) => {
       break;
       
     case RedditActions.SUBSCRIPTIONS:
-      postsController.getSubscriptions(chatId)
-        .then((subscriptions) => {
-          if (subscriptions.length == 0){
-            return bot.sendMessage(chatId, 'Você não tem nenhum inscrição ativa no momento.');
-          }
-          return bot.sendMessage(chatId, 'Suas inscrições ativas: ' + subscriptions.join(', '));
-        }, (err) => {
-          return bot.sendMessage(chatId, 'Um erro ocorreu e não foi possível pegar as suas subscriptions');
-        })
+      let subscriptionsUrl = REDDIT_PREFIX + SUBSCRIPTIONS_SUFFIX + chatId;
+      request.get({url: subscriptionsUrl}, (err, httpResponse, html)=>{
+        if (err){
+          bot.sendMessage(chatId, 'Erro ao listar as inscrições desse chat.');
+        }
+      });
       break;
 
     case RedditActions.HELP:
