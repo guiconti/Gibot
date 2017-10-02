@@ -12,15 +12,19 @@ var token = process.env.NODE_ENV=='development'?process.env.TELEGRAM_DEV_TOKEN:p
 /** Cria o bot e ativa o polling para observar sempre novos updates */
 bot = new TelegramBot(token, { polling: true });
 
+/** Cria o path para armazenar as voices*/
+const path = require('path');
+const voicesFolder =  path.join(__dirname, '../voices');
+
 /** Armazenando na variável global telegram todos os módulos que o bot terá acesso. */
 telegram = {};
 var telegramPath = process.cwd() + '/app/bot';
 
 /** Lista os módulos em app/bot e armazena a referência dentro de telegram */
 fs.readdirSync(telegramPath).forEach( (file) => {
-    if (file.indexOf('.js') !== -1) {
-        telegram[file.split('.')[0]] = require(telegramPath + '/' + file);
-    }
+  if (file.indexOf('.js') !== -1) {
+    telegram[file.split('.')[0]] = require(telegramPath + '/' + file);
+  }
 });
 
 /** Captura de ações do Trello. Ativada por /t "comando" ou /trello "comando" 
@@ -53,3 +57,27 @@ bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, telegram.reddit);
 	var chatId = msg.chat.id;
 
 });*/
+
+bot.on('voice', (msg) => {
+  const chatId = msg.chat.id;
+  const messageId = msg.message_id;
+  let options = {
+    reply_to_message_id: messageId
+  };
+  bot.downloadFile(msg.voice.file_id, voicesFolder)
+    .then((voicePath) => {
+      telegram.recognize(voicePath)
+      .then((transcription) => {
+        // Reply to voice with transcription
+        bot.sendMessage(chatId, transcription, options);
+      })
+      .catch((err) => {
+        // Reply to voice with transcription error
+        bot.sendMessage(chatId, 'Error on voice transcription', options);
+      })
+    })
+    .catch((err) => {
+      // Reply to voice with transcription error
+      bot.sendMessage(chatId, 'Unable to download voice', options);
+    })
+});
