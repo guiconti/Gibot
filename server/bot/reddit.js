@@ -4,6 +4,7 @@
  */
 
 const request = require('request');
+const logger = require('../../tools/logger');
 const identifyAction = require('../utils/identifyAction');
 const validator = require('../utils/validator');
 const constants = require('../utils/constants');
@@ -37,7 +38,8 @@ module.exports = (msg, match) => {
       subreddit: request[1]
     };
 
-  } catch (e) {
+  } catch (err) {
+    logger.error(err);
     return bot.sendMessage(chatId, 'Comando do reddit inválido. Tente enviar o comando com a seguinte sintaxe: /reddit "Ação desejada"');
   }
 
@@ -59,6 +61,7 @@ module.exports = (msg, match) => {
       let subscribeUrl = constants.url.reddit.PREFIX + constants.url.reddit.SUBSCRIBE_SUFFIX;
       request.post({url: subscribeUrl, json: requestInfo}, (err, httpResponse, html)=>{
         if (err){
+          logger.error(err);
           bot.sendMessage(chatId, 'Erro ao se inscrever no subreddit.');
         }
       });
@@ -68,6 +71,7 @@ module.exports = (msg, match) => {
       let subscriptionsUrl = constants.url.reddit.PREFIX + constants.url.reddit.SUBSCRIPTIONS_SUFFIX + chatId;
       request.get({url: subscriptionsUrl}, (err, httpResponse, html)=>{
         if (err){
+          logger.error(err);
           bot.sendMessage(chatId, 'Erro ao listar as inscrições desse chat.');
         }
       });
@@ -77,7 +81,6 @@ module.exports = (msg, match) => {
       let message = 'Essas são as funcionalidades que eu sei fazer por enquanto.\n\n';
       message += 'subscribe "subreddit" - Se inscreve em um subreddit para receber os top posts dele a cada 8 horas.\n\n';
       message += 'subscriptions - Retorna todas as suas inscrições ativas';
-      console.log(bot);
       return bot.sendMessage(chatId, message);
       break;
 

@@ -3,8 +3,9 @@
  * @module core/gibimbot
  */
 
-/** Requisição do móduço utilizado para utilizar o Bot no Telegram */
+/** Requisição do modulo utilizado para utilizar o Bot no Telegram */
 const TelegramBot = require('node-telegram-bot-api');
+const logger = require('../../tools/logger');
 
 /**  Token do Bot que será utilizado para validar acesso ao Gibot ou o bot a ser utilizado */
 const token = process.env.NODE_ENV=='development'?process.env.TELEGRAM_DEV_TOKEN:process.env.TELEGRAM_TOKEN;
@@ -52,11 +53,13 @@ bot.on('voice', (msg) => {
           bot.sendMessage(chatId, transcription, options);
         })
         .catch((err) => {
+          logger.error(err);
           // Reply to voice with transcription error
           bot.sendMessage(chatId, 'Error on voice transcription', options);
         });
     })
     .catch((err) => {
+      logger.error(err);
       // Reply to voice with transcription error
       bot.sendMessage(chatId, 'Unable to download voice', options);
     });

@@ -73,3 +73,9 @@ typings/
 
 # Credentials folder
 .credentials/
+
+# Photo uploads
+uploads/
+
+# Voice uploads
+server/voices/

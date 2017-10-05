@@ -5,6 +5,7 @@
 
 /**  ID do telegram que será o dono desse bot, utilizado para validar ações privadas */
 const ownerTelegramId = process.env.TELEGRAM_OWNER_ID;
+const logger = require('../../tools/logger');
 
 /**
  * Autentica o usuário como Owner do bot. Utilizado para validar acesso a APIs restritas.
@@ -20,8 +21,9 @@ exports.authOwner = (userId) => {
       /**  Verifica se o userId dado é igual ao Id do dono do Telegram */
       return resolve(userId == ownerTelegramId);
 
-    } catch(e) {
-      reject(e);
+    } catch(err) {
+      logger.error(err);
+      return reject(err);
     }  
   }); 
 };

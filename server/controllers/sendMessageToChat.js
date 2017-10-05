@@ -3,6 +3,7 @@
  * @module controllers/sendMessageToChat
 */
 const _ = require('underscore');
+const logger = require('../../tools/logger');
 const validator = require('../utils/validator');
 
 module.exports = (req, res) => {
@@ -20,14 +21,17 @@ module.exports = (req, res) => {
     let message = body.message.trim();
     let chatId = parseInt(body.chatId);
     
-    bot.sendMessage(chatId, message).then((response) => {
-      return res.status(200).json({
-          msg: 'Message sent.'
-      });
-    }, (err) => {
-      return res.status(400).json({
-          data: 'Chat não existe'
-      });
+    bot.sendMessage(chatId, message)
+      .then((response) => {
+        return res.status(200).json({
+            msg: 'Message sent.'
+        });
+      })
+      .catch((err) => {
+        logger.error(err);
+        return res.status(400).json({
+            data: 'Chat não existe'
+        });
     });
   }
 };
