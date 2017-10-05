@@ -3,18 +3,9 @@
  * @module bot/reddit
  */
 
-const cron = require('node-cron');
+const request = require('request');
 const identifyAction = require('./reddit/identifyAction');
-const postsController = require('./reddit/postsController');
-
-/**
- * Valor que armaneza o prefixo a ser utilizado em toda a requisição das APIs do Reddit.
- * @readonly
- * @const {string}
- */
-const REDDIT_PREFIX = process.env.NODE_ENV=='development'?'http://localhost:3301/api/':'http://ec2-54-232-231-87.sa-east-1.compute.amazonaws.com:3301/api/';
-const SUBSCRIBE_SUFFIX = 'subscribe';
-const SUBSCRIPTIONS_SUFFIX = 'subscriptions/'
+const constants = require('../utils/constants');
 
 /**
  * Enum para as possíveis ações no Ragnarok.
@@ -69,23 +60,16 @@ module.exports = (msg, match) => {
         subreddit: userRequest.subreddit.toLowerCase().trim(),
         chatId: chatId
       };
-      let subscribeUrl = REDDIT_PREFIX + SUBSCRIBE_SUFFIX;
+      let subscribeUrl = constants.url.reddit.PREFIX + constants.url.reddit.SUBSCRIBE_SUFFIX;
       request.post({url: subscribeUrl, json: requestInfo}, (err, httpResponse, html)=>{
         if (err){
           bot.sendMessage(chatId, 'Erro ao se inscrever no subreddit.');
         }
       });
       break;
-
-    case RedditActions.NEWS:
-      if (!telegram.validation.isValidString(userRequest.subreddit)) return bot.sendMessage(
-        chatId, 'Subreddit inválido'
-      );
-      getPosts(userRequest.subreddit, chatId);
-      break;
       
     case RedditActions.SUBSCRIPTIONS:
-      let subscriptionsUrl = REDDIT_PREFIX + SUBSCRIPTIONS_SUFFIX + chatId;
+      let subscriptionsUrl = constants.url.reddit.PREFIX + constants.url.reddit.SUBSCRIPTIONS_SUFFIX + chatId;
       request.get({url: subscriptionsUrl}, (err, httpResponse, html)=>{
         if (err){
           bot.sendMessage(chatId, 'Erro ao listar as inscrições desse chat.');
@@ -96,7 +80,6 @@ module.exports = (msg, match) => {
     case RedditActions.HELP:
       let message = 'Essas são as funcionalidades que eu sei fazer por enquanto.\n\n';
       message += 'subscribe "subreddit" - Se inscreve em um subreddit para receber os top posts dele a cada 8 horas.\n\n';
-      message += 'news "subreddit" - Retorna todas as últimas notícias ainda não enviada para você desse subreddit. Use isso se você quiser um update imediato do subreddit.\n\n';
       message += 'subscriptions - Retorna todas as suas inscrições ativas'
       return bot.sendMessage(chatId, message);
       break;
@@ -106,12 +89,6 @@ module.exports = (msg, match) => {
       break;
   }
 };
-
-function newSubscription(subreddit, chatId, hours){
-  cron.schedule('0 */' + hours + ' * * *', function(){
-    getPosts(subreddit, chatId);
-  });
-}
 
 function getPosts(subreddit, chatId){
   subreddit = subreddit.toLowerCase().trim();
