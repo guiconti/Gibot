@@ -1,6 +1,9 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
+/** Start to listen to telegram messages */
+require('../server/core/gibimbot');
+
 const app = process.env.NODE_ENV == 'production'?require('./serverProduction'):require('./serverDevelopment');
 const PORT = process.env.PORT;
 

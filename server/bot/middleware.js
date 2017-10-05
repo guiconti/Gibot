@@ -15,18 +15,13 @@ const ownerTelegramId = process.env.TELEGRAM_OWNER_ID;
  * @throws {Error} - Rejeita a promise com o erro ocorrido
  */
 exports.authOwner = (userId) => {
+  return new Promise((resolve, reject) => {
+    try {
+      /**  Verifica se o userId dado é igual ao Id do dono do Telegram */
+      return resolve(userId == ownerTelegramId);
 
-    return new Promise((resolve, reject) => {
-
-        try {
-
-            /**  Verifica se o userId dado é igual ao Id do dono do Telegram */
-            return resolve(userId == ownerTelegramId);
-
-        } catch(e) {
-
-            reject(e);
-
-        }  
-    }); 
+    } catch(e) {
+      reject(e);
+    }  
+  }); 
 };
