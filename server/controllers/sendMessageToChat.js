@@ -1,0 +1,33 @@
+/**
+ * Module to send messages to a chat
+ * @module controllers/sendMessageToChat
+*/
+const _ = require('underscore');
+const validator = require('../utils/validator');
+
+module.exports = (req, res) => {
+  const bot = require('../core/gibimbot');
+  let body = _.pick(req.body, 'message', 'chatId');
+  if (!validator.isValidString(body.message)) {
+    return res.status(400).json({
+        msg: 'Not a valid message.'
+    });
+  } else if (!validator.isValidNumber(parseInt(body.chatId))) {
+    return res.status(400).json({
+        msg: 'Not a valid chat id.'
+    });
+  } else {
+    let message = body.message.trim();
+    let chatId = parseInt(body.chatId);
+    
+    bot.sendMessage(chatId, message).then((response) => {
+      return res.status(200).json({
+          msg: 'Message sent.'
+      });
+    }, (err) => {
+      return res.status(400).json({
+          data: 'Chat não existe'
+      });
+    });
+  }
+};

@@ -33,9 +33,9 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
 //  Telegram APIs
-router.post('/telegram/message/owner', controllers.telegram.sendMessageToOwner);
-router.post('/telegram/message/chat', controllers.telegram.sendMessageToChat);
-router.post('/telegram/photo/owner', upload.single('image'), controllers.telegram.sendPhotoToOwner);
-router.post('/telegram/photo/chat', upload.single('image'), controllers.telegram.sendPhotoToChat);
+router.post('/message/owner', controllers.sendMessageToOwner);
+router.post('/message/chat', controllers.sendMessageToChat);
+router.post('/photo/owner', upload.single('image'), controllers.sendPhotoToOwner);
+router.post('/photo/chat', upload.single('image'), controllers.sendPhotoToChat);
 
 module.exports = router;

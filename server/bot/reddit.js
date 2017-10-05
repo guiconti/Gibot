@@ -1,5 +1,5 @@
 /**
- * Módulo de ações do Reddit
+ * Module to reddit actions
  * @module bot/reddit
  */
 
