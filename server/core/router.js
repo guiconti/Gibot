@@ -38,10 +38,6 @@ router.post('/telegram/message/chat', controllers.telegram.sendMessageToChat);
 router.post('/telegram/photo/owner', upload.single('image'), controllers.telegram.sendPhotoToOwner);
 router.post('/telegram/photo/chat', upload.single('image'), controllers.telegram.sendPhotoToChat);
 
-/*  Rag APIs   */
-router.get('/ragnarok/mvp/list', controllers.ragnarok.listMvpTimer);
-router.post('/ragnarok/mvp/insert', controllers.ragnarok.insertMvpTimer);
-
 /*  Bitcoin APIs */
 router.get('/bitcoin/rate', controllers.bitcoin.bitcoinExchangeRates);
 router.get('/bitcoin/rate/:currency', controllers.bitcoin.bitcoinExchangeRates);
