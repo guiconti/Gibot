@@ -6,7 +6,7 @@ const fs = require('fs');
 const validMimetypes = ['image/jpeg', 'image/png', 'image/bmp', 'image/gif'];
 
 let controllers = {};
-const controllersPath = process.cwd() + '/app/controllers';
+const controllersPath = process.cwd() + '/server/controllers';
 
 //  Get our controllers modules
 fs.readdirSync(controllersPath).forEach( (file) => {
@@ -37,8 +37,5 @@ router.post('/telegram/message/owner', controllers.telegram.sendMessageToOwner);
 router.post('/telegram/message/chat', controllers.telegram.sendMessageToChat);
 router.post('/telegram/photo/owner', upload.single('image'), controllers.telegram.sendPhotoToOwner);
 router.post('/telegram/photo/chat', upload.single('image'), controllers.telegram.sendPhotoToChat);
-
-/* Reddit APIs */
-router.get('/reddit/:subreddit/frontPage', controllers.reddit.getFrontPage);
 
 module.exports = router;

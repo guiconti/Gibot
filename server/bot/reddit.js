@@ -4,20 +4,16 @@
  */
 
 const request = require('request');
-const identifyAction = require('./reddit/identifyAction');
+const identifyAction = require('../utils/identifyAction');
+const validator = require('../utils/validator');
 const constants = require('../utils/constants');
+const actions = require('../utils/actions');
 
 /**
  * Enum para as possíveis ações no Ragnarok.
  * @readonly
  * @enum {string}
  */
-RedditActions = {
-  SUBSCRIBE: 'subscribe',
-  NEWS: 'news',
-  SUBSCRIPTIONS: 'subscriptions',
-  HELP: 'help'
-};
 
 /**
  * Executa uma ação do Reddit utilizando as APIs do mesmo.
@@ -32,8 +28,8 @@ RedditActions = {
  * @return {bot.sendMessage} - Retorna a execução da resposta no Telegram.
  */
 module.exports = (msg, match) => {
+  const bot = require('../core/gibimbot');
   const chatId = msg.chat.id;
-
   try {
     let request = match[1].split(' '); 
     userRequest = {       
@@ -46,14 +42,14 @@ module.exports = (msg, match) => {
   }
 
   /*  Avaliamos se a ação é uma ação válida do Reddit/bot */
-  if (!telegram.validation.isValidRedditAction(userRequest)) return bot.sendMessage(
+  if (!validator.isValidRequest(userRequest)) return bot.sendMessage(
     chatId, 'Comando do reddit inválido. Tente enviar o comando com a seguinte sintaxe: /reddit "Ação desejada"'
   );
 
   /*  Verificamos qual a ação solicitada, encaminhamos para a função da ação e enviamos a resposta */
-  switch (identifyAction(userRequest.action.toLowerCase().trim())) {
-    case RedditActions.SUBSCRIBE:
-      if (!telegram.validation.isValidString(userRequest.subreddit)) return bot.sendMessage(
+  switch (identifyAction('REDDIT', userRequest.action.toLowerCase().trim())) {
+    case actions.REDDIT.SUBSCRIBE:
+      if (!validator.isValidString(userRequest.subreddit)) return bot.sendMessage(
         chatId, 'Subreddit inválido'
       );
       let requestInfo = {
@@ -68,7 +64,7 @@ module.exports = (msg, match) => {
       });
       break;
       
-    case RedditActions.SUBSCRIPTIONS:
+    case actions.REDDIT.SUBSCRIPTIONS:
       let subscriptionsUrl = constants.url.reddit.PREFIX + constants.url.reddit.SUBSCRIPTIONS_SUFFIX + chatId;
       request.get({url: subscriptionsUrl}, (err, httpResponse, html)=>{
         if (err){
@@ -77,10 +73,11 @@ module.exports = (msg, match) => {
       });
       break;
 
-    case RedditActions.HELP:
+    case actions.REDDIT.HELP:
       let message = 'Essas são as funcionalidades que eu sei fazer por enquanto.\n\n';
       message += 'subscribe "subreddit" - Se inscreve em um subreddit para receber os top posts dele a cada 8 horas.\n\n';
-      message += 'subscriptions - Retorna todas as suas inscrições ativas'
+      message += 'subscriptions - Retorna todas as suas inscrições ativas';
+      console.log(bot);
       return bot.sendMessage(chatId, message);
       break;
 
@@ -89,25 +86,3 @@ module.exports = (msg, match) => {
       break;
   }
 };
-
-function getPosts(subreddit, chatId){
-  subreddit = subreddit.toLowerCase().trim();
-  postsController.getNewsFromSubreddit(subreddit, chatId)
-  .then((newPosts) => {
-    if (newPosts.fail){
-      return bot.sendMessage(chatId, newPosts.fail);
-    }
-    if (newPosts.length == 0){
-      return bot.sendMessage(chatId, 'Não há nenhum novo post na primeira página desse subreddit desde a última atualização enviada')
-    }
-    bot.sendMessage(chatId, 'Novos posts para o subreddit ' + subreddit + '\n\n');
-    newPosts.forEach((post) => {
-      let verbosePost = post.title + '\n' + post.url + '\n\n';
-      bot.sendMessage(chatId, verbosePost);
-    });
-    return;
-  }, (err) => {
-    console.log(err);
-    return bot.sendMessage(chatId, 'Esse subreddit não é um subreddit existente.');
-  });
-}

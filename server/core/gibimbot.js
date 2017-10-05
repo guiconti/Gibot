@@ -16,21 +16,20 @@ const bot = new TelegramBot(token, {polling: true});
 const path = require('path');
 const voicesFolder =  path.join(__dirname, '../voices');
 
-/** Armazenando na variável global telegram todos os módulos que o bot terá acesso. */
-let telegram = {};
-const telegramPath = process.cwd() + '/app/bot';
-
+/** Armazenando as features do bot dentro da variavel features. */
+let features = {};
+const featuresPath = process.cwd() + '/server/bot';
 const fs = require('fs');
-/** Lista os módulos em app/bot e armazena a referência dentro de telegram */
-fs.readdirSync(telegramPath).forEach( (file) => {
+/** Lista os módulos em app/bot e armazena a referência dentro de features */
+fs.readdirSync(featuresPath).forEach( (file) => {
   if (file.indexOf('.js') !== -1) {
-    telegram[file.split('.')[0]] = require(telegramPath + '/' + file);
+    features[file.split('.')[0]] = require(featuresPath + '/' + file);
   }
 });
 
 /** Ações do Reddit
  * Aplica um regex na mensagem /re ou /reddit e caso a regex der match envia o pedido para o módulo do iot.  */
-bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, telegram.reddit);
+bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
 
 /*bot.on('message', function (msg) {
 
@@ -47,18 +46,20 @@ bot.on('voice', (msg) => {
   };
   bot.downloadFile(msg.voice.file_id, voicesFolder)
     .then((voicePath) => {
-      telegram.recognize(voicePath)
-      .then((transcription) => {
-        // Reply to voice with transcription
-        bot.sendMessage(chatId, transcription, options);
-      })
-      .catch((err) => {
-        // Reply to voice with transcription error
-        bot.sendMessage(chatId, 'Error on voice transcription', options);
-      })
+      features.recognize(voicePath)
+        .then((transcription) => {
+          // Reply to voice with transcription
+          bot.sendMessage(chatId, transcription, options);
+        })
+        .catch((err) => {
+          // Reply to voice with transcription error
+          bot.sendMessage(chatId, 'Error on voice transcription', options);
+        });
     })
     .catch((err) => {
       // Reply to voice with transcription error
       bot.sendMessage(chatId, 'Unable to download voice', options);
-    })
+    });
 });
+
+module.exports = bot;

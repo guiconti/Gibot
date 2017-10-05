@@ -1,4 +1,3 @@
-'use strict';
 require('dotenv').config();
 // [START speech_quickstart]
 // Imports the Google Cloud client library
