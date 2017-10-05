@@ -1,10 +1,11 @@
 /**
  * Módulo de APIs do Reddit
- * @module controllers/bitcoin
+ * @module controllers/reddit
  */
 
-/** global request:true */
+
 const validation = require('../utils/validation');
+const constants = require('../utils/constants');
 
 /** URL para API do reddit */
 const REDDIT_URL_PREFIX = 'https://www.reddit.com/r/';

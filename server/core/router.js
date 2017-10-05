@@ -57,6 +57,3 @@ router.get('/bitcoin/rate/:currency', controllers.bitcoin.bitcoinExchangeRates);
 router.get('/reddit/:subreddit/frontPage', controllers.reddit.getFrontPage);
 
 module.exports = router;
-
-//  GLOBAL VARIABLES
-authenticationTrelloSuffix = '&key=' + process.env.TRELLO_KEY + '&token=' + process.env.TRELLO_TOKEN;
