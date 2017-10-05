@@ -58,7 +58,7 @@ module.exports = (msg, match) => {
         subreddit: userRequest.subreddit.toLowerCase().trim(),
         chatId: chatId
       };
-      let subscribeUrl = constants.url.reddit.PREFIX + constants.url.reddit.SUBSCRIBE_SUFFIX;
+      let subscribeUrl = constants.url.REDDIT.PREFIX + constants.url.REDDIT.SUBSCRIBE_SUFFIX;
       request.post({url: subscribeUrl, json: requestInfo}, (err, httpResponse, html)=>{
         if (err){
           logger.error(err);
@@ -68,7 +68,7 @@ module.exports = (msg, match) => {
       break;
       
     case actions.REDDIT.SUBSCRIPTIONS:
-      let subscriptionsUrl = constants.url.reddit.PREFIX + constants.url.reddit.SUBSCRIPTIONS_SUFFIX + chatId;
+      let subscriptionsUrl = constants.url.REDDIT.PREFIX + constants.url.REDDIT.SUBSCRIPTIONS_SUFFIX + chatId;
       request.get({url: subscriptionsUrl}, (err, httpResponse, html)=>{
         if (err){
           logger.error(err);
