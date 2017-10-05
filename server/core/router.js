@@ -38,10 +38,6 @@ router.post('/telegram/message/chat', controllers.telegram.sendMessageToChat);
 router.post('/telegram/photo/owner', upload.single('image'), controllers.telegram.sendPhotoToOwner);
 router.post('/telegram/photo/chat', upload.single('image'), controllers.telegram.sendPhotoToChat);
 
-/*  Bitcoin APIs */
-router.get('/bitcoin/rate', controllers.bitcoin.bitcoinExchangeRates);
-router.get('/bitcoin/rate/:currency', controllers.bitcoin.bitcoinExchangeRates);
-
 /* Reddit APIs */
 router.get('/reddit/:subreddit/frontPage', controllers.reddit.getFrontPage);
 
