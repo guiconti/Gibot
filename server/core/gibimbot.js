@@ -47,7 +47,7 @@ bot.onText(/\/ragnarok (.+)/i, telegram.ragnarok.executeRagnarokAction);
 bot.onText(/\/i (.+)/i, telegram.iot.executeIoTAction);
 bot.onText(/\/iot (.+)/i, telegram.iot.executeIoTAction);
 
-/** Ações de IOT
+/** Ações do Reddit
  * Aplica um regex na mensagem /re ou /reddit e caso a regex der match envia o pedido para o módulo do iot.  */
 bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, telegram.reddit);
 
