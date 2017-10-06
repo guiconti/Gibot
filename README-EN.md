@@ -91,6 +91,7 @@ You can do it via your Telegram bot, sending it a message in the following forma
 
 ```
 /t insert/"Board's Name"/"List's Name"/"Card's Name"
+```
 
 Example:
 ![Example Telegram Insertion](https://i.imgur.com/utre2xb.png)
