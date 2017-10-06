@@ -32,7 +32,7 @@ The first APIs package that Gibot has available is Trello.
 To use Trello’s functionalities via Gibot in Telegram always use /t or /trello followed by the desired command.
 
 
-In the moment, Gibot can do two functions: list and insert.
+In the moment, Gibot can do two functions: *list* and *insert*.
 
 ### 2.1. List
 
@@ -132,7 +132,7 @@ Another API package that Gibot makes available is Google Calendar.
 
 To use its functionalities via Gibot in Telegram always use /g or /gmail followed by the command.
 
-At the moment Gibot can execute the command list.
+At the moment Gibot can execute the command *list*.
 
 ### 3.1. List
 
@@ -218,33 +218,32 @@ Answer
 
 Gibot also helps you to control your house!
 
-As seguintes funcionalidades possuem alguma integração com aparelhos locais que você pode colocar na sua própria casa.
-Para utilizar as funcionalidades do IoT pelo Gibot no Telegram use sempre o prefixo /i ou /iot seguido do comando.
+The following functionalities can interact with local devices you can use in your own house.
+To use IoT functions use /i or /iot followed by the command.
 
-No momento o Gibot consegue realizar a função de *foto*.
+At the moment Gibot can realize the function *photo*.
 
-### 4.1. Foto
+### 4.1. Photo
 
-Essa funcionalidade retorna uma foto de um local específico do seu IoT. No caso será usado um raspberry pi com uma câmera  que será responsável por tirar a foto e enviar para o nosso bot.
+This function returns a picture of a specific local of your device. In this case, it's using a raspberry pi with a camera responsible of taking the picture and sending it to our bot.
 
-#### Tirando uma foto pelo telegram
+#### Taking a photo via Telegram
 
-Para tirar uma nova foto é muito simples, basta enviar para o bot.
+To take a new photo it's quite simple, you just send the following command to your bot:
 
 ```
 /i photo
 ```
 
-Imediatamente o bot enviará uma foto do seu IoT. No caso deste teste o IoT irá tirar uma nova foto no exato momento que o pedido chegar.
+Immediately the bot will send you a photo of your device. In this case the IoT device will take a picture at the exact moment it's asked.
 
-Exemplo:
-![Exemplo Foto Telegram](https://i.imgur.com/gXiRgFn.png)
+Example:
+![Example Telegram Photo](https://i.imgur.com/gXiRgFn.png)
 
-#### Tirando uma foto pela API
+#### Taking a photo via API
 
-O módulo de fotos está desprendido do Gibot. Você pode desenvolver a sua própria API de foto dentro do Gibot e fazer com que ela acesse a câmera que deseja manusear. Entretanto, por hora, essa API ficará em uma outra aplicação pois possui um escopo diferente da proposta do Gibot.
+The photo module isn't part of Gibot. You can develop your own photo API inside Gibot and use it to access the desired camera. However, at the momento, this API will be in another application since it escapes Gibot's purpose.
 
 ## 5. Reddit
 
-O Gibot disponibiliza uma maneira simples de criar o seu próprio feed de notícias pelo reddit.
-(Em desenvolvimento)
+Gibot helps you to create your own news feed via Reddit. (Under development)
