@@ -14,7 +14,7 @@ Gibot is your personal assistant for every occasion, connect it in all your devi
 As soon as you clone this project in your workspace you have to, first of all, create a archive named ‘.env’ which contains all the system variables used in the project. The variables are the following:
 
 ``` javascript
-PORT='Port that will be used in project (if left blank, server will adopt 3101 by default)’
+PORT='Port that will be used in project (if left blank, server will adopt 3101 by default)'
 TELEGRAM_TOKEN='Your telegram bot token'
 TELEGRAM_OWNER_ID='Bot’s owner’s ID to be used in restrict services'
 TRELLO_KEY='Trello developer’s key'
@@ -50,7 +50,7 @@ First is via your Telegram bot, sending it a text in the following format:
 This command lists all cards in the given list, each card separated by two line breaks.
 
 Example:
-![Exemplo Listagem Telegram](http://i.imgur.com/h1RYwkg.png)
+![Example Telegram Listing](http://i.imgur.com/h1RYwkg.png)
 
 The second way is by a direct call to the API:
 
@@ -83,36 +83,33 @@ GET /trello/gibimbot/backlog/list
 
 ### 2.2. Insert
 
-Essa funcionalidade permite que o usuário insira uma nova card dentro de uma lista específica.
+This function allows the user to insert a new card inside a specific list.
 
-A opção de inserir é disponibilizada no Gibot de 2 maneiras.
+Insert can be done via Gibot in two ways:
 
-A primeira é pelo o seu bot cadastrado no Telegram enviando uma mensagem pra ele no formato
-
-```
-/t insert/"Nome da board"/"Nome da list"/"Nome da card"
-```
-
-Esse comando insere uma nova card dentro da lista passada.
-
-Exemplo:
-![Exemplo Inserção Telegram](https://i.imgur.com/utre2xb.png)
-
-A outra forma é uma chamada direta na API
+You can do it via your Telegram bot, sending it a message in the following format:
 
 ```
-POST /trello/"nome da board"/"nome da lista"/insert
+/t insert/"Board's Name"/"List's Name"/"Card's Name"
+
+Example:
+![Example Telegram Insertion](https://i.imgur.com/utre2xb.png)
+
+And you can do it via a direct call to the API
+
+```
+POST /trello/"Board's Name"/"List's Name"/insert
 ```
 
-Contendo no corpo do POST
+The POST's body contains:
 ```
-name: Nome da card a ser inserida. STRING
-description: Descrição da card a ser inserida. OPCIONAL STRING
+name: Card's name to be inserted. STRING
+description: New card's description. OPTIONAL STRING
 ```
 
-A resposta será dada em um JSON contendo apenas um array *msg* que contém a mensagem de sucesso em caso de inserção realizada ou uma mensagem de falha caso a inserção não ocorra.
+This returns a JASON with only a array *msg* containing a success message if it works properly or a failure message in case of an error.
 
-Exemplo:
+Example:
 ```
 POST /trello/gibimbot/backlog/list
 
@@ -130,59 +127,60 @@ POST /trello/gibimbot/backlog/list
 
 ## 3. Gmail
 
-Outro pacote de APIs que o Gibot disponibiliza é o Google Calendar.
-Para utilizar as funcionalidades do Calendar pelo Gibot no Telegram use sempre o prefixo /g ou /gmail seguido do comando.
+Another API package that Gibot makes available is Google Calendar.
 
-No momento o Gibot consegue realizar a função de *listar*.
+To use its functionalities via Gibot in Telegram always use /g or /gmail followed by the command.
 
-### 3.1. Listar
+At the moment Gibot can execute the command list.
 
-Essa funcionalidade lista todos os eventos que você possui em seu calendário em um período de tempo específico.
+### 3.1. List
 
-#### Listando os eventos pelo Telegram
+This function lists every event you may have in your calendar in a specific period of time.
 
-Para listar os eventos do seu calendário pelo Telegram o Gibot aceita 3 tipos de input.
+#### Listing events via Telegram
 
-A primeira opção recebe apenas o comando e retorna todos os eventos do dia atual.
+To list your calendar's events in Telegram, Gibot accepts 3 types of input:
+
+The first option returns every event of the current day.
 
 ```
 /g list
 ```
 
-A segunda opção recebe uma quantidade de dias e verifica todos os eventos nos próximos *n* dias.
+The second option receives a quantity n of days and returns every event for the next n days.
 
 ```
-/g list;"dias"
+/g list;"days"
 ```
 
-Por fim a última opção recebe uma data início e uma data fim, verificando todos os eventos presentes entre estas datas.
+And the last option receives an initial date and an end day, returning all the events for the given period.
 
 ```
-/g list;"data início";"data fim"
+/g list;"initial date";"end date"
 ```
 
-Ambos os inputs retornam a resposta no mesmo modelo.
+The last options both return the answer in the same format.
 
-Exemplo:
-![Exemplo Listagem Google Calendar](http://i.imgur.com/klbIMOO.png)
+Example:
+![Example Google Calendar Listing](http://i.imgur.com/klbIMOO.png)
 
-#### Listando os eventos pela API
+#### Event Listing via API
 
-Para listar os eventos do seu calendário por uma chamada direta a API precisamos realizar uma chamada da seguinte maneira:
+To list your Calendar's events via a direct API call, the command needs to be in the following format"
 
 ```
-GET /gmail/list?days="dias"&initialDate="dia início"&finalDate="dia fim"
+GET /gmail/list?days="days"&initialDate="initial date"&finalDate="end date"
 ```
 
-Sendo que as 3 opções da query são opcionais. Caso nenhum valor seja passado a API retornará os eventos no dia de hoje.
-Caso tanto os dias quanto as datas de início e fim sejam passadas a API priorizará as datas e trará os eventos dentro deste período.
+All the three options of the query are optional. In case no value is given, API will return all the events of the current day.
+If the days are given as well as the initial and end date, API will priorize the dates and return the events for that period.
 
-Exemplo:
+Example:
 ```
 GET /gmail/list?days=90
 ```
 
-Resposta
+Answer
 ```
 {
   "msg": [
@@ -217,7 +215,8 @@ Resposta
 
 ## 4. IoT
 
-O Gibot também ajuda você a controlar a sua casa!
+Gibot also helps you to control your house!
+
 As seguintes funcionalidades possuem alguma integração com aparelhos locais que você pode colocar na sua própria casa.
 Para utilizar as funcionalidades do IoT pelo Gibot no Telegram use sempre o prefixo /i ou /iot seguido do comando.
 
@@ -248,4 +247,3 @@ O módulo de fotos está desprendido do Gibot. Você pode desenvolver a sua pró
 
 O Gibot disponibiliza uma maneira simples de criar o seu próprio feed de notícias pelo reddit.
 (Em desenvolvimento)
-
