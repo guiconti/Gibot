@@ -242,4 +242,3 @@ O módulo de fotos está desprendido do Gibot. Você pode desenvolver a sua pró
 
 O Gibot disponibiliza uma maneira simples de criar o seu próprio feed de notícias pelo reddit.
 (Em desenvolvimento)
-(PS: Milk cuzão fdp)
