@@ -17,6 +17,8 @@ const bot = new TelegramBot(token, {polling: true});
 const path = require('path');
 const voicesFolder =  path.join(__dirname, '../voices');
 
+const constants = require('../utils/constants');
+
 /** Armazenando as features do bot dentro da variavel features. */
 let features = {};
 const featuresPath = process.cwd() + '/server/bot';
@@ -68,7 +70,7 @@ bot.on('callback_query', function (msg) {
     logger.error(err);
   }
 
-  bot.answerCallbackQuery(msg.id, 'Thanks for the feedback!');
+  bot.answerCallbackQuery(msg.id, constants.message.info.REPLY_MARKUP_SENT);
 });
 
 bot.on('voice', (msg) => {

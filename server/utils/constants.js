@@ -10,5 +10,10 @@ module.exports = {
       SUBSCRIBE_SUFFIX: 'subscribe',
       SUBSCRIPTIONS_SUFFIX: 'subscriptions/'
     }
+  },
+  message:{
+    info: {
+      REPLY_MARKUP_SENT: 'Thanks for the feedback!'
+    }
   }
 }
