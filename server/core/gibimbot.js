@@ -32,12 +32,44 @@ fs.readdirSync(featuresPath).forEach( (file) => {
  * Aplica um regex na mensagem /re ou /reddit e caso a regex der match envia o pedido para o módulo do iot.  */
 bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
 
-/*bot.on('message', function (msg) {
+/**bot.on('message', function (msg) {
 
 	console.log(msg);
-	var chatId = msg.chat.id;
+  var chatId = msg.chat.id;
+  let likeButton = JSON.stringify({
+    type: 'reddit', 
+    value: 1
+  });
+  let dislikeButton = JSON.stringify({
+    type: 'reddit',
+    value: -1
+  });
+  let inline_keyboard = [
+    [{ text: '\u{1F44D}' , callback_data: likeButton }, { text: '\u{1F44E}' , callback_data: dislikeButton }]
+  ];
+  let options = {
+    parse_mode: 'Markdown',
+    disable_web_page_preview: true,
+    reply_markup: {inline_keyboard}
+  };
+  bot.sendMessage(chatId, 'Teste', options)
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}); */
 
-});*/
+bot.on('callback_query', function (msg) {
+  try {
+    let jsonResponse = JSON.parse(msg.data);
+  } catch(err){
+    logger.error(err);
+  }
+
+  bot.answerCallbackQuery(msg.id, 'Thanks for the feedback!');
+});
 
 bot.on('voice', (msg) => {
   const chatId = msg.chat.id;

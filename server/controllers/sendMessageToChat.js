@@ -8,7 +8,7 @@ const validator = require('../utils/validator');
 
 module.exports = (req, res) => {
   const bot = require('../core/gibimbot');
-  let body = _.pick(req.body, 'message', 'chatId');
+  let body = _.pick(req.body, 'message', 'chatId', 'options');
   if (!validator.isValidString(body.message)) {
     return res.status(400).json({
         msg: 'Not a valid message.'
@@ -20,8 +20,8 @@ module.exports = (req, res) => {
   } else {
     let message = body.message.trim();
     let chatId = parseInt(body.chatId);
-    
-    bot.sendMessage(chatId, message)
+
+    bot.sendMessage(chatId, message, body.options)
       .then((response) => {
         return res.status(200).json({
             msg: 'Message sent.'
