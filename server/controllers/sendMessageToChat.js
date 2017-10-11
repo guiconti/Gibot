@@ -20,7 +20,6 @@ module.exports = (req, res) => {
   } else {
     let message = body.message.trim();
     let chatId = parseInt(body.chatId);
-
     bot.sendMessage(chatId, message, body.options)
       .then((response) => {
         return res.status(200).json({
@@ -29,6 +28,7 @@ module.exports = (req, res) => {
       })
       .catch((err) => {
         logger.error(err);
+        console.log(err);
         return res.status(400).json({
             data: 'Chat não existe'
         });

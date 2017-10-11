@@ -19,6 +19,7 @@ const path = require('path');
 const voicesFolder =  path.join(__dirname, '../voices');
 
 const constants = require('../utils/constants');
+const identifyCallback = require('../utils/identifyCallback');
 
 /** Storing the bot's features inside the 'features' variable*/
 let features = {};
@@ -65,13 +66,7 @@ bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
 }); */
 
 bot.on('callback_query', function (msg) {
-  try {
-    let jsonResponse = JSON.parse(msg.data);
-  } catch(err){
-    logger.error(err);
-  }
-
-  bot.answerCallbackQuery(msg.id, constants.message.info.REPLY_MARKUP_SENT);
+  identifyCallback(msg);
 });
 
 bot.on('voice', (msg) => {
