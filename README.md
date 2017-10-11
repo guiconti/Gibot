@@ -11,7 +11,7 @@ Gibot é o seu assistente pessoal para todas as horas, conecte ele em todos os s
 
 Assim que realizar um clone desse projeto no seu ambiente antes de começar qualquer processo você deve primeiramente criar na raíz do seu projeto um arquivo chamado `.env` contendo todas as variáveis do sistema que são utilizados nesse projeto. As variáveis são:
 ``` javascript
-PORT='Porta que será utilizada no projeto (caso não essa variável não seja inserida o servidor adotará 3101)'
+PORT='Porta que será utilizada no projeto (caso essa variável não seja inserida, o servidor adotará 3101)'
 TELEGRAM_TOKEN='Token do seu bot do telegram'
 TELEGRAM_OWNER_ID='ID do dono do robô para ser utilizado em serviços restritos'
 TRELLO_KEY='Chave de desenvolvedor do Trello'
