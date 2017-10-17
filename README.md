@@ -21,6 +21,12 @@ NODE_ENV='Qual o ambiente em que a aplicação está rodando no momento (opciona
 
 Caso não deseje ajustar essas variáveis você pode alterar elas dentro das aplicações para o valor correspondente (não recomendado).
 
+#### Instalação Inicial
+1. Execute `node -v`. Se não tiver versão 6 ou superior, vá para [nodejs.org](https://nodejs.org) e instale a ultima versão estável.
+2. Execute `npm -v`. Se não tiver versão 5 ou superior, execute `npm install -g npm`
+4. Move into the repository
+5. Execute `npm install`
+
 ## 2. Trello
 
 O primeiro pacote de APIs que o Gibot disponibiliza é o Trello.
