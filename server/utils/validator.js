@@ -18,8 +18,13 @@ function isValidRequest(userRequest) {
   return userRequest.action;
 };
 
+function isValidCallbackQuery(callbackQuery) {
+  return _.isString(callbackQuery.t) && callbackQuery.t.trim().length > 0;
+}
+
 module.exports = {
   isValidString: isValidString,
   isValidNumber: isValidNumber,
-  isValidRequest: isValidRequest
+  isValidRequest: isValidRequest,
+  isValidCallbackQuery: isValidCallbackQuery
 };

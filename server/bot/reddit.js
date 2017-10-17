@@ -11,12 +11,6 @@ const constants = require('../utils/constants');
 const actions = require('../utils/actions');
 
 /**
- * Enum para as possíveis ações no Ragnarok.
- * @readonly
- * @enum {string}
- */
-
-/**
  * Executa uma ação do Reddit utilizando as APIs do mesmo.
  * Receba uma mensagem enviada pelo Telegram, avalia a ação e executa caso tudo esteja de acordo
  *

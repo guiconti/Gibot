@@ -1,0 +1,14 @@
+{
+  "development":{
+    "NODE_ENV": "development",
+    "PORT": 3101,
+    "HOST": "http://localhost:3101",
+    "PASSWORD_ENCRYPTATION": "DEV_ENCRYPTATION_SIMPLE_KEY",
+    "USER_DATA_ENCRYPTATION": "DEV_USER_DATA_ENCRYPTATION",
+    "TOKEN_ENCRYPTATION": "DEV_TOKEN_ENCRYPTATION"
+  },
+  "production":{
+    "NODE_ENV": "production",
+    "PORT": 3101
+  }
+}

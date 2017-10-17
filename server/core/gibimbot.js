@@ -1,37 +1,39 @@
 /**
- * Módulo de inicialização do bot e responsável pelo gerenciamento de ações
+ * Module to bot's inicialization also responsable for action manangement
  * @module core/gibimbot
  */
 
-/** Requisição do modulo utilizado para utilizar o Bot no Telegram */
+/** Requirement of the module used to utilize the Bot in Telegram*/
 const TelegramBot = require('node-telegram-bot-api');
 const logger = require('../../tools/logger');
 
-/**  Token do Bot que será utilizado para validar acesso ao Gibot ou o bot a ser utilizado */
+/** Bot's token used to validade the access to Gibot or to the used bot */
 const token = process.env.NODE_ENV=='development'?process.env.TELEGRAM_DEV_TOKEN:process.env.TELEGRAM_TOKEN;
 
-/** Cria o bot e ativa o polling para observar sempre novos updates */
+/** Create the bot and activates the polling to observate new updates */
 const bot = new TelegramBot(token, {polling: true});
 
-/** Cria o path para armazenar as voices*/
+/**Create the path to store voices */
+
 const path = require('path');
 const voicesFolder =  path.join(__dirname, '../voices');
 
 const constants = require('../utils/constants');
+const identifyCallback = require('../utils/identifyCallback');
 
-/** Armazenando as features do bot dentro da variavel features. */
+/** Storing the bot's features inside the 'features' variable*/
 let features = {};
 const featuresPath = process.cwd() + '/server/bot';
 const fs = require('fs');
-/** Lista os módulos em app/bot e armazena a referência dentro de features */
+/** Lists the modules in 'app/bot' and storages the reference inside 'features'*/
 fs.readdirSync(featuresPath).forEach( (file) => {
   if (file.indexOf('.js') !== -1) {
     features[file.split('.')[0]] = require(featuresPath + '/' + file);
   }
 });
 
-/** Ações do Reddit
- * Aplica um regex na mensagem /re ou /reddit e caso a regex der match envia o pedido para o módulo do iot.  */
+/** Reddit actions
+ *Applies a regex in the /re or /reddit message and if regex matches, sends the request to the iot module.*/
 bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
 
 /**bot.on('message', function (msg) {
@@ -64,13 +66,7 @@ bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
 }); */
 
 bot.on('callback_query', function (msg) {
-  try {
-    let jsonResponse = JSON.parse(msg.data);
-  } catch(err){
-    logger.error(err);
-  }
-
-  bot.answerCallbackQuery(msg.id, constants.message.info.REPLY_MARKUP_SENT);
+  identifyCallback(msg);
 });
 
 bot.on('voice', (msg) => {
