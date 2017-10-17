@@ -36,6 +36,16 @@ fs.readdirSync(featuresPath).forEach( (file) => {
  *Applies a regex in the /re or /reddit message and if regex matches, sends the request to the iot module.*/
 bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
 
+bot.onText(/oi/, (msg, match) => {
+  console.log(msg);
+  console.log(match);
+});
+
+bot.onText(/responde/, (msg, match) => {
+  bot.sendMessage (msg.chat.id, 'oi vc');
+  //bot.sendMessage ('64023934', 'spam');
+});
+
 /**bot.on('message', function (msg) {
 
 	console.log(msg);
