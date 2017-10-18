@@ -13,6 +13,7 @@ Gibot é o seu assistente pessoal para todas as horas, conecte ele em todos os s
 #### Instalação Inicial:
 1. Execute `node -v`. Se não tiver versão 6 ou superior, vá para [nodejs.org](https://nodejs.org) e instale a ultima versão estável.
 2. Execute `npm -v`. Se não tiver versão 5 ou superior, execute `npm install -g npm`
+3. Execute `git clone 'SHH_LINK'` para clonar o fork para o seu local.
 4. Execute `cd Gibot` ('G' caixa alta mesmo, valeu gibimba)
 5. Execute `npm install`
 
@@ -35,7 +36,6 @@ obs: Caso deseje não ajustar essas variáveis, você pode alterá-las dentro da
 
 Após isso, seu bot estará pronto para ser utilizado!
 (Execute `npm run dev` para abrir o servidor rodando o bot local (?????))  <- favor explicar melhor.
-(possivelmente executar `npm install --save-g nodemon` caso deparar com falhas na abertura do 'nodemon')
 
 ## 2. Trello
 
