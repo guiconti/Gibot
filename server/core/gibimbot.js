@@ -125,6 +125,7 @@ bot.on('voice', (msg) => {
     })
     .catch((err) => {
       logger.error(err);
+      console.log(err);
       // Reply to voice with transcription error
       bot.sendMessage(chatId, 'Unable to download voice', options);
     });
