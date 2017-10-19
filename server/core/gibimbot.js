@@ -47,7 +47,7 @@ bot.onText(/hello winston/, (msg, match) => {
     
     bot.onText(/./, (msg,match) => {
       
-      //check if input text is a valid abc#1234
+      //check if input text is a valid abc#1234 :)
       var validBTag = /^(\w){3,12}(#)(\d){4,5}$/.test(msg.text);
 
       if (validBTag == true){
