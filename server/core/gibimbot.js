@@ -40,12 +40,13 @@ bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
 //HELLO WINSTON
 bot.onText(/hello winston/, (msg, match) => {
   bot.sendMessage (msg.chat.id, 'Hi there!');
-  bot.sendAudio(msg.chat.id, 'Winston_-_Hi_there.ogg');
+  //bot.sendAudio(msg.chat.id, 'Winston_-_Hi_there.ogg');
   
   bot.onText(/add acc/, (msg, match) => {
     bot.sendMessage (msg.chat.id, 'requesting battle tag:');
 
-    bot.onText(/.#./, (msg, match) => {
+    bot.onText(/^.\w{3,12}#\d{4,5}$/, (msg,match) => {
+      //^.{6,7}$
       bot.sendMessage (msg.chat.id, 'done');
       
     });
@@ -54,6 +55,16 @@ bot.onText(/hello winston/, (msg, match) => {
 
   //bot.sendMessage ('64023934', 'spam');
 });
+
+//bot.onText(/./, (msg,match) => {
+bot.onText(/^(\w){3,12}(#)(\d){4,5}$/, (msg,match) => {
+  var auxStr = msg;
+  console.log (msg);
+    bot.sendMessage (msg.chat.id, 'Oh, i get it..');
+
+  //});
+});
+
 /**bot.on('message', function (msg) {
 
 	console.log(msg);
