@@ -39,21 +39,30 @@ bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
 
 //HELLO WINSTON
 bot.onText(/hello winston/, (msg, match) => {
+  var primal_rage = 0;
   bot.sendMessage (msg.chat.id, 'Hi there!');
   //bot.sendAudio(msg.chat.id, 'Winston_-_Hi_there.ogg');
   
   bot.onText(/add acc/, (msg, match) => {
-    bot.sendMessage (msg.chat.id, 'requesting battle tag:');
+    bot.sendMessage (msg.chat.id, 'Requesting battle tag:');
     
     bot.onText(/./, (msg,match) => {
-      
+      console.log (primal_rage);
       //check if input text is a valid abc#1234 :)
       var validBTag = /^(\w){3,12}(#)(\d){4,5}$/.test(msg.text);
-
       if (validBTag == true){
-        bot.sendMessage (msg.chat.id, 'Oh! I found it!');
-      } else {
-        bot.sendMessage (msg.chat.id, 'Erm... Excuse-me, but I cant seem to find it!');
+        if (primal_rage <= 2){
+          bot.sendMessage (msg.chat.id, 'Oh, I found it!');
+        } else{
+          bot.sendMessage (msg.chat.id, "Ahem. I seem to have, uh, lost my temper. I'm sorry.\n ... I found it.");
+        }
+      
+      } else if (primal_rage > 2){
+        bot.sendSticker(msg.chat.id, 'CAADAgAD1QQAAtJaiAGC1oaOoXnOlwI')
+        bot.sendMessage(msg.chat.id, 'wwWRRRROOOOOOOOOAAAAAARRRRGGHHHHH')
+      } else{
+        bot.sendMessage (msg.chat.id, "Erm... Excuse-me, but I can't seem to find it!");
+        primal_rage ++;
       }
 
     });
