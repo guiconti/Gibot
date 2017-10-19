@@ -44,26 +44,23 @@ bot.onText(/hello winston/, (msg, match) => {
   
   bot.onText(/add acc/, (msg, match) => {
     bot.sendMessage (msg.chat.id, 'requesting battle tag:');
-
-    bot.onText(/^.\w{3,12}#\d{4,5}$/, (msg,match) => {
-      //^.{6,7}$
-      bot.sendMessage (msg.chat.id, 'done');
+    
+    bot.onText(/./, (msg,match) => {
       
+      //check if input text is a valid abc#1234
+      var validBTag = /^(\w){3,12}(#)(\d){4,5}$/.test(msg.text);
+
+      if (validBTag == true){
+        bot.sendMessage (msg.chat.id, 'Oh! I found it!');
+      } else {
+        bot.sendMessage (msg.chat.id, 'Erm... Excuse-me, but I cant seem to find it!');
+      }
+
     });
-    //bot.sendMessage ('64023934', 'spam');
   });
-
-  //bot.sendMessage ('64023934', 'spam');
 });
 
-//bot.onText(/./, (msg,match) => {
-bot.onText(/^(\w){3,12}(#)(\d){4,5}$/, (msg,match) => {
-  var auxStr = msg;
-  console.log (msg);
-    bot.sendMessage (msg.chat.id, 'Oh, i get it..');
 
-  //});
-});
 
 /**bot.on('message', function (msg) {
 
