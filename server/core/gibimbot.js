@@ -40,7 +40,7 @@ bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
 //HELLO WINSTON
 bot.onText(/hello winston/, (msg, match) => {
   bot.sendMessage (msg.chat.id, 'Hi there!');
-  //bot.sendAudio(msg.chat.id, 'Winston_-_Hi_there.ogg');
+  bot.sendAudio(msg.chat.id, 'Winston_-_Hi_there.ogg');
   
   bot.onText(/add acc/, (msg, match) => {
     bot.sendMessage (msg.chat.id, 'requesting battle tag:');
