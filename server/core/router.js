@@ -35,6 +35,7 @@ router.use(bodyParser.urlencoded({extended: true}));
 //  Telegram APIs
 router.post('/message/owner', controllers.sendMessageToOwner);
 router.post('/message/chat', controllers.sendMessageToChat);
+router.post('/message/chat/:telegram_id', controllers.sendMessageToChatV2);
 router.post('/photo/owner', upload.single('image'), controllers.sendPhotoToOwner);
 router.post('/photo/chat', upload.single('image'), controllers.sendPhotoToChat);
 
