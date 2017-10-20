@@ -13,28 +13,29 @@ module.exports = (req, res) => {
   if (!body.message && body.data){
     body.message = body.data.message;
   }
+
   if (!validator.isValidString(body.message)) {
     return res.status(400).json({
         msg: 'Not a valid message.'
     });
-  } else if (!validator.isValidNumber(parseInt(params.telegram_id))) {
+  }
+  if (!validator.isValidNumber(parseInt(params.telegram_id))) {
     return res.status(400).json({
         msg: 'Not a valid chat id.'
     });
-  } else {
-    let message = body.message.trim();
-    let chatId = parseInt(params.telegram_id);
-    bot.sendMessage(chatId, message, body.options)
-      .then((response) => {
-        return res.status(200).json({
-            msg: 'Message sent.'
-        });
-      })
-      .catch((err) => {
-        logger.error(err);
-        return res.status(400).json({
-            data: 'Chat não existe'
-        });
-    });
   }
+  let message = body.message.trim();
+  let chatId = parseInt(params.telegram_id);
+  bot.sendMessage(chatId, message, body.options)
+    .then((response) => {
+      return res.status(200).json({
+          msg: 'Message sent.'
+      });
+    })
+    .catch((err) => {
+      logger.error(err);
+      return res.status(400).json({
+          data: 'Chat não existe'
+      });
+  });
 };
