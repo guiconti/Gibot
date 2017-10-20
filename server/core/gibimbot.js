@@ -36,10 +36,38 @@ fs.readdirSync(featuresPath).forEach( (file) => {
  *Applies a regex in the /re or /reddit message and if regex matches, sends the request to the iot module.*/
 bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
 
-bot.onText(/oi/, (msg, match) => {
-  console.log(msg);
-  console.log(match);
-});
+
+// //HELLO WINSTON
+// bot.onText(/hello winston/, (msg, match) => {
+//   var primal_rage = 0;
+//   bot.sendMessage (msg.chat.id, 'Hi there!');
+//   //bot.sendAudio(msg.chat.id, 'Winston_-_Hi_there.ogg');
+  
+//   bot.onText(/add acc/, (msg, match) => {
+//     bot.sendMessage (msg.chat.id, 'Requesting battle tag:');
+    
+//     bot.onText(/./, (msg,match) => {
+//       console.log (primal_rage);
+//       //check if input text is a valid abc#1234 :)
+//       var validBTag = /^(\w){3,12}(#)(\d){4,5}$/.test(msg.text);
+//       if (validBTag == true){
+//         if (primal_rage <= 2){
+//           bot.sendMessage (msg.chat.id, 'Oh, I found it!');
+//         } else{
+//           bot.sendMessage (msg.chat.id, "Ahem. I seem to have, uh, lost my temper. I'm sorry.\n ... I found it.");
+//         }
+      
+//       } else if (primal_rage > 2){
+//         bot.sendSticker(msg.chat.id, 'CAADAgAD1QQAAtJaiAGC1oaOoXnOlwI')
+//         bot.sendMessage(msg.chat.id, 'wwWRRRROOOOOOOOOAAAAAARRRRGGHHHHH')
+//       } else{
+//         bot.sendMessage (msg.chat.id, "Erm... Excuse-me, but I can't seem to find it!");
+//         primal_rage ++;
+//       }
+
+//     });
+//   });
+// });
 
 /**bot.on('message', function (msg) {
 
@@ -95,6 +123,7 @@ bot.on('voice', (msg) => {
     })
     .catch((err) => {
       logger.error(err);
+      console.log(err);
       // Reply to voice with transcription error
       bot.sendMessage(chatId, 'Unable to download voice', options);
     });
