@@ -10,8 +10,8 @@ module.exports = (req, res) => {
   const bot = require('../core/gibimbot');
   let body = _.pick(req.body, 'message', 'data', 'options');
   let params = _.pick(req.params, 'telegram_id');
-  if (!body.message && body.data){
-    body.message = body.data.message;
+  if (!body.message && body.data && body.data.item){
+    body.message = body.data.item.title;
   }
 
   if (!validator.isValidString(body.message)) {
