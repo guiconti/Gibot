@@ -38,37 +38,48 @@ bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
 
 
 //HELLO WINSTON
-bot.onText(/hello winston/, (msg, match) => {
+//bot.onText(/./, (msg, match) => {
+bot.onText(/^hello winston$/i, (msg, match) => {
+  var who_called_me = msg.from.id;
   var primal_rage = 0;
   bot.sendMessage (msg.chat.id, 'Hi there!');
   //bot.sendAudio(msg.chat.id, 'Winston_-_Hi_there.ogg');
-  
+  console.log (msg);
+  console.log (match);
   bot.onText(/add acc/, (msg, match) => {
-    bot.sendMessage (msg.chat.id, 'Requesting battle tag:');
-    
-    bot.onText(/./, (msg,match) => {
-      console.log (primal_rage);
-      //check if input text is a valid abc#1234 :)
-      var validBTag = /^(\w){3,12}(#)(\d){4,5}$/.test(msg.text);
-      if (validBTag == true){
-        if (primal_rage <= 2){
-          bot.sendMessage (msg.chat.id, 'Oh, I found it!');
-        } else{
-          bot.sendMessage (msg.chat.id, "Ahem. I seem to have, uh, lost my temper. I'm sorry.\n ... I found it.");
-        }
-      
-      } else if (primal_rage > 2){
-        bot.sendSticker(msg.chat.id, 'CAADAgAD1QQAAtJaiAGC1oaOoXnOlwI')
-        bot.sendMessage(msg.chat.id, 'wwWRRRROOOOOOOOOAAAAAARRRRGGHHHHH')
-      } else{
-        bot.sendMessage (msg.chat.id, "Erm... Excuse-me, but I can't seem to find it!");
-        primal_rage ++;
-      }
+    if (msg.from.id == who_called_me){
 
-    });
+      bot.sendMessage (msg.chat.id, 'Requesting battle tag:');
+      
+      bot.onText(/./, (msg,match) => {
+        if (msg.from.id == who_called_me){
+
+          console.log (primal_rage);
+          //check if input text is a valid abc#1234 :)
+          var validBTag = /^(\w){3,12}(#)(\d){4,5}$/.test(msg.text);
+          if (validBTag == true){
+            if (primal_rage <= 2){
+              bot.sendMessage (msg.chat.id, 'Oh, I found it!');
+              return;
+            } else{
+              bot.sendMessage (msg.chat.id, "Ahem. I seem to have, uh, lost my temper. I'm sorry.\n ... I found it.");
+              return;
+            }
+            
+          } else if (primal_rage > 2){
+            bot.sendSticker(msg.chat.id, 'CAADAgAD1QQAAtJaiAGC1oaOoXnOlwI')
+            bot.sendMessage(msg.chat.id, 'wwWRRRROOOOOOOOOAAAAAARRRRGGHHHHH')
+          } else{
+            bot.sendMessage (msg.chat.id, "Erm... Excuse-me, but I can't seem to find it!");
+            primal_rage ++;
+          }
+        }
+        
+      });
+    }
   });
 });
-
+  
 
 
 /**bot.on('message', function (msg) {
