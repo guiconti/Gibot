@@ -36,7 +36,6 @@ module.exports = (msgId, callbackInfo) => {
   let rateUrl = constants.url.REDDIT.PREFIX + constants.url.REDDIT.RATE_SUFFIX;
   bot.answerCallbackQuery(msgId, constants.message.info.REPLY_MARKUP_SENT);
   request.post({url: rateUrl, json: rateInfo}, (err, htmlResponse, body) => {
-    console.log(err);
     if (err) {
       logger.error(err);
     }
