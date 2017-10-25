@@ -9,5 +9,8 @@ module.exports = {
     NEWS: 'news',
     SUBSCRIPTIONS: 'subscriptions',
     HELP: 'help'
+  },
+  OVERWATCH:{
+    REGISTER: 'register'
   }
 };

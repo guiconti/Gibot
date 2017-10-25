@@ -43,11 +43,12 @@ module.exports = (msg, match) => {
   );
 
   /*  Verificamos qual a ação solicitada, encaminhamos para a função da ação e enviamos a resposta */
-  switch (identifyAction('REDDIT', userRequest.action.toLowerCase().trim())) {
-    case actions.REDDIT.SUBSCRIBE:
-      if (!validator.isValidString(userRequest.subreddit)) return bot.sendMessage(
-        chatId, 'Subreddit inválido'
-      );
+  switch (identifyAction('OVERWATCH', userRequest.action.toLowerCase().trim())) {
+    case actions.OVERWATCH.REGISTER:
+    //   if (!validator.isValidString(userRequest.subreddit)) return bot.sendMessage(
+    //     chatId, 'Subreddit inválido'
+    //   );
+    return bot.message(chatID, 'ok');
       let requestInfo = {
         subreddit: userRequest.subreddit.toLowerCase().trim(),
         chatId: chatId
