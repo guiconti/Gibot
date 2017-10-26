@@ -34,8 +34,10 @@ fs.readdirSync(featuresPath).forEach( (file) => {
 
 /** Reddit actions
  *Applies a regex in the /re or /reddit message and if regex matches, sends the request to the iot module.*/
-bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
+//bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
+bot.onText(/\/reddit (.+)/i, features.reddit);
 
+bot.onText(/^\/overwatch_register$/i, features.overwatch);
 
 // //HELLO WINSTON
 // bot.onText(/hello winston/, (msg, match) => {

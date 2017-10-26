@@ -3,8 +3,6 @@
  * @module utils/identifyAction
 */
 
-const actionValidators = require('./actionValidators');
-const validator = require('./validator');
 const _ = require('underscore');
 
 /**

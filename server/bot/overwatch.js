@@ -25,30 +25,43 @@ const actions = require('../utils/actions');
 module.exports = (msg, match) => {
   const bot = require('../core/gibimbot');
   const chatId = msg.chat.id;
-  try {
-    let request = match[1].split(' '); 
-    userRequest = {       
-      action: request[0],
-      subreddit: request[1]
-    };
+//   try {
+//     let request = match[1].split(' '); 
+//     userRequest = {       
+//       action: request[0],
+//       subreddit: request[1]
+//     };
 
-  } catch (err) {
-    logger.error(err);
-    return bot.sendMessage(chatId, 'Comando do reddit inválido. Tente enviar o comando com a seguinte sintaxe: /reddit "Ação desejada"');
-  }
+//   } catch (err) {
+//       console.log(err)
+//     logger.error(err);
+//     return bot.sendMessage(chatId, 'Comando do reddit inválido. Tente enviar o comando com a seguinte sintaxe: /reddit "Ação desejada"');
+//   }
 
   /*  Avaliamos se a ação é uma ação válida do Reddit/bot */
-  if (!validator.isValidRequest(userRequest)) return bot.sendMessage(
-    chatId, 'Comando do reddit inválido. Tente enviar o comando com a seguinte sintaxe: /reddit "Ação desejada"'
-  );
+  //if (!validator.isValidRequest(userRequest)) return bot.sendMessage(
+  //  chatId, 'Comando do reddit inválido. Tente enviar o comando com a seguinte sintaxe: /reddit "Ação desejada"'
+  //);
 
   /*  Verificamos qual a ação solicitada, encaminhamos para a função da ação e enviamos a resposta */
-  switch (identifyAction('OVERWATCH', userRequest.action.toLowerCase().trim())) {
+  console.log(msg);
+  
+  var validBTag = /^(\w){3,12}(#)(\d){4,5}$/.test(msg.text);
+  if (validBTag == true){
+    bot.sendMessage (msg.chat.id, 'Oh, I found it!');
+  } else{
+    bot.sendMessage (msg.chat.id, "Ahem. I seem to have, uh, lost my temper. I'm sorry.\n ... I found it.");
+  }
+      
+
+    switch (identifyAction('OVERWATCH', userRequest.action.toLowerCase().trim())) {
     case actions.OVERWATCH.REGISTER:
     //   if (!validator.isValidString(userRequest.subreddit)) return bot.sendMessage(
     //     chatId, 'Subreddit inválido'
     //   );
-    return bot.message(chatID, 'ok');
+      return bot.sendMessage(chatId, 'gibe Battletag onegai');
+        return bot.sendMessage(chatID, 'thx');
+      });
       let requestInfo = {
         subreddit: userRequest.subreddit.toLowerCase().trim(),
         chatId: chatId

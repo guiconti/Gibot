@@ -10,7 +10,7 @@ module.exports = {
     SUBSCRIPTIONS: ['subscription', 'subscriptions'],
     HELP: ['help', 'h', 'ajuda']
   },
-  OVERWATCH:{
-    REGISTER: ['registrer','cadastrar','add', 'battletag']
+  OVERWATCH_REGISTER:{
+    REGISTER: ['register','cadastrar','add', 'battletag']
   }
 };
