@@ -9,7 +9,8 @@ const identifyAction = require('../utils/identifyAction');
 const validator = require('../utils/validator');
 const constants = require('../utils/constants');
 const actions = require('../utils/actions');
-
+const validatorBT = require('../utils/validatorBT');
+//const testrecurs = require('overwatch');
 /**
  * Executa uma ação do Reddit utilizando as APIs do mesmo.
  * Receba uma mensagem enviada pelo Telegram, avalia a ação e executa caso tudo esteja de acordo
@@ -22,10 +23,21 @@ const actions = require('../utils/actions');
  * @param {string[]} match - Array com todas as informações da requisição (após o /reddit).
  * @return {bot.sendMessage} - Retorna a execução da resposta no Telegram.
  */
+//module.exports.owRegister = (msg, match) => {
 module.exports = (msg, match) => {
   const bot = require('../core/gibimbot');
   const chatId = msg.chat.id;
 //   try {
+
+  // exports.owRegister = function owRegister(node, cb){
+  //   if(node.hasOwnProperty("value")){
+  //     cb(node.value);
+  //   }else if(node.hasOwnProperty("children")){
+  //     node.children.forEach(function(child){
+  //       owRegister(child, cb);
+  //     });
+  //   }
+  // }
 //     let request = match[1].split(' '); 
 //     userRequest = {       
 //       action: request[0],
@@ -44,15 +56,38 @@ module.exports = (msg, match) => {
   //);
 
   /*  Verificamos qual a ação solicitada, encaminhamos para a função da ação e enviamos a resposta */
-  console.log(msg);
+  //console.log(msg);
   
-  var validBTag = /^(\w){3,12}(#)(\d){4,5}$/.test(msg.text);
-  if (validBTag == true){
-    bot.sendMessage (msg.chat.id, 'Oh, I found it!');
-  } else{
-    bot.sendMessage (msg.chat.id, "Ahem. I seem to have, uh, lost my temper. I'm sorry.\n ... I found it.");
-  }
-      
+    if (validatorBT(msg.text) == true){
+      console.log('ended tru');
+      return bot.sendMessage (msg.chat.id, 'ichariba!');
+    } else{
+      console.log('false yet?');
+      let battletagBool =  validatorBT(msg.text);
+      while (battletagBool == false){
+        console.log('false yet?loop');
+        //send btag to winston
+        bot.sendMessage (msg.chat.id, "battle tag wa?");
+        //testrecurs(msg, match);
+        bot.onText(/./i, (msg, match) => {
+          battletagBool =  validatorBT(msg.text);
+        });
+      }
+    }
+
+
+    // exports.owRegister = function owRegister(node, cb){
+    //   if(node.hasOwnProperty("value")){
+    //     cb(node.value);
+    //   }else if(node.hasOwnProperty("children")){
+    //     node.children.forEach(function(child){
+    //       owRegister(child, cb);
+    //     });
+    //   }
+    // }
+
+    //bot.onText(/hello winston/, (msg, match) => {
+/*
 
     switch (identifyAction('OVERWATCH', userRequest.action.toLowerCase().trim())) {
     case actions.OVERWATCH.REGISTER:
@@ -95,5 +130,8 @@ module.exports = (msg, match) => {
     default:
       return bot.sendMessage(chatId, 'Essa ação não é válida. Por enquanto eu sei apenas observar um subreddit.');
       break;
-  }
+
+  //}
+*/
 };
+

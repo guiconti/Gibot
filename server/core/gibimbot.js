@@ -37,7 +37,7 @@ fs.readdirSync(featuresPath).forEach( (file) => {
 //bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
 bot.onText(/\/reddit (.+)/i, features.reddit);
 
-bot.onText(/^\/overwatch_register$/i, features.overwatch);
+bot.onText(/^\/overwatch_register/i, features.overwatch);
 
 // //HELLO WINSTON
 // bot.onText(/hello winston/, (msg, match) => {
