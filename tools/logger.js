@@ -16,8 +16,10 @@ const rollbar = new Rollbar({
   captureUnhandledRejections: true,
   handleUncaughtExceptions: true,
   handleUnhandledRejections: true,
+  verbose: true,
   payload: {
-    environment: process.env.NODE_ENV
+    environment: process.env.NODE_ENV,
+    name: 'Gibot'
   }
 });
 

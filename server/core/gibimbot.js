@@ -23,80 +23,24 @@ const identifyCallback = require('../utils/identifyCallback');
 
 /** Storing the bot's features inside the 'features' variable*/
 let features = {};
-const featuresPath = process.cwd() + '/server/bot';
+const featuresPath = process.cwd() + '/server/bot/';
 const fs = require('fs');
 /** Lists the modules in 'app/bot' and storages the reference inside 'features'*/
 fs.readdirSync(featuresPath).forEach( (file) => {
-  if (file.indexOf('.js') !== -1) {
-    features[file.split('.')[0]] = require(featuresPath + '/' + file);
+  //  In case we find a folder
+  if (file.indexOf('.') == -1) {
+    let actualFeature = featuresPath + file;
+    fs.readdirSync(actualFeature).forEach( (file) => {
+      if (file.indexOf('commandCenter.js') !== -1)
+        require(actualFeature + '/' + file)(bot);
+    });
   }
 });
 
 /** Reddit actions
- *Applies a regex in the /re or /reddit message and if regex matches, sends the request to the iot module.*/
+ * Applies a regex in the /re or /reddit message and if regex matches, sends the request to the reddit module.
+ */
 bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
-
-
-// //HELLO WINSTON
-// bot.onText(/hello winston/, (msg, match) => {
-//   var primal_rage = 0;
-//   bot.sendMessage (msg.chat.id, 'Hi there!');
-//   //bot.sendAudio(msg.chat.id, 'Winston_-_Hi_there.ogg');
-  
-//   bot.onText(/add acc/, (msg, match) => {
-//     bot.sendMessage (msg.chat.id, 'Requesting battle tag:');
-    
-//     bot.onText(/./, (msg,match) => {
-//       console.log (primal_rage);
-//       //check if input text is a valid abc#1234 :)
-//       var validBTag = /^(\w){3,12}(#)(\d){4,5}$/.test(msg.text);
-//       if (validBTag == true){
-//         if (primal_rage <= 2){
-//           bot.sendMessage (msg.chat.id, 'Oh, I found it!');
-//         } else{
-//           bot.sendMessage (msg.chat.id, "Ahem. I seem to have, uh, lost my temper. I'm sorry.\n ... I found it.");
-//         }
-      
-//       } else if (primal_rage > 2){
-//         bot.sendSticker(msg.chat.id, 'CAADAgAD1QQAAtJaiAGC1oaOoXnOlwI')
-//         bot.sendMessage(msg.chat.id, 'wwWRRRROOOOOOOOOAAAAAARRRRGGHHHHH')
-//       } else{
-//         bot.sendMessage (msg.chat.id, "Erm... Excuse-me, but I can't seem to find it!");
-//         primal_rage ++;
-//       }
-
-//     });
-//   });
-// });
-
-/**bot.on('message', function (msg) {
-
-	console.log(msg);
-  var chatId = msg.chat.id;
-  let likeButton = JSON.stringify({
-    type: 'reddit', 
-    value: 1
-  });
-  let dislikeButton = JSON.stringify({
-    type: 'reddit',
-    value: -1
-  });
-  let inline_keyboard = [
-    [{ text: '\u{1F44D}' , callback_data: likeButton }, { text: '\u{1F44E}' , callback_data: dislikeButton }]
-  ];
-  let options = {
-    parse_mode: 'Markdown',
-    disable_web_page_preview: true,
-    reply_markup: {inline_keyboard}
-  };
-  bot.sendMessage(chatId, 'Teste', options)
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}); */
 
 bot.on('callback_query', function (msg) {
   identifyCallback(msg);

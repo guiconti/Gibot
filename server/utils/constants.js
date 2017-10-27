@@ -10,6 +10,10 @@ module.exports = {
       SUBSCRIBE_SUFFIX: 'subscribe',
       SUBSCRIPTIONS_SUFFIX: 'subscriptions/',
       RATE_SUFFIX: 'rate'
+    },
+    OVERWATCH: {
+      PREFIX: process.env.OVERWATCH_PREFIX,
+      TOP_PICK: 'top_pick'
     }
   },
   message:{
@@ -19,5 +23,9 @@ module.exports = {
     info: {
       REPLY_MARKUP_SENT: 'Thanks for the feedback!'
     }
+  },
+  regex: {
+    OVERWATCH_TOP_PICK: /\/overwatch_top_pick/i 
+      || /\/overwatch_top_pick (.+)/i 
   }
 }
