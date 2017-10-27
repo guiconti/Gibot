@@ -5,14 +5,16 @@
 //  TODO: Split constant with better scope
 module.exports = {
   url: {
-    REDDIT: {
+    reddit: {
       PREFIX: process.env.REDDIT_PREFIX,
       SUBSCRIBE_SUFFIX: 'subscribe',
       SUBSCRIPTIONS_SUFFIX: 'subscriptions/',
       RATE_SUFFIX: 'rate'
     },
-    OVERWATCH: {
-      API_KEY: process.env.OVERWATCH_API_KEY,
+    overwatch: {
+      HEADERS: {
+        'api-key': process.env.OVERWATCH_API_KEY
+      },
       PREFIX: process.env.OVERWATCH_PREFIX,
       TOP_PICK: 'top_pick'
     }
