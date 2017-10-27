@@ -22,7 +22,7 @@ const actions = require('../utils/actions');
  * @param {string[]} match - Array com todas as informações da requisição (após o /reddit).
  * @return {bot.sendMessage} - Retorna a execução da resposta no Telegram.
  */
-module.exports = (msg, match) => {
+module.exports = (bot, msg, match) => {
   const bot = require('../core/gibimbot');
   const chatId = msg.chat.id;
   try {

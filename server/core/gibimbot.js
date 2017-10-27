@@ -12,7 +12,7 @@ const token = process.env.NODE_ENV=='development'?process.env.TELEGRAM_DEV_TOKEN
 
 /** Create the bot and activates the polling to observate new updates */
 const bot = new TelegramBot(token, {polling: true});
-
+module.exports = bot;
 /**Create the path to store voices */
 
 const path = require('path');
@@ -72,5 +72,3 @@ bot.on('voice', (msg) => {
       bot.sendMessage(chatId, 'Unable to download voice', options);
     });
 });
-
-module.exports = bot;
