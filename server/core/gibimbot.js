@@ -17,7 +17,6 @@ module.exports = bot;
 
 const path = require('path');
 
-const constants = require('../utils/constants');
 const identifyCallback = require('../utils/identifyCallback');
 
 /** Storing the bot's features inside the 'features' variable*/
