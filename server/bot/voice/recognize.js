@@ -4,7 +4,7 @@ require('dotenv').config();
 const Speech = require('@google-cloud/speech');
 const fs = require('fs');
 const path = require('path');
-const logger = require('../../tools/logger');
+const logger = require('../../../tools/logger');
 
 // Your Google Cloud Platform project ID
 const projectId = process.env.GOOGLE_PROJECT_NAME;

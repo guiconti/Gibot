@@ -16,7 +16,6 @@ module.exports = bot;
 /**Create the path to store voices */
 
 const path = require('path');
-const voicesFolder =  path.join(__dirname, '../voices');
 
 const constants = require('../utils/constants');
 const identifyCallback = require('../utils/identifyCallback');
@@ -44,31 +43,4 @@ bot.onText(/\/reddit (.+)/i || /\/re (.+)/i, features.reddit);
 
 bot.on('callback_query', function (msg) {
   identifyCallback(msg);
-});
-
-bot.on('voice', (msg) => {
-  const chatId = msg.chat.id;
-  const messageId = msg.message_id;
-  let options = {
-    reply_to_message_id: messageId
-  };
-  bot.downloadFile(msg.voice.file_id, voicesFolder)
-    .then((voicePath) => {
-      features.recognize(voicePath)
-        .then((transcription) => {
-          // Reply to voice with transcription
-          bot.sendMessage(chatId, transcription, options);
-        })
-        .catch((err) => {
-          logger.error(err);
-          // Reply to voice with transcription error
-          bot.sendMessage(chatId, 'Error on voice transcription', options);
-        });
-    })
-    .catch((err) => {
-      logger.error(err);
-      console.log(err);
-      // Reply to voice with transcription error
-      bot.sendMessage(chatId, 'Unable to download voice', options);
-    });
 });
