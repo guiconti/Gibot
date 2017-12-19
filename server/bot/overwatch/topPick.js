@@ -21,7 +21,7 @@ module.exports = (msg, match) => {
         let response = JSON.parse(body);
         let userResponse = response.msg;
         if (Array.isArray(response.msg)){
-          userResponse = `Here is the top picked heroes in the last month\n`;
+          userResponse = `Here is the top picked heroes in the last week\n`;
           response.msg.forEach((hero) => {
             userResponse += `\n${hero.hero} - ${hero.pick_rate}`;
           });
