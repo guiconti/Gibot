@@ -17,7 +17,7 @@ module.exports = {
       },
       PREFIX: process.env.OVERWATCH_PREFIX,
       TOP_PICK: 'top_pick',
-      BT_ADD: '/'
+      REGISTER_USER: 'register_user'
     }
   },
   message:{
@@ -32,7 +32,7 @@ module.exports = {
   regex: {
     OVERWATCH_TOP_PICK: /\/overwatch_top_pick/i 
       || /\/overwatch_top_pick (.+)/i,
-    OVERWATCH_BT_ADD:  /\/overwatch_bt_add/i 
-    || /\/overwatch_bt_add (.+)/i
+    OVERWATCH_REGISTER_USER:  /\/overwatch_register/i 
+      || /\/overwatch_register (.+)/i
   }
 }

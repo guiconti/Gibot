@@ -10,13 +10,12 @@ const constants = require('../../utils/constants');
 
 module.exports = (msg, match) => {
   console.log('entrou aqui');
+
   let chatId = msg.chat.id;
-  let url = constants.url.overwatch.PREFIX + constants.url.overwatch.BT_ADD;
-  //let url = constants.url.overwatch.BT_ADD;
+  let url = constants.url.overwatch.PREFIX + constants.url.overwatch.REGISTER_USER;
   let headers = constants.url.overwatch.HEADERS;
 
-  request.get({url: url, headers: headers}, (err, httpResponse, body) => {
-    //console.log('mas nada esta igual');
+  request.post({url: url, headers: headers}, (err, httpResponse, body) => {
     let response = JSON.parse(body);
     console.log(response.msg);
     return bot.sendMessage(chatId, response.msg);
