@@ -16,7 +16,8 @@ module.exports = {
         'api-key': process.env.OVERWATCH_API_KEY
       },
       PREFIX: process.env.OVERWATCH_PREFIX,
-      TOP_PICK: 'top_pick'
+      TOP_PICK: 'top_pick',
+      BT_ADD: '/'
     }
   },
   message:{
@@ -30,6 +31,8 @@ module.exports = {
   },
   regex: {
     OVERWATCH_TOP_PICK: /\/overwatch_top_pick/i 
-      || /\/overwatch_top_pick (.+)/i 
+      || /\/overwatch_top_pick (.+)/i,
+    OVERWATCH_BT_ADD:  /\/overwatch_bt_add/i 
+    || /\/overwatch_bt_add (.+)/i
   }
 }
