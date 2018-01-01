@@ -12,20 +12,22 @@ module.exports = (msg, match) => {
   let chatId = msg.chat.id;
   let url = constants.url.overwatch.PREFIX + constants.url.overwatch.REGISTER_USER;
   let headers = constants.url.overwatch.HEADERS;
+  //let battleTag = constants.regex.OVERWATCH_REGISTER_USER.exec(msg.text)[1];
   let body = {
     id: msg.from.id,
-    battletag: "miake#12345"
+    battleTag: constants.regex.OVERWATCH_REGISTER_USER.exec(msg.text)[1]
   };
-
+  console.log(body.battleTag);
   request.post({
     url: url,
     json: body,
     headers: headers
   }, (err, httpResponse, body) => {
-    let response = JSON.parse(body);
-    console.log('resp msg: ');
-    return bot.sendMessage(chatId, response.msg);
-    return bot.sendMessage(chatId, err);
+    let response = JSON.parse(body.msg);
+    console.log(response);
+    return bot.sendMessage(chatId, response);
+    //return bot.sendMessage(chatId, response.msg);
+    //return bot.sendMessage(chatId, err);
   });
 
 };

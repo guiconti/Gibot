@@ -32,7 +32,6 @@ module.exports = {
   regex: {
     OVERWATCH_TOP_PICK: /\/overwatch_top_pick/i 
       || /\/overwatch_top_pick (.+)/i,
-    OVERWATCH_REGISTER_USER:  /\/overwatch_register/i 
-      || /\/overwatch_register (.+)/i
+    OVERWATCH_REGISTER_USER: /\/overwatch_register (.+)/i
   }
 }
