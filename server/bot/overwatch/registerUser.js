@@ -12,7 +12,6 @@ module.exports = (msg, match) => {
   let chatId = msg.chat.id;
   let url = constants.url.overwatch.PREFIX + constants.url.overwatch.REGISTER_USER;
   let headers = constants.url.overwatch.HEADERS;
-  //let battleTag = constants.regex.OVERWATCH_REGISTER_USER.exec(msg.text)[1];
   let body = {
     id: msg.from.id,
     battleTag: constants.regex.OVERWATCH_REGISTER_USER.exec(msg.text)[1]
@@ -23,9 +22,9 @@ module.exports = (msg, match) => {
     json: body,
     headers: headers
   }, (err, httpResponse, body) => {
-    let response = JSON.parse(body.msg);
-    console.log(response);
-    return bot.sendMessage(chatId, response);
+    //let response = JSON.parse(body.msg);
+    //V console.log(body);
+    return bot.sendMessage(chatId, body.msg);
     //return bot.sendMessage(chatId, response.msg);
     //return bot.sendMessage(chatId, err);
   });
