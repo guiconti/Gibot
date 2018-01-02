@@ -16,17 +16,12 @@ module.exports = (msg, match) => {
     id: msg.from.id,
     battleTag: constants.regex.OVERWATCH_REGISTER_USER.exec(msg.text)[1]
   };
-  console.log(body.battleTag);
   request.post({
     url: url,
     json: body,
     headers: headers
   }, (err, httpResponse, body) => {
-    //let response = JSON.parse(body.msg);
-    //V console.log(body);
     return bot.sendMessage(chatId, body.msg);
-    //return bot.sendMessage(chatId, response.msg);
-    //return bot.sendMessage(chatId, err);
   });
 
 };
