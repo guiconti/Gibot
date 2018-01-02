@@ -21,7 +21,10 @@ module.exports = (msg, match) => {
     json: body,
     headers: headers
   }, (err, httpResponse, body) => {
-    return bot.sendMessage(chatId, body.msg);
+    if (err){
+      logger.error(err);
+      return bot.sendMessage(chatId, constants.message.error.TOP_PICK_API);
+    }
+      return bot.sendMessage(chatId, body.msg);
   });
-
 };
