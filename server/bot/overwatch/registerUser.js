@@ -1,5 +1,5 @@
 /**
- * Module to bot's overwatch action capture
+ * Module to bot's overwatch action capture 
  * @module controllers/overwatch/commandCenter
 */
 
