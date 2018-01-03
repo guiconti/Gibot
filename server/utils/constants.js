@@ -17,7 +17,7 @@ module.exports = {
       },
       PREFIX: process.env.OVERWATCH_PREFIX,
       TOP_PICK: 'top_pick',
-      REGISTER_USER: 'register_user'
+      REGISTER_USER: 'register'
     }
   },
   message:{
