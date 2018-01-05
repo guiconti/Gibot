@@ -39,8 +39,7 @@ module.exports = {
   regex: {
     OVERWATCH_TOP_PICK: /\/overwatch_top_pick/i 
       || /\/overwatch_top_pick (.+)/i,
-    CRYPTO_CURRENCY: /\/crypto_currency_converter/i || /\/crypto_currency_converter(.+)/i
-      || /\/currency_converter/i || /\/currency_converter(.+)/i,
+    CRYPTO_CURRENCY: /\/currency_converter/i || /\/currency_converter(.+)/i,
     CRYPTO_CURRENCY_CONVERTER: /currency_converter_(\S{3})_to_(\S{3})/i,
     OVERWATCH_REGISTER_USER: /\/overwatch_register (.+)/i
   }
