@@ -16,6 +16,7 @@ module.exports = {
         'api-key': process.env.OVERWATCH_API_KEY
       },
       PREFIX: process.env.OVERWATCH_PREFIX,
+      REGISTER_USER: 'register',
       TOP_PICK: 'top_pick'
     },
     cryptoCurrency:{
@@ -36,6 +37,7 @@ module.exports = {
   regex: {
     OVERWATCH_TOP_PICK: /\/overwatch_top_pick/i 
       || /\/overwatch_top_pick (.+)/i,
-    CRYPTO_CURRENCY: /\/bitcoin/i || /\/bitcoin (.+)/i
+    CRYPTO_CURRENCY: /\/bitcoin/i || /\/bitcoin (.+)/i,
+    OVERWATCH_REGISTER_USER: /\/overwatch_register (.+)/i
   }
 }
