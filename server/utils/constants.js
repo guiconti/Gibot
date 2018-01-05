@@ -21,7 +21,7 @@ module.exports = {
     },
     cryptoCurrency:{
       PREFIX: process.env.CRYPTO_PREFIX,
-      CRYPTO_INFO_SUFFIX: '/info'
+      CRYPTO_CONVERT_SUFFIX: 'convert_currency'
     }
   },
   message:{
@@ -37,7 +37,7 @@ module.exports = {
   regex: {
     OVERWATCH_TOP_PICK: /\/overwatch_top_pick/i 
       || /\/overwatch_top_pick (.+)/i,
-    CRYPTO_CURRENCY: /\/bitcoin/i || /\/bitcoin (.+)/i,
+    CRYPTO_CURRENCY: /\/crypto_currency/i || /\/crypto_currency (.+)/i,
     OVERWATCH_REGISTER_USER: /\/overwatch_register (.+)/i
   }
 }
