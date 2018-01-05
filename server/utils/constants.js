@@ -28,6 +28,8 @@ module.exports = {
     error: {
       CALLBACK_INVALID: 'Sorry, we had a problem handling your feedback',
       TOP_PICK_API: 'Sorry we had a problem getting accessing this feature`s API.',
+      INVALID_CRYPTO_CURRENCY: 'You sent one or more invalid crypto currency.' +
+        '\nThe call should be like /crypto_currency_converter_XRP_to_BTC',
       CRYPTO_INFO: 'Sorry we had a problem accessing this feature`s API.'
     },
     info: {
@@ -37,7 +39,8 @@ module.exports = {
   regex: {
     OVERWATCH_TOP_PICK: /\/overwatch_top_pick/i 
       || /\/overwatch_top_pick (.+)/i,
-    CRYPTO_CURRENCY: /\/crypto_currency/i || /\/crypto_currency (.+)/i,
+    CRYPTO_CURRENCY: /\/crypto_currency_converter/i || /\/crypto_currency_converter(.+)/i,
+    CRYPTO_CURRENCY_CONVERTER: /crypto_currency_converter_(\S{3})_to_(\S{3})/i,
     OVERWATCH_REGISTER_USER: /\/overwatch_register (.+)/i
   }
 }

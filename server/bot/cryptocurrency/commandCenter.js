@@ -4,7 +4,7 @@
  */
 
 const constants = require('../../utils/constants');
-const getCryptoInfo = require('./getCryptoInfo');
+const getCryptoInfo = require('./convertCurrency');
 
 module.exports = bot => {
   bot.onText(constants.regex.CRYPTO_CURRENCY, getCryptoInfo);
