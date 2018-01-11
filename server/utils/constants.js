@@ -17,6 +17,7 @@ module.exports = {
       },
       PREFIX: process.env.OVERWATCH_PREFIX,
       REGISTER_USER: 'register',
+      DELETE_USER: 'register',
       TOP_PICK: 'top_pick'
     },
     cryptoCurrency:{
