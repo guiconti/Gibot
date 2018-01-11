@@ -10,11 +10,10 @@ const constants = require('../../utils/constants');
 
 module.exports = (msg, match) => {
   let chatId = msg.chat.id;
-  let url = constants.url.overwatch.PREFIX + constants.url.overwatch.REGISTER_USER;
+  let url = constants.url.overwatch.PREFIX + constants.url.overwatch.DELETE_USER;
   let headers = constants.url.overwatch.HEADERS;
   let body = {
     id: msg.from.id,
-    battleTag: constants.regex.OVERWATCH_REGISTER_USER.exec(msg.text)[1]
   };
   request.post({
     url: url,
