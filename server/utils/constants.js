@@ -34,7 +34,8 @@ module.exports = {
       CRYPTO_INFO: 'Sorry we had a problem accessing this feature`s API.'
     },
     info: {
-      REPLY_MARKUP_SENT: 'Thanks for the feedback!'
+      REPLY_MARKUP_SENT: 'Thanks for the feedback!',
+      TOP_PICK_RESPONSE: `Here is the top picked heroes in the last week\n`
     }
   },
   regex: {
