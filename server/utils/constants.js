@@ -45,4 +45,4 @@ module.exports = {
     OVERWATCH_REGISTER_USER: /\/overwatch_register (.+)/i,
     OVERWATCH_DELETE_USER: /\/overwatch_delete/i
   }
-}
+};
