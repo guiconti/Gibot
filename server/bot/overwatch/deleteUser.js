@@ -15,7 +15,7 @@ module.exports = (msg, match) => {
   let body = {
     id: msg.from.id,
   };
-  request.post({
+  request.delete({
     url: url,
     json: body,
     headers: headers
