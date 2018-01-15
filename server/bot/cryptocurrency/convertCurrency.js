@@ -16,7 +16,11 @@ module.exports = (msg, match) => {
   }
   let cryptoCurrencyInfoUrl = constants.url.cryptoCurrency.PREFIX + constants.url.cryptoCurrency.CRYPTO_CONVERT_SUFFIX + 
     '?fromCurrency='+regexResults[1]+'&toCurrency='+regexResults[2];
-  request.get({url: cryptoCurrencyInfoUrl}, (err, httpResponse, body) => {
+  let options = {
+    url: cryptoCurrencyInfoUrl,
+    headers: constants.url.cryptoCurrency.HEADERS
+  };
+  request.get(options, (err, httpResponse, body) => {
     if (err)
       return bot.sendMessage(chatId, constants.message.error.CRYPTO_INFO);
     let response = JSON.parse(body);

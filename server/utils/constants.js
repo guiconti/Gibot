@@ -21,6 +21,9 @@ module.exports = {
       TOP_PICK: 'top_pick'
     },
     cryptoCurrency:{
+      HEADERS: {
+        'api-key': process.env.CRYPTO_API_KEY
+      },
       PREFIX: process.env.CRYPTO_PREFIX,
       CRYPTO_CONVERT_SUFFIX: 'convert_currency'
     }
