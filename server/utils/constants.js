@@ -25,7 +25,8 @@ module.exports = {
         'api-key': process.env.CRYPTO_API_KEY
       },
       PREFIX: process.env.CRYPTO_PREFIX,
-      CRYPTO_CONVERT_SUFFIX: 'convert_currency'
+      CRYPTO_CONVERT_SUFFIX: 'convert_currency',
+      CRYPTO_FULL_FORM_SUFFIX: 'coin_full_form'
     }
   },
   message:{
@@ -46,6 +47,7 @@ module.exports = {
       || /\/overwatch_top_pick (.+)/i,
     CRYPTO_CURRENCY: /\/currency_converter/i || /\/currency_converter(.+)/i,
     CRYPTO_CURRENCY_CONVERTER: /currency_converter_(\S{3})_to_(\S{3})/i,
+    CRYPTO_FULL_FORM: /\/crypto_ff (.+)/i,
     OVERWATCH_REGISTER_USER: /\/overwatch_register (.+)/i,
     OVERWATCH_DELETE_USER: /\/overwatch_delete/i
   }
