@@ -47,7 +47,7 @@ module.exports = {
       || /\/overwatch_top_pick (.+)/i,
     CRYPTO_CURRENCY: /\/currency_converter/i || /\/currency_converter(.+)/i,
     CRYPTO_CURRENCY_CONVERTER: /currency_converter_(\S{3})_to_(\S{3})/i,
-    CRYPTO_FULL_FORM: /\/crypto_ff (.+)/i,
+    CRYPTO_FULL_FORM: /\/coin_name (.+)/i,
     OVERWATCH_REGISTER_USER: /\/overwatch_register (.+)/i,
     OVERWATCH_DELETE_USER: /\/overwatch_delete/i
   }
