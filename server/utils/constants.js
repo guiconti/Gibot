@@ -26,7 +26,7 @@ module.exports = {
       },
       PREFIX: process.env.CRYPTO_PREFIX,
       CRYPTO_CONVERT_SUFFIX: 'convert_currency',
-      CRYPTO_FULL_FORM_SUFFIX: 'coin_full_form'
+      CRYPTO_FULL_FORM_SUFFIX: 'coin/name?coin='
     }
   },
   message:{

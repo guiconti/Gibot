@@ -10,21 +10,18 @@ const constants = require('../../utils/constants');
 
 module.exports = (msg, match) => {
   let chatId = msg.chat.id;
-  let url = constants.url.cryptoCurrency.PREFIX + constants.url.cryptoCurrency.CRYPTO_FULL_FORM_SUFFIX;
+  let url = constants.url.cryptoCurrency.PREFIX + constants.url.cryptoCurrency.CRYPTO_FULL_FORM_SUFFIX 
+    + constants.regex.CRYPTO_FULL_FORM.exec(msg.text)[1];
   let headers = constants.url.cryptoCurrency.HEADERS;
-  let body = {
-    id: msg.from.id,
-    coin: constants.regex.CRYPTO_FULL_FORM.exec(msg.text)[1]
-  };
-  request.post({
+  request.get({
     url: url,
-    json: body,
     headers: headers
   }, (err, httpResponse, body) => {
+    let dataBody = JSON.parse(body);
     if (err){
       logger.error(err);
       return bot.sendMessage(chatId, constants.message.error.TOP_PICK_API);
     }
-      return bot.sendMessage(chatId, body.msg);
+      return bot.sendMessage(chatId, dataBody.data);
   });
 };
