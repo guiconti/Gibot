@@ -26,7 +26,10 @@ module.exports = {
       },
       PREFIX: process.env.CRYPTO_PREFIX,
       CRYPTO_CONVERT_SUFFIX: 'convert_currency',
-      CRYPTO_FULL_FORM_SUFFIX: 'coin/name?coin='
+      CRYPTO_FULL_FORM_SUFFIX: 'coin/name?coin=',
+      CRYPTO_TIMELINE_SUFFIX: '/wallet/timeline',
+      CRYPTO_GRAPH_SUFFIX: 'graphs'
+
     }
   },
   message:{
@@ -48,6 +51,7 @@ module.exports = {
     CRYPTO_CURRENCY: /\/currency_converter/i || /\/currency_converter(.+)/i,
     CRYPTO_CURRENCY_CONVERTER: /currency_converter_(\S{3})_to_(\S{3})/i,
     CRYPTO_FULL_FORM: /\/coin_name (.+)/i,
+    CRYPTO_WALLET_TIMELINE: /\/crypto_wallet/i || /\/wallet(.+)/i,
     OVERWATCH_REGISTER_USER: /\/overwatch_register (.+)/i,
     OVERWATCH_DELETE_USER: /\/overwatch_delete/i
   }
