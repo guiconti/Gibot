@@ -42,7 +42,8 @@ module.exports = {
       REPLY_MARKUP_SENT: 'Thanks for the feedback!',
       TOP_PICK_RESPONSE: `Here is the top picked heroes in the last week\n`,
       ASK_TYPE: 'Vamos lá! Primeiro me diga qual tipo de integração você quer adicionar.',
-      SEND_CARD: `Show! Me envie o número completo do seu cartão, sem espaços.`
+      SEND_CARD: `Show! Me envie o número completo do seu cartão, sem espaços.`,
+      SEND_PASSWORD: `Pra finalizar o cadastro preciso que você me envie a sua senha. Obs: recomendo que você apague do histórico da conversa depois de enviar.`
     }
   },
   regex: {
@@ -59,7 +60,8 @@ module.exports = {
   states: {
     NOT_INITIATED: 0,
     RECEIVE_TYPE: 1,
-    RECEIVE_CARD_NUMBER: 2
+    RECEIVE_CARD_NUMBER: 2,
+    RECEIVE_PASSWORD: 6
   },
   cache: {
     STATE: '_STATE'

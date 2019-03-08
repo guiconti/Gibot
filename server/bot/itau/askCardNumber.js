@@ -11,7 +11,7 @@ module.exports = (msg, match) => {
   const chatId = msg.chat.id;
   if (cache.get(chatId + constants.cache.STATE) !== constants.states.RECEIVE_TYPE)
     return;
-  cache.set(chatId + constants.cache.STATE, constants.states.RECEIVE_TYPE);
+  cache.set(chatId + constants.cache.STATE, constants.states.RECEIVE_CARD_NUMBER);
   bot.sendMessage(chatId, constants.message.info.SEND_CARD, {
     reply_markup: {
       remove_keyboard: true
