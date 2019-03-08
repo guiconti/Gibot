@@ -45,7 +45,8 @@ module.exports = {
       ASK_TYPE: 'Vamos lá! Primeiro me diga qual tipo de integração você quer adicionar.',
       REGISTERING: `Certo, só um momento para eu fazer a sua autenticação aqui.`,
       SEND_CARD: `Show! Me envie o número completo do seu cartão, sem espaços.`,
-      SEND_PASSWORD: `Pra finalizar o cadastro preciso que você me envie a sua senha. Obs: recomendo que você apague do histórico da conversa depois de enviar.`
+      SEND_PASSWORD: `Pra finalizar o cadastro preciso que você me envie a sua senha. Obs: recomendo que você apague do histórico da conversa depois de enviar.`,
+      REGISTRATION_COMPLETE: `Seu registro foi finalizado com sucesso! Agora você pode executar as funções disponíveis neste novo cadastro.`
     }
   },
   regex: {
