@@ -42,13 +42,15 @@ module.exports = {
       REPLY_MARKUP_SENT: 'Thanks for the feedback!',
       TOP_PICK_RESPONSE: `Here is the top picked heroes in the last week\n`,
       ASK_TYPE: 'Vamos lá! Primeiro me diga qual tipo de integração você quer adicionar.',
+      REGISTERING: `Certo, só um momento para eu fazer a sua autenticação aqui.`,
       SEND_CARD: `Show! Me envie o número completo do seu cartão, sem espaços.`,
       SEND_PASSWORD: `Pra finalizar o cadastro preciso que você me envie a sua senha. Obs: recomendo que você apague do histórico da conversa depois de enviar.`
     }
   },
   regex: {
     ITAU_ADD: /add/i || /add card/i || /addcard/i,
-    ITAU_CARD_NUMBER: /\d{16}/,
+    ITAU_CARD_NUMBER: /^\d{16}$/,
+    ITAU_PASSWORD: /^\d{4}$|^\d{6}$/,
     CRYPTO_CURRENCY: /\/currency_converter/i || /\/currency_converter(.+)/i,
     CRYPTO_CURRENCY_CONVERTER: /currency_converter_(\S{3})_to_(\S{3})/i,
     CRYPTO_WALLET_TIMELINE: /\/crypto_wallet/i || /\/wallet(.+)/i,
@@ -61,7 +63,8 @@ module.exports = {
     NOT_INITIATED: 0,
     RECEIVE_TYPE: 1,
     RECEIVE_CARD_NUMBER: 2,
-    RECEIVE_PASSWORD: 6
+    RECEIVE_PASSWORD: 6,
+    REGISTERING: 7
   },
   cache: {
     STATE: '_STATE'
