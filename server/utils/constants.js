@@ -78,6 +78,7 @@ module.exports = {
       CREDICARD: 'CREDICARD',
       ITAUCARD: 'ITAUCARD',
       PF: 'PF'
-    }
+    },
+    LOGIN: 'auth/login' 
   }
 };

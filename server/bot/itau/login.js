@@ -13,7 +13,7 @@ module.exports = async userData => {
       card: userData.card,
       password: userData.password
     };
-    request.post({ url: 'http://localhost:3001/auth/login', json: body }, (err, httpResponse, body) => {
+    request.post({ url: process.env.ITAU_PREFIX + constants.itau.LOGIN, json: body }, (err, httpResponse, body) => {
       if (err)
         return reject(constants.message.error.REGISTER_ERROR);
       return resolve(constants.message.info.REGISTRATION_COMPLETE);
