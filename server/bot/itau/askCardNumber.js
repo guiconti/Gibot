@@ -12,5 +12,9 @@ module.exports = (msg, match) => {
   if (cache.get(chatId + constants.cache.STATE) !== constants.states.RECEIVE_TYPE)
     return;
   cache.set(chatId + constants.cache.STATE, constants.states.RECEIVE_TYPE);
-  bot.sendMessage(chatId, constants.message.info.SEND_CARD);
+  bot.sendMessage(chatId, constants.message.info.SEND_CARD, {
+    reply_markup: {
+      remove_keyboard: true
+    }
+  });
 };
