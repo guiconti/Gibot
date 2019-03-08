@@ -36,7 +36,8 @@ module.exports = {
       TOP_PICK_API: 'Sorry we had a problem getting accessing this feature`s API.',
       INVALID_CRYPTO_CURRENCY: 'You sent one or more invalid crypto currency.' +
         '\nThe call should be like /crypto_currency_converter_XRP_to_BTC',
-      CRYPTO_INFO: 'Sorry we had a problem accessing this feature`s API.'
+      CRYPTO_INFO: 'Sorry we had a problem accessing this feature`s API.',
+      REGISTER_ERROR: 'Eu não consegui realizar a autenticação com os dados enviados. Por favor tente novamente conferindo os dados de autenticação.'
     },
     info: {
       REPLY_MARKUP_SENT: 'Thanks for the feedback!',
@@ -67,7 +68,9 @@ module.exports = {
     REGISTERING: 7
   },
   cache: {
-    STATE: '_STATE'
+    STATE: '_STATE',
+    USER_DATA: '_USER_DATA',
+    CURRENT_REGISTER_INDEX: '_CURRENT_REGISTER_INDEX'
   },
   itau: {
     types: {
