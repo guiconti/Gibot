@@ -16,7 +16,11 @@ module.exports = async userData => {
     request.post({ url: process.env.ITAU_PREFIX + constants.itau.LOGIN, json: body }, (err, httpResponse, body) => {
       if (err)
         return reject(constants.message.error.REGISTER_ERROR);
-      return resolve(constants.message.info.REGISTRATION_COMPLETE);
+      let data = {
+        msg: constants.message.info.REGISTRATION_COMPLETE,
+        token: httpResponse.headers['set-cookie'][0]
+      };
+      return resolve(data);
     });
   });
 };

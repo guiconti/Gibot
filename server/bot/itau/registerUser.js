@@ -20,9 +20,10 @@ module.exports = async (msg, match) => {
   userData[registerIndex].password = msg.text;
   cache.set(chatId + constants.cache.USER_DATA, userData);
   bot.sendMessage(chatId, constants.message.info.REGISTERING);
-  let loginMessage = await login(userData[registerIndex]).catch(err => {
+  let loginData = await login(userData[registerIndex]).catch(err => {
     return bot.sendMessage(chatId, err);
   });
   cache.set(chatId + constants.cache.STATE, constants.states.NOT_INITIATED);
-  return bot.sendMessage(chatId, loginMessage);
+  cache.set(chatId + userData[registerIndex].card, loginData.token);
+  return bot.sendMessage(chatId, loginData.msg);
 };
