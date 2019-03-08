@@ -13,7 +13,7 @@ module.exports = async userData => {
       card: userData.card,
       password: userData.password
     };
-    request.post({ url: process.env.ITAU_PREFIX + constants.itau.LOGIN, json: body }, (err, httpResponse, body) => {
+    request.post({ url: constants.url.itau.PREFIX + constants.url.itau.LOGIN, json: body }, (err, httpResponse, body) => {
       if (err)
         return reject(constants.message.error.REGISTER_ERROR);
       let data = {

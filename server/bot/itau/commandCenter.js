@@ -14,4 +14,5 @@ module.exports = bot => {
   bot.onText(typeRegex, controllers.askCardNumber);
   bot.onText(constants.regex.ITAU_CARD_NUMBER, controllers.askPassword);
   bot.onText(constants.regex.ITAU_PASSWORD, controllers.registerUser);
+  bot.onText(constants.regex.ITAU_INVOICE, controllers.getInvoice);
 };

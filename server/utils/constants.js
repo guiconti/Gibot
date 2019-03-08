@@ -28,6 +28,11 @@ module.exports = {
       CRYPTO_CONVERT_SUFFIX: 'convert_currency',
       CRYPTO_TIMELINE_SUFFIX: '/wallet/timeline',
       CRYPTO_GRAPH_SUFFIX: 'graphs'
+    },
+    itau: {
+      PREFIX: process.env.ITAU_PREFIX,
+      LOGIN: 'auth/login',
+      INVOICE: 'card/invoice'
     }
   },
   message:{
@@ -37,7 +42,8 @@ module.exports = {
       INVALID_CRYPTO_CURRENCY: 'You sent one or more invalid crypto currency.' +
         '\nThe call should be like /crypto_currency_converter_XRP_to_BTC',
       CRYPTO_INFO: 'Sorry we had a problem accessing this feature`s API.',
-      REGISTER_ERROR: 'Eu não consegui realizar a autenticação com os dados enviados. Por favor tente novamente conferindo os dados de autenticação.'
+      REGISTER_ERROR: 'Eu não consegui realizar a autenticação com os dados enviados. Por favor tente novamente conferindo os dados de autenticação.',
+      REGISTRATION_INCOMPLETE: `Você precisa cadastrar algum cartão e/ou conta para utilizar essa funcionalidade.`
     },
     info: {
       REPLY_MARKUP_SENT: 'Thanks for the feedback!',
@@ -46,13 +52,15 @@ module.exports = {
       REGISTERING: `Certo, só um momento para eu fazer a sua autenticação aqui.`,
       SEND_CARD: `Show! Me envie o número completo do seu cartão, sem espaços.`,
       SEND_PASSWORD: `Pra finalizar o cadastro preciso que você me envie a sua senha. Obs: recomendo que você apague do histórico da conversa depois de enviar.`,
-      REGISTRATION_COMPLETE: `Seu registro foi finalizado com sucesso! Agora você pode executar as funções disponíveis neste novo cadastro.`
+      REGISTRATION_COMPLETE: `Seu registro foi finalizado com sucesso! Agora você pode executar as funções disponíveis neste novo cadastro.`,
+      NO_RECORDS_TODAY: 'Você não teve lançamentos realizados hoje.',
     }
   },
   regex: {
-    ITAU_ADD: /add/i || /add card/i || /addcard/i,
+    ITAU_ADD: /\/add/i || /add card/i || /addcard/i,
     ITAU_CARD_NUMBER: /^\d{16}$/,
     ITAU_PASSWORD: /^\d{4}$|^\d{6}$/,
+    ITAU_INVOICE: /\/invoice/i,
     CRYPTO_CURRENCY: /\/currency_converter/i || /\/currency_converter(.+)/i,
     CRYPTO_CURRENCY_CONVERTER: /currency_converter_(\S{3})_to_(\S{3})/i,
     CRYPTO_WALLET_TIMELINE: /\/crypto_wallet/i || /\/wallet(.+)/i,
@@ -78,7 +86,6 @@ module.exports = {
       CREDICARD: 'CREDICARD',
       ITAUCARD: 'ITAUCARD',
       PF: 'PF'
-    },
-    LOGIN: 'auth/login' 
+    }
   }
 };

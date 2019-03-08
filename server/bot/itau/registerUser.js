@@ -24,6 +24,6 @@ module.exports = async (msg, match) => {
     return bot.sendMessage(chatId, err);
   });
   cache.set(chatId + constants.cache.STATE, constants.states.NOT_INITIATED);
-  cache.set(chatId + userData[registerIndex].card, loginData.token);
+  cache.set(userData[registerIndex].card, loginData.token);
   return bot.sendMessage(chatId, loginData.msg);
 };
