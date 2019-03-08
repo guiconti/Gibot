@@ -4,16 +4,10 @@
  */
 
 const typeRegex = require('../../utils/typeRegex');
+const retrieveControllers = require('../../utils/retrieveControllers');
 const constants = require('../../utils/constants');
 
-const fs = require('fs');
-const path = require('path');
-let controllers = [];
-
-fs.readdirSync(__dirname).forEach(file => {
-  if (file.indexOf('.') !== -1 && file !== path.basename(__filename))
-    controllers[file.split('.')[0]] = require(__dirname + '/' + file);
-});
+const controllers = retrieveControllers(__dirname, __filename);
 
 module.exports = bot => {
   bot.onText(constants.regex.ITAU_ADD, controllers.addCard);
