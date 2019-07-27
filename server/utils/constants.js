@@ -54,6 +54,7 @@ module.exports = {
       SEND_PASSWORD: `Pra finalizar o cadastro preciso que você me envie a sua senha. Obs: recomendo que você apague do histórico da conversa depois de enviar.`,
       REGISTRATION_COMPLETE: `Seu registro foi finalizado com sucesso! Agora você pode executar as funções disponíveis neste novo cadastro.`,
       NO_RECORDS_TODAY: 'Você não teve lançamentos realizados hoje.',
+      DAILY_INVOICE: 'Você vai passar a receber diariamente as informações da sua fatura às 23h59 de cada dia.',
     }
   },
   regex: {
@@ -61,6 +62,7 @@ module.exports = {
     ITAU_CARD_NUMBER: /^\d{16}$/,
     ITAU_PASSWORD: /^\d{4}$|^\d{6}$/,
     ITAU_INVOICE: /\/invoice/i,
+    ITAU_DAILY_INVOICE: /\/dailyinvoice/i,
     CRYPTO_CURRENCY: /\/currency_converter/i || /\/currency_converter(.+)/i,
     CRYPTO_CURRENCY_CONVERTER: /currency_converter_(\S{3})_to_(\S{3})/i,
     CRYPTO_WALLET_TIMELINE: /\/crypto_wallet/i || /\/wallet(.+)/i,
