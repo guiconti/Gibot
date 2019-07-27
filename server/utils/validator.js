@@ -36,10 +36,20 @@ function isValidCallbackQuery(callbackQuery) {
   return _.isString(callbackQuery.t) && callbackQuery.t.trim().length > 0;
 }
 
+function isValidJSON(JSONToValidate) {
+  try {
+    JSON.parse(JSONToValidate);
+  } catch (err) {
+    return false;
+  }
+  return true;
+};
+
 module.exports = {
   isValidArray: isValidArray,
   isValidString: isValidString,
   isValidNumber: isValidNumber,
   isValidRequest: isValidRequest,
-  isValidCallbackQuery: isValidCallbackQuery
+  isValidCallbackQuery: isValidCallbackQuery,
+  isValidJSON: isValidJSON,
 };

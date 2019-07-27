@@ -86,6 +86,8 @@ module.exports = {
       CREDICARD: 'CREDICARD',
       ITAUCARD: 'ITAUCARD',
       PF: 'PF'
-    }
+    },
+    CARD_ENCRYPTATION_KEY: process.env.CARD_ENCRYPTATION_KEY,
+    PASSWORD_ENCRYPTATION_KEY: process.env.PASSWORD_ENCRYPTATION_KEY
   }
 };

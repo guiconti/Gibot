@@ -18,7 +18,7 @@ module.exports = async userData => {
         return reject(constants.message.error.REGISTER_ERROR);
       let data = {
         msg: constants.message.info.REGISTRATION_COMPLETE,
-        token: httpResponse.headers['set-cookie'][0]
+        token: httpResponse.headers['set-cookie'][0],
       };
       return resolve(data);
     });
