@@ -32,7 +32,8 @@ module.exports = {
     itau: {
       PREFIX: process.env.ITAU_PREFIX,
       LOGIN: 'auth/login',
-      INVOICE: 'card/invoice'
+      INVOICE: 'card/invoice',
+      EXPENSES: 'card/expenses',
     }
   },
   message:{

@@ -11,7 +11,7 @@ const constants = require('../../utils/constants');
 
 module.exports = async (msg, match) => {
   const chatId = msg.chat.id;
-  cron.schedule('59 21 * * *', () => {
+  cron.schedule('59 01 * * *', () => {
     getInvoice(msg);
   });
   bot.sendMessage(chatId, constants.message.info.DAILY_INVOICE);

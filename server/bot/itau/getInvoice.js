@@ -10,6 +10,7 @@ const decryptor = require('../../utils/decryptor');
 const request = require('request');
 const moment = require('moment');
 const getToken = require('./getToken');
+const getExpenses = require('./getExpenses');
 const constants = require('../../utils/constants');
 
 module.exports = async (msg, match) => {
@@ -33,10 +34,11 @@ module.exports = async (msg, match) => {
   });
   let jar = request.jar();
   jar.setCookie(request.cookie(userToken), constants.url.itau.PREFIX);
-  request.get({ url: constants.url.itau.PREFIX + constants.url.itau.INVOICE, jar: jar }, (err, httpResponse, body) => {
+  request.get({ url: constants.url.itau.PREFIX + constants.url.itau.INVOICE, jar: jar }, async (err, httpResponse, body) => {
     if (err)
       return bot.sendMessage(chatId, 'Error');
     let invoiceData = JSON.parse(body);
+    let expenses = await getExpenses(msg);
     bot.sendMessage(chatId, `Sua fatura está ${invoiceData.msg.data.proxima.status_fatura} e se encontra com o valor de R$${invoiceData.msg.data.proxima.cabecalho_fatura.total_fatura}. Ela fechará no dia ${invoiceData.msg.data.proxima.data_fechamento_fatura}`);
     let totalInvoice = 0;
     let invoiceRecords = [];
@@ -56,7 +58,13 @@ module.exports = async (msg, match) => {
         }
       });
     });
-    let message = `Valor total atual: R$${totalInvoice}\n\n`;
+    expenses.msg.data.forEach(expense => {
+      if (moment(expense.data_do_registro).format('MM-DD') == moment().format('MM-DD')) {
+        invoiceRecords.push(`${expense.descricao_estabelecimento} - R$${expense.valor_transacao_rs}`);
+        totalInvoice += expense.valor_transacao_rs;
+      }
+    });
+    let message = `Valor total atual: R$${totalInvoice.toFixed(2)}\n\n`;
     if (invoiceRecords.length === 0)
       return bot.sendMessage(chatId, message + constants.message.info.NO_RECORDS_TODAY);
     message += 'Lançamentos de hoje\n';
